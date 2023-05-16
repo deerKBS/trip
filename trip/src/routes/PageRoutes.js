@@ -4,6 +4,11 @@ export default [
     name: 'main',
     component: () => import(/* webpackChunkName: "Main" */ '@/view/pages/MainPage.vue'),
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import(/* webpackChunkName: "Main" */ '@/view/pages/TestPage.vue'),
+  },
   // {
   //   path: '/page',
   //   name: 'settings',
