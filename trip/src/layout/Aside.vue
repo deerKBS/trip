@@ -63,14 +63,7 @@ export default defineComponent({
     const darkMode = computed(() => store.state.themeLayout.data);
     const mode = ref("inline");
     const { events } = toRefs(props);
-    const {
-      onRtlChange,
-      onLtrChange,
-      modeChangeDark,
-      modeChangeLight,
-      modeChangeTopNav,
-      modeChangeSideNav,
-    } = events.value;
+    const { modeChangeDark, modeChangeLight, modeChangeTopNav, modeChangeSideNav } = events.value;
 
     const router = computed(() => useRoute());
     const state = reactive({
@@ -118,8 +111,6 @@ export default defineComponent({
       mode,
       ...toRefs(state),
       darkMode,
-      onRtlChange,
-      onLtrChange,
       modeChangeDark,
       modeChangeLight,
       modeChangeTopNav,
