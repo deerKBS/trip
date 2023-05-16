@@ -1,4 +1,4 @@
-# trip
+# HexaDash-vue
 
 ## Project setup
 ```
