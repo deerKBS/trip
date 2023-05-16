@@ -1,8 +1,8 @@
 export default [
   {
-    path: '/starter',
-    name: 'starter',
-    component: () => import(/* webpackChunkName: "Blank" */ '@/view/pages/BlankPage.vue'),
+    path: '/main',
+    name: 'main',
+    component: () => import(/* webpackChunkName: "Main" */ '@/view/pages/MainPage.vue'),
   },
   // {
   //   path: '/page',

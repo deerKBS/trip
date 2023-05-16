@@ -11,11 +11,7 @@
               <a-input type="email" v-model:value="formState.email" />
             </a-form-item>
             <a-form-item name="password" initialValue="123456" label="Password">
-              <a-input
-                type="password"
-                v-model:value="formState.password"
-                placeholder="Password"
-              />
+              <a-input type="password" v-model:value="formState.password" placeholder="Password" />
             </a-form-item>
             <div class="ninjadash-auth-extra-links">
               <a-checkbox @change="onChange">Keep me logged in</a-checkbox>
@@ -34,9 +30,7 @@
             <ul class="ninjadash-social-login">
               <li>
                 <a class="google-social" href="#">
-                  <InlineSvg
-                    :src="require('@/static/img/icon/google-plus.svg')"
-                  ></InlineSvg>
+                  <InlineSvg :src="require('@/static/img/icon/google-plus.svg')"></InlineSvg>
                 </a>
               </li>
               <li>
@@ -58,11 +52,7 @@
           </a-form>
         </div>
         <div class="ninjadash-authentication-bottom">
-          <p>
-            Don't have an account?<router-link to="/auth/register"
-              >Sign up</router-link
-            >
-          </p>
+          <p>Don't have an account?<router-link to="/auth/register">Sign up</router-link></p>
         </div>
       </AuthWrapper>
     </a-col>
