@@ -8,7 +8,6 @@ import "@/core/plugins/fonts";
 import "@/core/plugins/unicons";
 import "@/core/components/custom";
 // import '@/core/components/style';
-import "@/i18n/config";
 
 app.config.productionTip = false;
 app.use(store);

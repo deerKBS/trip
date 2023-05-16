@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import adminRoutes from './AdminRoutes';
 import authRoutes from './authRoutes';
-import store from '@/vuex/store';
+// import store from '@/vuex/store';
 
 const routes = [
   {
@@ -32,17 +32,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  // console.log(to, store);
-  if (to.meta.auth && store.state.auth.login) {
-    next({ to: '/' });
-  } else if (!to.meta.auth && !store.state.auth.login) {
-    next({ name: 'login' });
-  } else {
-    next();
-  }
-  window.scrollTo(0, 0); // reset scroll position to top of page
-  next();
-});
+// 로그인
+// router.beforeEach((to, from, next) => {
+//   console.log(to, store);
+//   if (to.meta.auth && store.state.auth.login) {
+//     next({ to: '/' });
+//   } else if (!to.meta.auth && !store.state.auth.login) {
+//     next({ name: 'login' });
+//   } else {
+//     next();
+//   }
+//   window.scrollTo(0, 0); // reset scroll position to top of page
+//   next();
+// });
 
 export default router;

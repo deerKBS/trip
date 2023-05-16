@@ -47,9 +47,7 @@ export default defineComponent({
     onMounted(() => {
       window.addEventListener("load", () => {
         const domHtml = document.getElementsByTagName("html")[0];
-        rtl.value
-          ? domHtml.setAttribute("dir", "rtl")
-          : domHtml.setAttribute("dir", "ltr");
+        rtl.value ? domHtml.setAttribute("dir", "rtl") : domHtml.setAttribute("dir", "ltr");
         darkMode.value ? document.body.classList.add("dark-mode") : "";
       });
     });
