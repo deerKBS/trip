@@ -1,30 +1,37 @@
 <template>
-  <Main>
-    <FormComponentsWrap>
-      <div class="Insert board">
-        <h5>Write a New Post</h5>
-        <div class="form-group">
-          <label>Title</label>
-          <input type="text" class="form-control" v-model="title" placeholder="Enter title" />
-        </div>
-        <div class="form-group">
-          <label>Content</label>
-          <div id="divEditorInsert"></div>
-        </div>
-        <div class="form-group">
-          <label>Attach File</label>
-          <input type="file" id="inputFileUploadInsert" @change="changeFile" />
-          <div class="thumbnail-wrapper" v-if="fileList.length > 0">
-            <img v-for="(file, index) in fileList" :key="index" :src="file" class="thumbnail" />
+  <div>
+    <Main>
+      <a-row :gutter="25">
+        <a-col :sm="24" :xs="24">
+          <sdCards headless>
+            <h2>Write a New Post</h2>
+            <a-form-item label="title">
+              <a-input v-model="title" placeholder="input placeholder" />
+            </a-form-item>
+            <FormComponentsWrap>
+              <div class="ninjadash_editor">
+                <label>Content</label>
+                <div id="divEditorInsert"></div>
+              </div>
+            </FormComponentsWrap>
+            <div class="form-group">
+              <input type="file" id="inputFileUploadInsert" @change="changeFile" />
+              <div class="thumbnail-wrapper" v-if="fileList.length > 0">
+                <img v-for="(file, index) in fileList" :key="index" :src="file" class="thumbnail" />
+              </div>
+            </div>
+          </sdCards>
+          <!-- sdCards안에 버튼 포함시 튀어나와서 버튼 따로 뺌 -->
+          <div style="position: relative">
+            <div style="position: absolute; right: 0">
+              <sdButton size="default" type="link" @click="boardInsert"> 등록 </sdButton>
+              <sdButton size="default" outlined type="danger" style="margin-left: 10px" @click="boardInsert"> 취소 </sdButton>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary" @click="boardInsert">Submit</button>
-          <button class="btn btn-secondary" @click="doLogout">Logout</button>
-        </div>
-      </div>
-    </FormComponentsWrap>
-  </Main>
+        </a-col>
+      </a-row>
+    </Main>
+  </div>
 </template>
 
 <script>
