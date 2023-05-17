@@ -68,6 +68,13 @@
       </template>
       <router-link to="/write">글 쓰기 테스트</router-link>
     </a-menu-item>
+
+    <a-menu-item @click="toggleCollapsed" key="hotplace">
+      <template #icon>
+        <unicon name="circle"></unicon>
+      </template>
+      <router-link to="/update">글 수정 테스트</router-link>
+    </a-menu-item>
   </a-menu>
 </template>
 <script>

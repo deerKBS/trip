@@ -98,4 +98,9 @@ export default [
     name: "write",
     component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/WriteBoard.vue"),
   },
+  {
+    path: "/update",
+    name: "update",
+    component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/UpdateBoard.vue"),
+  },
 ];
