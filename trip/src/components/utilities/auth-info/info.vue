@@ -1,9 +1,9 @@
 <template>
   <InfoWraper>
     <SearchBar />
-    <Message />
+    <!-- <Message />
     <Notification />
-    <Settings />
+    <Settings /> -->
     <!-- <Support /> -->
 
     <div class="ninjadash-nav-actions__item ninjadash-nav-actions__author">
@@ -20,7 +20,7 @@
               </figure>
               <ul class="user-dropdown__links">
                 <li>
-                  <a to="#"> <unicon name="user"></unicon> Profile </a>
+                  <router-link to="/profile-settings/profile"> <unicon name="user"></unicon> Profile</router-link>
                 </li>
                 <li>
                   <a to="#">
@@ -28,7 +28,7 @@
                     Settings
                   </a>
                 </li>
-                <li>
+                <!--<li>
                   <a to="#">
                     <unicon name="dollar-sign"></unicon>
                     Billing
@@ -42,11 +42,9 @@
                 </li>
                 <li>
                   <a to="#"> <unicon name="bell"></unicon> Help </a>
-                </li>
+                </li> -->
               </ul>
-              <a @click="SignOut" class="user-dropdown__bottomAction" href="#">
-                <LogoutOutlined /> Sign Out
-              </a>
+              <a @click="SignOut" class="user-dropdown__bottomAction" href="#"> <LogoutOutlined /> Sign Out </a>
             </div>
           </UserDropDown>
         </template>
@@ -63,9 +61,9 @@
 <script setup>
 import { InfoWraper, UserDropDown } from "./auth-info-style";
 // import Support from "./Support";
-import Settings from "./Settings.vue";
-import Notification from "./Notification.vue";
-import Message from "./Message.vue";
+//import Settings from "./Settings.vue";
+//import Notification from "./Notification.vue";
+//import Message from "./Message.vue";
 import SearchBar from "./Search.vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
