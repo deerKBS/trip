@@ -79,17 +79,17 @@ export default [
   },
   {
     path: "/board/notice",
-    name: "notice",
+    name: "board-notice",
     component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/NoticePage.vue"),
   },
   {
-    path: "/board",
-    name: "board",
-    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/FreeboardPage.vue"),
+    path: "/board/all",
+    name: "board-all",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/BoardPage.vue"),
   },
   {
     path: "/board/plan",
-    name: "plan",
+    name: "board-plan",
     component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/PlanboardPage.vue"),
   },
 ];

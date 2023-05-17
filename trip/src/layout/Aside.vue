@@ -1,13 +1,5 @@
 <template>
-  <a-menu
-    :open-keys="openKeys"
-    v-model:selectedKeys="selectedKeys"
-    :mode="mode"
-    :theme="darkMode ? 'dark' : 'light'"
-    class="scroll-menu"
-    @openChange="onOpenChange"
-    @click="onClick"
-  >
+  <a-menu :open-keys="openKeys" v-model:selectedKeys="selectedKeys" :mode="mode" :theme="darkMode ? 'dark' : 'light'" class="scroll-menu" @openChange="onOpenChange" @click="onClick">
     <NavTitle class="ninjadash-sidebar-nav-title">Search</NavTitle>
     <a-menu-item @click="toggleCollapsed" key="tour-search">
       <template #icon>
@@ -29,7 +21,7 @@
       </template>
       <template #title>나만의 계획</template>
       <a-menu-item @click="toggleCollapsed" key="month">
-        <router-link to="/plan/calendar">일 정</router-link>
+        <router-link :to="{ name: 'search-tour' }">일 정</router-link>
       </a-menu-item>
       <a-menu-item @click="toggleCollapsed" key="tour">
         <router-link to="/plan/tour">여 행</router-link>
@@ -54,10 +46,10 @@
       <a-menu-item @click="toggleCollapsed" key="notice-board">
         <router-link to="/board/notice">공지사항</router-link>
       </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="free-board">
-        <router-link to="/board">자유게시판</router-link>
+      <a-menu-item @click="toggleCollapsed" key="board">
+        <router-link to="/board/all">자유게시판</router-link>
       </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="planshare-board">
+      <a-menu-item @click="toggleCollapsed" key="bp">
         <router-link to="/board/plan">여행계획</router-link>
       </a-menu-item>
     </a-sub-menu>
