@@ -96,6 +96,6 @@ export default [
   {
     path: "/write",
     name: "write",
-    component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/FormComponents.vue"),
+    component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/WriteBoard.vue"),
   },
 ];
