@@ -14,10 +14,53 @@ export default [
     name: "search-route",
     component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/RoutesearchPage.vue"),
   },
+
   {
-    path: "/plan/month",
-    name: "plan-month",
-    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/MonthPlan.vue"),
+    name: "calendar",
+    path: "/plan/calendar",
+    component: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    // children: [
+    //   {
+    //     name: "year",
+    //     path: "year",
+    //     components: {
+    //       default: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    //       child: () => import(/* webpackChunkName: "year" */ "../view/apps/calendar/overview/Year.vue"),
+    //     },
+    //   },
+    //   {
+    //     name: "month",
+    //     path: "month",
+    //     components: {
+    //       default: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    //       child: () => import(/* webpackChunkName: "month" */ "../view/apps/calendar/overview/Month.vue"),
+    //     },
+    //   },
+    //   {
+    //     name: "week",
+    //     path: "week",
+    //     components: {
+    //       default: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    //       child: () => import(/* webpackChunkName: "week" */ "../view/apps/calendar/overview/Week.vue"),
+    //     },
+    //   },
+    //   {
+    //     name: "day",
+    //     path: "day",
+    //     components: {
+    //       default: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    //       child: () => import(/* webpackChunkName: "day" */ "../view/apps/calendar/overview/Day.vue"),
+    //     },
+    //   },
+    //   {
+    //     name: "schedule",
+    //     path: "schedule",
+    //     components: {
+    //       default: () => import(/* webpackChunkName: "calendar" */ "../view/apps/calendar/Calendar.vue"),
+    //       child: () => import(/* webpackChunkName: "schedule" */ "../view/apps/calendar/overview/Schedule.vue"),
+    //     },
+    //   },
+    // ],
   },
   {
     path: "/plan/tour",
@@ -27,7 +70,7 @@ export default [
   {
     path: "/plan/todo",
     name: "plan-todo",
-    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/ToDo.vue"),
+    component: () => import(/* webpackChunkName: "Blank" */ "@/view/apps/todo/Todo.vue"),
   },
   {
     path: "/hotplace",
