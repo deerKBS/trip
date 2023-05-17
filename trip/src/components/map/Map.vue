@@ -1,25 +1,23 @@
 <template>
-  <div class="container-fluid">
-    <form class="col">
-      <div class="row">
-        <select id="area1List" class="form-select form-select-lg col me-2">
-          <option value="">시도를 선택하세요</option>
-        </select>
-        <select id="area2List" class="form-select form-select-lg col me-2">
-          <option value="">구군을 선택하세요</option>
-        </select>
-        <select id="cat1List" class="form-select form-select-lg col me-2">
-          <option value="">대분류 선택하세요</option>
-        </select>
-        <select id="cat2List" class="form-select form-select-lg col me-2">
-          <option value="">중분류 선택하세요</option>
-        </select>
-        <select id="cat3List" class="form-select form-select-lg col me-2">
-          <option value="">소분류 선택하세요</option>
-        </select>
-        <button id="btnSearch" class="col btn btn btn-outline-primary">검색</button>
-      </div>
-    </form>
+  <div>
+    <DropdownStyle>
+      <sdDropdown placement="bottom" :action="['click']">
+        <sdButton size="default" :outlined="true" type="info"> 시도를 선택하세요 </sdButton>
+      </sdDropdown>
+      <sdDropdown placement="bottom" :action="['click']">
+        <sdButton size="default" :outlined="true" type="info"> 구군을 선택하세요 </sdButton>
+      </sdDropdown>
+      <sdDropdown placement="bottom" :action="['click']">
+        <sdButton size="default" :outlined="true" type="info"> 대분류를 선택하세요 </sdButton>
+      </sdDropdown>
+      <sdDropdown placement="bottom" :action="['click']">
+        <sdButton size="default" :outlined="true" type="info"> 중분류를 선택하세요 </sdButton>
+      </sdDropdown>
+      <sdDropdown placement="bottom" :action="['click']">
+        <sdButton size="default" :outlined="true" type="info"> 소분류를 선택하세요 </sdButton>
+      </sdDropdown>
+      <sdButton size="default" :transparented="true" type="info">검 색</sdButton>
+    </DropdownStyle>
 
     <div class="card border shadow h-100 py-1 my-2">
       <div class="card-body">
@@ -56,8 +54,12 @@
 </template>
 
 <script>
+import { DropdownStyle } from "../../components/dropdown/dropdown-style";
 export default {
   name: "Map",
+  components: {
+    DropdownStyle,
+  },
   data() {
     return {
       map: null,
@@ -78,7 +80,8 @@ export default {
     // api 불러오기
     loadScript() {
       const script = document.createElement("script");
-      script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=fc028c62490f726b597bff7133044d1c&autoload=false";
+      script.src =
+        "//dapi.kakao.com/v2/maps/sdk.js?appkey=fc028c62490f726b597bff7133044d1c&autoload=false";
       script.onload = () => window.kakao.maps.load(this.loadMap);
 
       document.head.appendChild(script);

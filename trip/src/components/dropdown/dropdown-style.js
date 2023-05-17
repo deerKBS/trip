@@ -33,5 +33,42 @@ const Content = Styled.div`
         }
     }
 `;
+const DropdownStyle = Styled.div`
+    margin-bottom: 10px;
+    button{
+        margin-right: 10px;
+    }
+  .ant-card-body .ant-btn {
+    ${({ theme }) => (theme.rtl ? 'margin-left' : 'margin-right')}: 10px;
+      margin-bottom: 10px;
+      height: 36px;
+      font-weight: 400;
+      border-color: #E3E6EF;
+      padding: 0px 19px !important;
+      border-radius: 5px;
+			svg{
+				:focus{
+					outline: 0;
+				}
+			}
+  }
+`;
 
-export { Content };
+const DropdownIconStyleWrapper = Styled.div`
+  button{
+    padding: 0 !important;
+    >span{
+      padding: ${({ theme }) => (theme.rtl ? '0 16px 0 10px' : '0 10px 0 16px')}
+    }
+  }
+  .ant-dropdown-trigger{
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 8px;
+    ${({ theme }) => (!theme.rtl ? 'border-left' : 'border-right')}: 1px solid ${({ theme }) =>
+  theme['border-color-normal']};
+  }
+`;
+
+export { Content, DropdownStyle, DropdownIconStyleWrapper };
