@@ -103,4 +103,9 @@ export default [
     name: "update",
     component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/UpdateBoard.vue"),
   },
+  {
+    path: "profile-settings/profile",
+    name: "profile",
+    component: () => import(/* webpackChunkName: "Profile" */ "@/view/pages/settings/overview/Profile.vue"),
+  },
 ];
