@@ -5,7 +5,7 @@
       <a-row :gutter="25">
         <a-col :sm="24" :xs="24">
           <sdCards headless>
-            <h3>Main Page</h3>
+            <h3>Route Search Page</h3>
           </sdCards>
         </a-col>
       </a-row>

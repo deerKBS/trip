@@ -1,51 +1,52 @@
 export default [
   {
-    path: '/main',
-    name: 'main',
-    component: () => import(/* webpackChunkName: "Main" */ '@/view/pages/MainPage.vue'),
+    path: "/main",
+    name: "main",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/MainPage.vue"),
   },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import(/* webpackChunkName: "Main" */ '@/view/pages/TestPage.vue'),
+    path: "/search/tour",
+    name: "search-tour",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/ToursearchPage.vue"),
   },
-  // {
-  //   path: '/page',
-  //   name: 'settings',
-  //   component: () => import(/* webpackChunkName: "Settings" */ '@/view/pages/settings/Settings.vue'),
-  //   children: [
-  //     {
-  //       path: 'profile-settings',
-  //       name: 'profile-settings',
-  //       component: () => import(/* webpackChunkName: "Profile" */ '@/view/pages/settings/overview/Profile.vue'),
-  //     },
-  //     {
-  //       path: 'profile-settings/profile',
-  //       name: 'set-profile',
-  //       component: () => import(/* webpackChunkName: "Profile" */ '@/view/pages/settings/overview/Profile.vue'),
-  //     },
-  //     {
-  //       path: 'profile-settings/account',
-  //       name: 'set-account',
-  //       component: () => import(/* webpackChunkName: "Account" */ '@/view/pages/settings/overview/Account.vue'),
-  //     },
-  //     {
-  //       path: 'profile-settings/password',
-  //       name: 'set-password',
-  //       component: () => import(/* webpackChunkName: "Password" */ '@/view/pages/settings/overview/Password.vue'),
-  //     },
-  //     {
-  //       path: 'profile-settings/social',
-  //       name: 'set-social',
-  //       component: () => import(/* webpackChunkName: "Social" */ '@/view/pages/settings/overview/SocialProfile.vue'),
-  //     },
-  //     {
-  //       path: 'profile-settings/notification',
-  //       name: 'set-notification',
-  //       component: () =>
-  //         import(/* webpackChunkName: "Notification" */ '@/view/pages/settings/overview/Notification.vue'),
-  //     },
-  //   ],
-  // },
-
+  {
+    path: "/search/route",
+    name: "search-route",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/RoutesearchPage.vue"),
+  },
+  {
+    path: "/plan/month",
+    name: "plan-month",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/MonthPlan.vue"),
+  },
+  {
+    path: "/plan/tour",
+    name: "plan-tour",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/TourPlan.vue"),
+  },
+  {
+    path: "/plan/todo",
+    name: "plan-todo",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/ToDo.vue"),
+  },
+  {
+    path: "/hotplace",
+    name: "hotplace",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/HotplacePage.vue"),
+  },
+  {
+    path: "/board/notice",
+    name: "notice",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/NoticePage.vue"),
+  },
+  {
+    path: "/board",
+    name: "board",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/FreeboardPage.vue"),
+  },
+  {
+    path: "/board/plan",
+    name: "plan",
+    component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/PlanboardPage.vue"),
+  },
 ];

@@ -12,20 +12,10 @@
           <div class="ninjadash-header-content__left">
             <div class="navbar-brand align-cener-v">
               <router-link :class="'ninjadash-logo'" to="/">
-                <img
-                  :src="
-                    !darkMode
-                      ? require(`../static/img/Logo_Dark.svg`)
-                      : require(`../static/img/Logo_White.svg`)
-                  "
-                  alt="logo"
-                />
+                <img :src="!darkMode ? require(`../static/img/Logo_Dark.svg`) : require(`../static/img/Logo_White.svg`)" alt="logo" />
               </router-link>
               <sdButton @click="toggleCollapsed" type="white">
-                <img
-                  :src="require(`../static/img/icon/${collapsed ? 'right.svg' : 'left.svg'}`)"
-                  alt="menu"
-                />
+                <img :src="require(`../static/img/icon/${collapsed ? 'right.svg' : 'left.svg'}`)" alt="menu" />
               </sdButton>
             </div>
           </div>

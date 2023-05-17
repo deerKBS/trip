@@ -1,45 +1,58 @@
 <template>
-  <a-menu
-    :open-keys="openKeys"
-    v-model:selectedKeys="selectedKeys"
-    :mode="mode"
-    :theme="darkMode ? 'dark' : 'light'"
-    class="scroll-menu"
-    @openChange="onOpenChange"
-    @click="onClick"
-  >
-    <NavTitle class="ninjadash-sidebar-nav-title">Pages</NavTitle>
-    <a-sub-menu key="settings">
-      <template #icon>
-        <unicon name="setting"></unicon>
-      </template>
-      <template #title>Settings</template>
-      <a-menu-item @click="toggleCollapsed" key="profile-settings">
-        <router-link to="/page/profile-settings"> Settings </router-link>
-      </a-menu-item>
-
-      <a-menu-item @click="toggleCollapsed" key="set-profile">
-        <router-link to="/page/profile-settings/profile"> Profile </router-link>
-      </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="set-account">
-        <router-link to="/page/profile-settings/account"> Account </router-link>
-      </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="set-password">
-        <router-link to="/page/profile-settings/password"> Password </router-link>
-      </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="set-social">
-        <router-link to="/page/profile-settings/social"> Social </router-link>
-      </a-menu-item>
-      <a-menu-item @click="toggleCollapsed" key="set-notification">
-        <router-link to="/page/profile-settings/notification"> Notification </router-link>
-      </a-menu-item>
-    </a-sub-menu>
-    <a-menu-item @click="toggleCollapsed" key="starter">
+  <a-menu :open-keys="openKeys" v-model:selectedKeys="selectedKeys" :mode="mode" :theme="darkMode ? 'dark' : 'light'" class="scroll-menu" @openChange="onOpenChange" @click="onClick">
+    <NavTitle class="ninjadash-sidebar-nav-title">Search</NavTitle>
+    <a-menu-item @click="toggleCollapsed" key="tour-search">
       <template #icon>
         <unicon name="circle"></unicon>
       </template>
-      <router-link to="/starter">blank page</router-link>
+      <router-link to="/search/tour">관광지 조회</router-link>
     </a-menu-item>
+    <a-menu-item @click="toggleCollapsed" key="route-search">
+      <template #icon>
+        <unicon name="circle"></unicon>
+      </template>
+      <router-link to="/search/route">여행경로 조회</router-link>
+    </a-menu-item>
+
+    <NavTitle class="ninjadash-sidebar-nav-title">Others</NavTitle>
+    <a-sub-menu key="plan">
+      <template #icon>
+        <unicon name="circle"></unicon>
+      </template>
+      <template #title>나만의 계획</template>
+      <a-menu-item @click="toggleCollapsed" key="month">
+        <router-link to="/plan/month">일 정</router-link>
+      </a-menu-item>
+      <a-menu-item @click="toggleCollapsed" key="tour">
+        <router-link to="/plan/tour">여 행</router-link>
+      </a-menu-item>
+      <a-menu-item @click="toggleCollapsed" key="todo">
+        <router-link to="/plan/todo">할 일</router-link>
+      </a-menu-item>
+    </a-sub-menu>
+
+    <a-menu-item @click="toggleCollapsed" key="hotplace">
+      <template #icon>
+        <unicon name="circle"></unicon>
+      </template>
+      <router-link to="/hotplace">핫플레이스</router-link>
+    </a-menu-item>
+
+    <a-sub-menu key="board">
+      <template #icon>
+        <unicon name="setting"></unicon>
+      </template>
+      <template #title>게시판</template>
+      <a-menu-item @click="toggleCollapsed" key="notice-board">
+        <router-link to="/board/notice">공지사항</router-link>
+      </a-menu-item>
+      <a-menu-item @click="toggleCollapsed" key="free-board">
+        <router-link to="/board">자유게시판</router-link>
+      </a-menu-item>
+      <a-menu-item @click="toggleCollapsed" key="planshare-board">
+        <router-link to="/board/plan">여행계획</router-link>
+      </a-menu-item>
+    </a-sub-menu>
   </a-menu>
 </template>
 <script>
@@ -74,8 +87,7 @@ export default defineComponent({
     });
 
     const onOpenChange = (keys) => {
-      state.openKeys =
-        keys[keys.length - 1] !== "recharts" ? [keys.length && keys[keys.length - 1]] : keys;
+      state.openKeys = keys[keys.length - 1] !== "recharts" ? [keys.length && keys[keys.length - 1]] : keys;
     };
 
     const onClick = (item) => {
