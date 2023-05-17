@@ -1,5 +1,13 @@
 <template>
-  <a-menu :open-keys="openKeys" v-model:selectedKeys="selectedKeys" :mode="mode" :theme="darkMode ? 'dark' : 'light'" class="scroll-menu" @openChange="onOpenChange" @click="onClick">
+  <a-menu
+    :open-keys="openKeys"
+    v-model:selectedKeys="selectedKeys"
+    :mode="mode"
+    :theme="darkMode ? 'dark' : 'light'"
+    class="scroll-menu"
+    @openChange="onOpenChange"
+    @click="onClick"
+  >
     <NavTitle class="ninjadash-sidebar-nav-title">Search</NavTitle>
     <a-menu-item @click="toggleCollapsed" key="tour-search">
       <template #icon>
@@ -53,6 +61,13 @@
         <router-link to="/board/plan">여행계획</router-link>
       </a-menu-item>
     </a-sub-menu>
+
+    <a-menu-item @click="toggleCollapsed" key="hotplace">
+      <template #icon>
+        <unicon name="circle"></unicon>
+      </template>
+      <router-link to="/write">글 쓰기 테스트</router-link>
+    </a-menu-item>
   </a-menu>
 </template>
 <script>

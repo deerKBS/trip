@@ -92,4 +92,10 @@ export default [
     name: "board-plan",
     component: () => import(/* webpackChunkName: "Main" */ "@/view/pages/PlanboardPage.vue"),
   },
+
+  {
+    path: "/write",
+    name: "write",
+    component: () => import(/* webpackChunkName: "FormComponents" */ "@/view/forms/FormComponents.vue"),
+  },
 ];
