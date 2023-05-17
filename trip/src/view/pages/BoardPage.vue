@@ -5,7 +5,7 @@
         <a-col :sm="24" :xs="24">
           <sdCards headless>
             <h3>FreeBoard Page</h3>
-            <DataTables :filterOption="true" :filterOnchange="true" :tableData="tableDataScource" :columns="dataTableColumn" :rowSelection="false" />
+            <DataTables :filterOption="true" :tableData="tableDataScource" :columns="dataTableColumn" :rowSelection="false" />
           </sdCards>
         </a-col>
       </a-row>

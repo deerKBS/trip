@@ -2234,11 +2234,11 @@ const TableWrapper = Styled.div`
                 th{
                     border-bottom: 0 none;
                     &:first-child{
-                        border-radius: ${({ theme }) => (!theme.rtl ? "10px 0 0 10px" : "0 10px 10px 0")} !important;
+                        border-radius: 0 10px 10px 0 !important;
                     }
                     &:last-child{
-                        border-radius: ${({ theme }) => (theme.rtl ? "10px 0 0 10px" : "0 10px 10px 0")} !important;
-                        text-align: ${({ theme }) => (theme.rtl ? "left" : "right")};
+                        border-radius: 10px 0 0 10px !important;
+                        text-align: left ;
                     }
                     color: ${({ theme }) => theme[theme.mainContent]["gray-text"]};
                     background: ${({ theme }) => theme[theme.mainContent]["main-background-light"]};
@@ -2297,7 +2297,7 @@ const TableWrapper = Styled.div`
             }
         }
         .table-actions{
-            text-align: ${({ theme }) => (theme.rtl ? "left" : "right")};
+            text-align: left;
             min-width: 150px !important;
             button{
                 height: 40px;
