@@ -1,6 +1,5 @@
 <template>
   <div>
-    <sdPageHeader title="Main Page" class="ninjadash-page-header-main"> </sdPageHeader>
     <Main>
       <a-row :gutter="25">
         <a-col :sm="24" :xs="24">
