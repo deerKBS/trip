@@ -1,6 +1,9 @@
 <template>
-  <a-layout-sider>
+  <a-layout-sider v-model="collapsed" collapsible>
     <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
+      <a-menu-item key="0">
+        <span>Option 0</span>
+      </a-menu-item>
       <a-sub-menu key="sub1">
         <template #title>
           <span> subnav 1 </span>
@@ -35,5 +38,10 @@
 <script>
 export default {
   name: "SideNav",
+  data() {
+    return {
+      collapsed: false, // store에 넣어서 상황에 따라 변경 가능하게 해야함.
+    };
+  },
 };
 </script>

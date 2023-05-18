@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-layout>
+    <a-layout style="min-height: 100vh">
       <!-- top nav bar -->
       <top-nav></top-nav>
       <a-layout>
