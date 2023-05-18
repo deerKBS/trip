@@ -1,17 +1,17 @@
 export default [
   {
-    path: "/login",
+    path: "login",
     name: "login",
     component: () => import("@/view/authentication/LoginPage.vue"),
   },
 
   {
-    path: "/register",
+    path: "register",
     name: "register",
     component: () => import("@/view/authentication/RegisterPage.vue"),
   },
   {
-    path: "/findPassword",
+    path: "findPassword",
     name: "findPassword",
     component: () => import("@/view/authentication/FindPassword.vue"),
   },

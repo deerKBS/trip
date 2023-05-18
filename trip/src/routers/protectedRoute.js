@@ -8,14 +8,13 @@ import authRoutes from "./authRoutes";
 export default new VueRouter({
   routes: [
     {
-      name: "Admin",
       path: "/",
       component: () => import("@/Layout/withAdminLayout.vue"),
       children: [...adminRoutes],
     },
     {
-      name: "Auth",
       path: "/",
+      name: "Auth",
       component: () => import("@/Layout/withAuthLayout.vue"),
       children: [...authRoutes],
     },

@@ -1,9 +1,19 @@
 <template>
   <div>
-    <h1>AdminLayout</h1>
-    <side-nav></side-nav>
-    <top-nav></top-nav>
-    <router-view></router-view>
+    <a-layout>
+      <!-- top nav bar -->
+      <top-nav></top-nav>
+      <a-layout>
+        <!-- side nav bar -->
+        <side-nav></side-nav>
+        <a-layout-content>
+          <!-- content -->
+          <router-view></router-view>
+          <!-- footer -->
+          <!-- <a-layout-footer :style="{ 'line-height': 1.5 }">Footer</a-layout-footer> -->
+        </a-layout-content>
+      </a-layout>
+    </a-layout>
   </div>
 </template>
 
