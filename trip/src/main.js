@@ -7,6 +7,12 @@ import store from "./store/store.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
+// import ans design for side bar
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+
+Vue.use(Antd);
+
 Vue.config.productionTip = false;
 
 new Vue({
