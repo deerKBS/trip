@@ -15,9 +15,9 @@ export default new Vuex.Store({
       // NavBar
       isLogin: false,
 
-      userName: "",
+      userName: "김땡땡",
       userProfileImageUrl: "",
-
+      userRegisterDate: "2022-02-02",
       // Login
       userEmail: "deer119@naver.com",
       userPassword: "1q2w3e!",
@@ -56,10 +56,20 @@ export default new Vuex.Store({
       state.login.isLogin = payload.isLogin;
       state.login.userName = payload.userName;
       state.login.userProfileImageUrl = payload.userProfileImageUrl;
+      state.login.userRegisterDate = "";
+      state.login.userEmail = "";
     },
 
     SET_BOARD_LIST(state, list) {
       state.board.list = list;
+    },
+    SET_LOGOUT(state) {
+      state.login.isLogin = false;
+      state.login.userName = "";
+      state.login.userProfileImageUrl = "";
+      state.login.userRegisterDate = "";
+      state.login.userEmail = "";
+      state.login.userPassword = "";
     },
 
     SET_BOARD_TOTAL_LIST_ITEM_COUNT(state, count) {
