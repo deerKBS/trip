@@ -6,7 +6,7 @@ Vue.use(Vuex);
 import http from "@/common/axios.js";
 import util from "@/common/util.js";
 
-import router from "@/routers/routers.js";
+import router from "@/routers/protectedRoute.js";
 
 export default new Vuex.Store({
   state: {

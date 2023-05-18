@@ -1,13 +1,11 @@
 <template>
   <div>
-    <router-view></router-view>
+    <h1>SideNavBar</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "App",
+  name: "SideNavBar",
 };
 </script>
-
-<style></style>
