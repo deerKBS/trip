@@ -49,13 +49,13 @@
           <form id="editProfileForm" novalidate>
             <div class="mb-3">
               <label for="userPassword" class="form-label">새 비밀번호</label>
-              <input v-model="newPassword" type="password" class="form-control" name="userPassword" placeholder="Enter User Password" />
+              <input v-model="newPassword" type="password" class="form-control" placeholder="Enter User Password" />
               <div class="valid-feedback">Valid</div>
               <div class="invalid-feedback">Invalid</div>
             </div>
             <div class="mb-3">
               <label for="userPassword2" class="form-label">비밀번호 확인</label>
-              <input v-model="newPassword" type="password" class="form-control" name="userPassword2" placeholder="Confirm Password" />
+              <input v-model="checkPassword" type="password" class="form-control" placeholder="Confirm Password" />
               <div class="valid-feedback">Valid</div>
               <div class="invalid-feedback">Invalid</div>
             </div>
@@ -122,11 +122,8 @@ export default {
           userPassword: this.newPassword,
         };
 
-        let options = {
-          headers: { "Content-Type": "multipart/form-data" },
-        };
         try {
-          let { data } = await http.put("/userinfo", formData, options);
+          let { data } = await http.put("/userinfo", formData);
 
           console.log("UpdateModalVue: data : ");
           console.log(data);
@@ -151,18 +148,14 @@ export default {
     },
 
     async deleteAccount() {
-      let options = {
-        headers: { "Content-Type": "multipart/form-data" },
-      };
-
       try {
-        let { data } = await http.delete("/userinfo/" + this.$store.state.login.userEmail, options);
+        let { data } = await http.delete("/userinfo/" + this.$store.state.login.userEmail);
 
         console.log("UpdateModalVue: data : ");
         console.log(data);
         if (data.result === "success") {
           // 성공적으로 회원 정보를 삭제했으면 로그인 상태를 변경하고 로그인 페이지로 이동합니다.
-          this.$store.commit("SET_LOGIN", { isLogin: false, userName: "", userProfileImageUrl: "" });
+          this.$store.commit("SET_LOGOUT");
           this.$router.push("/login");
         } else {
           // 실패한 경우에는 적절한 오류 메시지를 표시합니다.

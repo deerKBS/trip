@@ -56,8 +56,8 @@ export default new Vuex.Store({
       state.login.isLogin = payload.isLogin;
       state.login.userName = payload.userName;
       state.login.userProfileImageUrl = payload.userProfileImageUrl;
-      state.login.userRegisterDate = "";
-      state.login.userEmail = "";
+      state.login.userRegisterDate = payload.userRegisterDate;
+      state.login.userEmail = payload.userEmail;
     },
 
     SET_BOARD_LIST(state, list) {
