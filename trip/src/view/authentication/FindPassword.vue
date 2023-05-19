@@ -6,10 +6,10 @@
     </div>
     <h2 class="mb-3 mt-3">찾을 비밀번호의 이메일 입력</h2>
     <div class="mb-3">
-      <input type="email" class="form-control" v-model="this.userEmail" placeholder="Email" />
+      <input type="email" class="form-control" v-model="userEmail" placeholder="Email" />
     </div>
     <div>
-      <button @click="findPassword" class="btn btn-primary">이메일 전송</button>
+      <button @click="findPassword" class="btn btn-primary">비밀번호 찾기</button>
       <router-link to="/register" class="btn btn-success float-end">회원가입</router-link>
     </div>
   </div>
