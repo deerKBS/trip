@@ -1,6 +1,6 @@
 <template>
   <v-col cols="4" sm="6" md="4">
-    <v-dialog ref="dialog" v-model="dateModal" :return-value.sync="date" lazy full-width width="290px">
+    <v-dialog ref="dialog" v-model="dateModal" :return-value.sync="date" lazy full-width width="340px">
       <template v-slot:activator="{ on }">
         <v-text-field v-model="date" :label="`${label}`" prepend-icon="📅" readonly v-on="on"></v-text-field>
       </template>
@@ -11,7 +11,7 @@
       </v-date-picker>
     </v-dialog>
 
-    <v-dialog ref="dialog2" v-model="timeModal" :return-value.sync="time" lazy full-width width="290px">
+    <v-dialog ref="dialog2" v-model="timeModal" :return-value.sync="time" lazy full-width width="340px">
       <v-time-picker v-if="timeModal" v-model="time" full-width>
         <v-spacer></v-spacer>
         <v-btn text color="primary" @click="timeModal = false">Cancel</v-btn>

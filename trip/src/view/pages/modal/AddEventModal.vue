@@ -1,78 +1,74 @@
 <template>
-  <v-dialog v-model="localShow" persistent max-width="600px">
-    <v-card>
-      <v-card-title>
-        <span>Add New Event</span>
-      </v-card-title>
-      <v-card-text>
-        <!-- Form for event details -->
-        <v-form ref="form">
-          <!-- Event name -->
-          <v-text-field v-model="event.name" label="Event name" :rules="[(v) => !!v || 'Event name is required']"></v-text-field>
+  <div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEventModalLabel">이벤트 추가</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- 이벤트명 입력 필드 -->
+          <div class="form-group">
+            <label for="eventName">이벤트명</label>
+            <input type="text" class="form-control" id="eventName" v-model="eventName" />
+          </div>
 
-          <v-row>
-            <VDateTimePicker :label="'시작날짜'"></VDateTimePicker>
-            <VDateTimePicker :label="'종료날짜'"></VDateTimePicker>
-          </v-row>
-          <!-- Event color -->
-          <v-select v-model="event.color" :items="colors" label="Color" :rules="[(v) => !!v || 'Color is required']"></v-select>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="close">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+          <!-- 시작날짜 입력 필드 -->
+          <div class="form-group">
+            <label for="startDate">시작날짜</label>
+            <VDateTimePicker v-model="startDate" />
+          </div>
+
+          <!-- 종료날짜 입력 필드 -->
+          <div class="form-group">
+            <label for="endDate">종료날짜</label>
+            <VDateTimePicker v-model="endDate" />
+          </div>
+          <v-container fluid class="pa-0">
+            <v-row>
+              <VDateTimePicker :label="시작날짜" v-model="startDate"></VDateTimePicker>
+              <VDateTimePicker :label="종료날짜" v-model="endDate"></VDateTimePicker>
+            </v-row>
+          </v-container>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary" @click="saveEvent">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import VDateTimePicker from "@/view/pages/VDatetimePicker.vue";
+
 export default {
+  name: "AddEventModal",
   components: {
     VDateTimePicker,
   },
-  props: ["show", "selectedDate"],
-  data: () => ({
-    localShow: false,
-    event: {
-      name: "",
-      start: "",
-      end: "",
-      color: "",
-    },
-    colors: ["blue", "indigo", "deep-purple", "cyan", "green", "orange", "grey darken-1"],
-  }),
-  watch: {
-    show(newVal) {
-      this.localShow = newVal;
-    },
-    localShow(newVal) {
-      if (!newVal) {
-        this.$emit("close");
-      }
-    },
-    selectedDate(newVal) {
-      this.event.start = newVal;
-      this.event.end = newVal;
-    },
+  data() {
+    return {
+      eventName: "", // 이벤트명 데이터
+      startDate: null, // 시작날짜 데이터
+      endDate: null, // 종료날짜 데이터
+    };
   },
   methods: {
-    close() {
-      this.localShow = false;
-    },
-    save() {
-      if (this.$refs.form.validate()) {
-        this.$emit("add", this.event);
-        this.event = {
-          name: "",
-          start: "",
-          end: "",
-          color: "",
-        };
-      }
+    saveEvent() {
+      // 저장 버튼 클릭 시 실행되는 로직
+      // 이벤트명, 시작날짜, 종료날짜 데이터를 이용하여 이벤트를 저장하는 동작을 수행할 수 있습니다.
+      console.log("이벤트명:", this.eventName);
+      console.log("시작날짜:", this.startDate);
+      console.log("종료날짜:", this.endDate);
     },
   },
 };
 </script>
+
+<style scoped>
+/* 필요한 스타일링을 추가할 수 있습니다. */
+</style>
