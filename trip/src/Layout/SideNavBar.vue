@@ -1,17 +1,19 @@
 <template>
-  <a-layout-sider v-model="collapsed" collapsible>
+  <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
     <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
       <a-sub-menu key="sub1">
         <template #title>
           <span> 검 색 </span>
         </template>
         <a-menu-item key="1">
+          <unicon name="car-wash" fill="limegreen" />
           <router-link to="/search/tour">관광지 조회</router-link>
         </a-menu-item>
         <a-menu-item key="2">
           <router-link to="/search/route">경로 조회</router-link>
         </a-menu-item>
       </a-sub-menu>
+      <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-sub-menu key="sub2">
         <template #title>
           <span> 게시판 </span>
@@ -26,6 +28,7 @@
           <router-link to="/planBoard">여행계획</router-link>
         </a-menu-item>
       </a-sub-menu>
+      <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-sub-menu key="sub3">
         <template #title>
           <span> 나만의 계획 </span>
@@ -40,9 +43,11 @@
           <router-link to="/plan/addMyplan">여행 계획 세우기</router-link>
         </a-menu-item>
       </a-sub-menu>
+      <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-menu-item key="9">
         <router-link to="/hotplace">핫플레이스</router-link>
       </a-menu-item>
+      <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
     </a-menu>
   </a-layout-sider>
 </template>
@@ -57,3 +62,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

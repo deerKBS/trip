@@ -37,7 +37,7 @@ export default [
   {
     path: "plan/tour",
     name: "myPlans",
-    component: () => import("@/view/pages/MyPlans.vue"),
+    component: () => import("@/view/pages/MyplansPage.vue"),
   },
   {
     path: "plan/addMyplan",
