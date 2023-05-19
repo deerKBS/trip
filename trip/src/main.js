@@ -15,15 +15,15 @@ Vue.use(Antd);
 // tailwind
 import "./index.css";
 
-// vuetify
-import Vuetify from "vuetify";
-import "vuetify/dist/vuetify.min.css";
-Vue.use(Vuetify);
+// unicons
+import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
+import { uniLayerGroupMonochrome, uniCarWash } from "vue-unicons/dist/icons";
+Unicon.add([uniLayerGroupMonochrome, uniCarWash]);
+Vue.use(Unicon);
 
 Vue.config.productionTip = false;
 
 new Vue({
-  vuetify: new Vuetify(),
   render: (h) => h(App),
   router,
   store,
