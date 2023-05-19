@@ -1,34 +1,48 @@
 <template>
   <a-layout-sider v-model="collapsed" collapsible>
     <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
-      <a-menu-item key="0">
-        <span>Option 0</span>
-      </a-menu-item>
       <a-sub-menu key="sub1">
         <template #title>
-          <span> 검색 </span>
+          <span> 검 색 </span>
         </template>
-        <a-menu-item key="1">여행지 검색</a-menu-item>
-        <a-menu-item key="2">여행 경로 조회</a-menu-item>
+        <a-menu-item key="1">
+          <router-link to="/search/tour">관광지 조회</router-link>
+        </a-menu-item>
+        <a-menu-item key="2">
+          <router-link to="/search/route">경로 조회</router-link>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
-          <span> subnav 2 </span>
+          <span> 게시판 </span>
         </template>
-        <a-menu-item key="5">option5</a-menu-item>
-        <a-menu-item key="6">option6</a-menu-item>
-        <a-menu-item key="7">option7</a-menu-item>
-        <a-menu-item key="8">option8</a-menu-item>
+        <a-menu-item key="3">
+          <router-link to="/notice">공지사항</router-link>
+        </a-menu-item>
+        <a-menu-item key="4">
+          <router-link to="/board">자유게시판</router-link>
+        </a-menu-item>
+        <a-menu-item key="5">
+          <router-link to="/planBoard">여행계획</router-link>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub3">
         <template #title>
-          <span> subnav 3 </span>
+          <span> 나만의 계획 </span>
         </template>
-        <a-menu-item key="9">option9</a-menu-item>
-        <a-menu-item key="10">option10</a-menu-item>
-        <a-menu-item key="11">option11</a-menu-item>
-        <a-menu-item key="12">option12</a-menu-item>
+        <a-menu-item key="6">
+          <router-link to="/plan/calendar">일 정</router-link>
+        </a-menu-item>
+        <a-menu-item key="7">
+          <router-link to="/plan/tour">여 행</router-link>
+        </a-menu-item>
+        <a-menu-item key="8">
+          <router-link to="/plan/addMyplan">여행 계획 세우기</router-link>
+        </a-menu-item>
       </a-sub-menu>
+      <a-menu-item key="9">
+        <router-link to="/hotplace">핫플레이스</router-link>
+      </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>

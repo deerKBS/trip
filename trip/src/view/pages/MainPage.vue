@@ -1,5 +1,5 @@
 <template>
-  <div class="container">aaa</div>
+  <div class="container">메인페이지</div>
 </template>
 
 <script>
