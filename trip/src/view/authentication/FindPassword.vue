@@ -25,7 +25,7 @@ import http from "@/common/axios.js";
 export default {
   data() {
     return {
-      userEmail: "",
+      userEmail: "test",
     };
   },
   methods: {
