@@ -30,7 +30,7 @@
       </tbody>
     </table>
 
-    <PaginationUI v-on:call-parent="movePage"></PaginationUI>
+    <PaginationUI v-on:call-parent="movePage" :page="`board`"></PaginationUI>
 
     <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
 
