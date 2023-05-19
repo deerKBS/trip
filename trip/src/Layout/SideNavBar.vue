@@ -65,4 +65,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.ant-layout-sider-trigger {
+  background-color: #bae6fd;
+  color: rgb(14, 174, 248);
+}
+</style>
