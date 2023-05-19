@@ -35,6 +35,11 @@ export default [
     component: () => import("@/view/pages/CalendarPage.vue"),
   },
   {
+    path: "plan/calendar2",
+    name: "calendar2",
+    component: () => import("@/view/pages/CalendarPage2.vue"),
+  },
+  {
     path: "plan/tour",
     name: "myPlans",
     component: () => import("@/view/pages/MyplansPage.vue"),
