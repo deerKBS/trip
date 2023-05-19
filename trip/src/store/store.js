@@ -120,6 +120,10 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+
+    logout() {
+      this.commit("SET_LOGOUT");
+    },
   },
   getters: {
     isLogin: function (state) {
