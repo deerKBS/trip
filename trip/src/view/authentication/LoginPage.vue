@@ -9,6 +9,7 @@
     </div>
     <div>
       <button @click="login" class="btn btn-primary">로그인</button>
+      <router-link to="/findPassword"> 비밀번호를 잊어버리셨나요?</router-link>
       <router-link to="/register" class="btn btn-success float-end">회원가입</router-link>
     </div>
   </div>
