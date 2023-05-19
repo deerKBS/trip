@@ -8,7 +8,7 @@
         <side-nav class="shadow-lg"></side-nav>
         <a-layout-content>
           <!-- content -->
-          <div class="container-fluid min-h-full bg-sky-100 p-4 min-w-fit">
+          <div class="container-fluid min-h-full bg-sky-100 p-4">
             <router-view class="bg-sky-50 shadow-lg" style="min-height: 85vh"></router-view>
           </div>
           <!-- footer -->

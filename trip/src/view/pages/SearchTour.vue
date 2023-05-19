@@ -1,8 +1,8 @@
 <template>
-  <div class="row p-1 pt-4">
-    <div class="col">
-      <div class="row">
-        <div class="dropdown m-1" style="width: 200px; min-width: 200px">
+  <div class="row p-1">
+    <div class="col col-lg-2">
+      <div class="row m-0 justify-content-md-center">
+        <div class="dropdown m-1 w-1/6 min-w-fit px-1">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -10,7 +10,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <div class="dropdown m-1" style="width: 200px; min-width: 200px">
+        <div class="dropdown m-1 w-1/6 min-w-fit">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -18,7 +18,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <div class="dropdown m-1" style="width: 200px; min-width: 200px">
+        <div class="dropdown m-1 w-1/6 min-w-fit">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -26,7 +26,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <div class="dropdown m-1" style="width: 200px; min-width: 200px">
+        <div class="dropdown m-1 w-1/6 min-w-fit">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -34,7 +34,7 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <div class="dropdown m-1" style="width: 200px; min-width: 200px">
+        <div class="dropdown m-1 w-1/6 min-w-fit">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Dropdown link </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li><a class="dropdown-item" href="#">Action</a></li>
@@ -42,10 +42,11 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </div>
-        <button type="button" class="btn btn-outline-info m-1 ms-3" style="width: 146.58px; min-width: 146.58px">검 색</button>
+        <!-- <button type="button" class="btn btn-outline-info m-1 ms-3 w-1/6">검 색</button> -->
+        <div class="btn btn-outline-info m-1 ms-3 w-1/6 min-w-max">검색</div>
       </div>
     </div>
-    <div class="col-10 min-w-max card border shadow-black h-100 py-1 m-auto">
+    <div class="col-md-auto card border shadow-black h-100 py-1 m-auto mt-0" style="width: 80%">
       <div class="card-body">
         <!--Map start-->
         <div id="map" class="mt" style="width: 100%; height: 600px"></div>
