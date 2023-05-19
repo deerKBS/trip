@@ -59,15 +59,10 @@
 export default {
   name: "SideNav",
   data() {
-    return {
-      collapsed: false, // store에 넣어서 상황에 따라 변경 가능하게 해야함.
-    };
+    return { collapsed: false };
   },
+  computed: {},
 };
 </script>
 
-<style scoped>
-.unicon {
-  margin: 0px;
-}
-</style>
+<style scoped></style>
