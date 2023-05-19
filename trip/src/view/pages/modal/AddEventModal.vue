@@ -10,10 +10,10 @@
           <!-- Event name -->
           <v-text-field v-model="event.name" label="Event name" :rules="[(v) => !!v || 'Event name is required']"></v-text-field>
 
-          <!-- Event start and end date/time -->
-          <v-datetime-picker v-model="event.start" label="Start" :rules="[(v) => !!v || 'Start time is required']"></v-datetime-picker>
-          <v-datetime-picker v-model="event.end" label="End" :rules="[(v) => !!v || 'End time is required']"></v-datetime-picker>
-
+          <v-row>
+            <VDateTimePicker :label="'시작날짜'"></VDateTimePicker>
+            <VDateTimePicker :label="'종료날짜'"></VDateTimePicker>
+          </v-row>
           <!-- Event color -->
           <v-select v-model="event.color" :items="colors" label="Color" :rules="[(v) => !!v || 'Color is required']"></v-select>
         </v-form>
@@ -28,7 +28,11 @@
 </template>
 
 <script>
+import VDateTimePicker from "@/view/pages/VDatetimePicker.vue";
 export default {
+  components: {
+    VDateTimePicker,
+  },
   props: ["show", "selectedDate"],
   data: () => ({
     localShow: false,

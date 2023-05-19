@@ -64,6 +64,6 @@ export default [
   {
     path: "testDate",
     name: "testDate",
-    component: () => import("@/view/pages/VDatetimePicker.vue"),
+    component: () => import("@/view/pages/DatePickerTestPage.vue"),
   },
 ];
