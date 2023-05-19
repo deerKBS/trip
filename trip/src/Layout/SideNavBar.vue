@@ -1,12 +1,12 @@
 <template>
-  <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
+  <!-- :trigger="null" -->
+  <a-layout-sider v-model="collapsed" collapsible>
     <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
       <a-sub-menu key="sub1">
         <template #title>
           <span> 검 색 </span>
         </template>
         <a-menu-item key="1">
-          <unicon name="car-wash" fill="limegreen" />
           <router-link to="/search/tour">관광지 조회</router-link>
         </a-menu-item>
         <a-menu-item key="2">
@@ -45,6 +45,9 @@
       </a-sub-menu>
       <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-menu-item key="9">
+        <template #icon>
+          <unicon name="circle"></unicon>
+        </template>
         <router-link to="/hotplace">핫플레이스</router-link>
       </a-menu-item>
       <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
@@ -63,4 +66,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.unicon {
+  margin: 0px;
+}
+</style>
