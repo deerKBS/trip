@@ -36,7 +36,13 @@ export default {
         console.log(data);
         console.log(data.userName);
 
-        this.$store.commit("SET_LOGIN", { isLogin: true, userName: data.userName, userProfileImageUrl: data.userProfileImageUrl });
+        this.$store.commit("SET_LOGIN", {
+          isLogin: true,
+          userName: data.userName,
+          userProfileImageUrl: data.userProfileImageUrl,
+          userRegisterDate: data.userRegisterDate,
+          userEmail: data.userEmail,
+        });
 
         this.$router.push("/");
       } catch (error) {

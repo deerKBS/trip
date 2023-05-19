@@ -60,4 +60,10 @@ export default [
     name: "userProfile",
     component: () => import("@/view/pages/UserProfile.vue"),
   },
+  //test
+  {
+    path: "testDate",
+    name: "testDate",
+    component: () => import("@/view/pages/VDatetimePicker.vue"),
+  },
 ];

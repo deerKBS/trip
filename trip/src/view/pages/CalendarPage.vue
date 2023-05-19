@@ -56,7 +56,12 @@
 </template>
 
 <script>
+import AddEventModal from "@/view/pages/modal/AddEventModal.vue";
+
 export default {
+  components: {
+    "add-event-modal": AddEventModal,
+  },
   data: () => ({
     focus: "",
     type: "month",
