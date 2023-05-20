@@ -25,14 +25,20 @@ import http from "@/common/axios.js";
 export default {
   methods: {
     async login() {
+
+      
+
       let loginObj = {
         userEmail: this.$store.state.login.userEmail,
         userPassword: this.$store.state.login.userPassword,
       };
+      console.log("로그인결과 "+this.$store.state.login.userEmail+" "+this.$store.state.login.userPassword);
 
       try {
         let { data } = await http.post("/login", loginObj);
 
+        console.log("로그인결과 no catch "+data.result);
+        if(data.fail != "fail"){
         console.log("LoginVue: data : ");
         console.log(data);
         console.log(data.userName);
@@ -48,7 +54,10 @@ export default {
         localStorage.setItem("isLogin","true");
 
         this.$router.push("/");
+        }
+
       } catch (error) {
+       
         console.log("LoginVue: error : ");
         console.log(error);
         if (error.response.status == "404") {

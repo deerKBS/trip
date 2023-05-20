@@ -10,7 +10,9 @@ import router from "@/routers/protectedRoute.js";
 import createPersistedState from "vuex-persistedstate";
 
 export default new Vuex.Store({
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    paths: ['login']
+  })],
   state: {
     // login, NavBar
     login: {
