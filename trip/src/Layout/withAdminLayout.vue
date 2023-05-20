@@ -8,8 +8,8 @@
         <side-nav class="shadow-lg"></side-nav>
         <a-layout-content>
           <!-- content -->
-          <div class="container-fluid min-h-full bg-sky-100 p-4">
-            <router-view class="bg-sky-50 shadow-lg" style="min-height: 85vh"></router-view>
+          <div class="min-h-full bg-sky-100">
+            <router-view></router-view>
           </div>
           <!-- footer -->
           <!-- <a-layout-footer :style="{ 'line-height': 1.5 }">Footer</a-layout-footer> -->
