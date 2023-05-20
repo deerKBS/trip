@@ -1,6 +1,6 @@
 <template>
   <!-- :trigger="null" -->
-  <a-layout-sider v-model="collapsed" collapsible>
+  <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
     <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
       <a-sub-menu key="sub1">
         <template #title>
