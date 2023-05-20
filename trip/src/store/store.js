@@ -7,8 +7,10 @@ import http from "@/common/axios.js";
 import util from "@/common/util.js";
 
 import router from "@/routers/protectedRoute.js";
+import createPersistedState from "vuex-persistedstate";
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     // login, NavBar
     login: {

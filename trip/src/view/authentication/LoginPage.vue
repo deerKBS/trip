@@ -45,6 +45,8 @@ export default {
           userEmail: data.userEmail,
         });
 
+        localStorage.setItem("isLogin","true");
+
         this.$router.push("/");
       } catch (error) {
         console.log("LoginVue: error : ");

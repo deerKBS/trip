@@ -14,5 +14,16 @@
 <script>
 export default {
   name: "TopNavBar",
+
+  methods: {
+    logout() {
+      localStorage.setItem("isLogin", "false");
+      console.log("로그아웃 " + localStorage.getItem("isLogin"));
+      this.$store.commit("SET_LOGOUT");
+    },
+  },
+  created() {
+    console.log("새로고침 created");
+  },
 };
 </script>
