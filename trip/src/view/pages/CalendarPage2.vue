@@ -3,10 +3,13 @@
     <v-calendar
       v-model="selectedDate"
       color="primary"
+      :events="events" 
       @click:date="openDialog"
     />
-    
+    <!-- dialog 값이 변경되면 EventDialog 컴포넌트를 새로 생성합니다. -->
     <EventDialog
+      
+      v-if="dialog"  
       :dialog.sync="dialog"
       :event="newEvent"
       @save="addEvent"
@@ -26,19 +29,18 @@ export default {
   data: () => ({
     selectedDate: null,
     dialog: false,
-    newEvent: { name: "", start: "", end: "" },
+    newEvent: null,
     menu: false,
     events: [],
   }),
   methods: {
-    openDialog(date) {
+    openDialog() {
+      this.newEvent = { name: "", start: "", end: "" }; // newEvent 객체를 새로 생성합니다.
       this.dialog = true;
-      this.newEvent.start = date;
-      this.newEvent.end = date;
     },
-    addEvent() {
-      this.events.push({ ...this.newEvent });
-      this.newEvent = { name: "", start: "", end: "" };
+    addEvent(event) {
+      this.events.push(event);
+      //this.newEvent = { name: "", start: "", end: "" };
       this.dialog = false;
     },
   },
