@@ -22,7 +22,22 @@ export default [
   {
     path: "board",
     name: "board",
-    component: () => import("@/view/pages/BoardMain.vue"),
+    component: () => import("@/view/pages/board/BoardMain.vue"),
+  },
+  {
+    path: "board/detail/:boardId",
+    name: "boardDetail",
+    component:()=>import("@/view/pages/board/BoardDetail.vue"),
+  },
+  {
+    path: "board/insert",
+    name: "boardInsert",
+    component:()=>import("@/view/pages/board/BoardInsert.vue"),
+  },
+  {
+    path: "board/update/:boardId",
+    name: "boardUpdate",
+    component:()=>import("@/view/pages/board/BoardUpdate.vue"),
   },
   {
     path: "planBoard",
