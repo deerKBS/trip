@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow" style="width: 18rem; height: 16rem">
     <div class="card-body d-flex align-items-center justify-content-center py-1">
-      <div class="card-image" :style="`background-image: url(${itemImg}); background-size: cover`"></div>
+      <div class="card-image" :style="`background-image: url(${itemImg}); background-size: cover`" @click="moveCenterMap()"></div>
     </div>
     <div class="card-body pt-0 pb-0 box-content">
       <h5 :title="`${item.title}`">{{ item.title }}</h5>
@@ -20,7 +20,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 export default {
   name: "tourCard",
-  props: ["item"],
+  props: ["item", "map"],
   data() {
     return {
       isStar: false,
@@ -30,6 +30,11 @@ export default {
   computed: {
     itemImg() {
       return this.item.firstimage === "" ? require("../assets/img/noimg.png") : this.item.firstimage;
+    },
+  },
+  methods: {
+    moveCenterMap() {
+      this.map.setCenter(new window.kakao.maps.LatLng(this.item.mapy, this.item.mapx));
     },
   },
 };
