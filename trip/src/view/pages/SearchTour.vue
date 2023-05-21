@@ -9,10 +9,22 @@
               {{ area }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item custom-dropdown-item"
+                  @click="
+                    area = '시도를 선택하세요';
+                    areaCode = '';
+                    sigungu = '시군구를 선택하세요';
+                    sigunguCode = '';
+                    areaCodes2 = [];
+                  "
+                  >시도를 선택하세요</a
+                >
+              </li>
               <li v-for="(sido, index) in areaCodes" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     area = sido.name;
                     areaCode = sido.code;
@@ -28,10 +40,19 @@
               {{ sigungu }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item custom-dropdown-item"
+                  @click="
+                    sigungu = '시군구를 선택하세요';
+                    sigunguCode = '';
+                  "
+                  >시군구를 선택하세요</a
+                >
+              </li>
               <li v-for="(gungu, index) in areaCodes2" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     sigungu = gungu.name;
                     sigunguCode = gungu.code;
@@ -46,10 +67,23 @@
               {{ catText1 }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item custom-dropdown-item"
+                  @click="
+                    catText1 = '대분류를 선택하세요';
+                    cat1 = '';
+                    cat2List = [];
+                    cat2 = '';
+                    cat3List = [];
+                    cat3 = '';
+                  "
+                  >대분류를 선택하세요</a
+                >
+              </li>
               <li v-for="(cat, index) in cat1List" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     catText1 = cat.name;
                     cat1 = cat.code;
@@ -65,10 +99,21 @@
               {{ catText2 }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item custom-dropdown-item"
+                  @click="
+                    catText2 = '중분류를 선택하세요';
+                    cat2 = '';
+                    cat3 = '';
+                    cat3List = [];
+                  "
+                  >중분류를 선택하세요</a
+                >
+              </li>
               <li v-for="(cat, index) in cat2List" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     catText2 = cat.name;
                     cat2 = cat.code;
@@ -84,6 +129,17 @@
               {{ catText3 }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a
+                  class="dropdown-item custom-dropdown-item"
+                  href="#"
+                  @click="
+                    catText3 = '소분류를 선택하세요';
+                    cat3 = '';
+                  "
+                  >소분류를 선택하세요</a
+                >
+              </li>
               <li v-for="(cat, index) in cat3List" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
@@ -117,7 +173,7 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col" v-for="(item, index) in list" :key="index"><tour-card :item="item" /></div>
+          <div class="col" v-for="(item, index) in list" :key="index"><tour-card :item="item" :map="map" /></div>
         </div>
       </div>
     </div>
@@ -134,6 +190,10 @@
 <script>
 import http from "@/common/axios.js";
 import TourCard from "@/components/tourCard.vue";
+
+import Vue from "vue";
+import VueAlertify from "vue-alertify";
+Vue.use(VueAlertify);
 
 export default {
   name: "SearchTour",
@@ -162,7 +222,7 @@ export default {
       list: [],
 
       map: null,
-      temp: null,
+      temp: [],
       innerWidth: window.innerWidth,
       toggle_button: "<",
       toggle: false,
@@ -205,16 +265,24 @@ export default {
       this.map = new window.kakao.maps.Map(container, options);
     },
     displayMarker() {
+      if (!(this.temp === undefined)) {
+        for (var j = 0; j < this.temp.length; j++) {
+          this.temp[j].setMap(null);
+        }
+        this.temp = [];
+      }
       var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
       var imageSize = new window.kakao.maps.Size(24, 35);
       var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
       for (var i = 0; i < this.list.length; i++) {
-        this.temp = new window.kakao.maps.Marker({
-          map: this.map,
-          position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
-          title: this.list[i].title,
-          image: markerImage,
-        });
+        this.temp.push(
+          new window.kakao.maps.Marker({
+            map: this.map,
+            position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
+            title: this.list[i].title,
+            image: markerImage,
+          })
+        );
       }
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
     },
@@ -227,6 +295,7 @@ export default {
     },
     async getArea2List() {
       this.sigungu = "시군구를 선택하세요";
+      this.sigunguCode = "";
 
       let url = "/trip/areaCode";
       let urlParams = "?numOfRows=50" + "&pageNo=" + this.pageNo + "&areaCode=" + this.areaCode;
@@ -243,6 +312,9 @@ export default {
     },
 
     async getCat2List() {
+      this.catText2 = "중분류를 선택하세요";
+      this.cat2 = "";
+
       let url = "/trip/categoryCode";
       let urlParams = "?numOfRows=30" + "&pageNo=" + this.pageNo + "&cat1=" + this.cat1;
 
@@ -251,6 +323,9 @@ export default {
     },
 
     async getCat3List() {
+      this.catText3 = "소분류를 선택하세요";
+      this.cat3 = "";
+
       let url = "/trip/categoryCode";
       let urlParams = "?numOfRows=30" + "&pageNo=" + this.pageNo + "&cat1=" + this.cat1 + "&cat2=" + this.cat2;
 
@@ -276,10 +351,13 @@ export default {
         this.cat3;
 
       let { data } = await http.get(url + urlParams);
-      this.list = data.response.body.items.item;
+      if (data.response.body.totalCount > 0) {
+        this.list = data.response.body.items.item;
 
-      console.log(data.response.body.items.item);
-      this.displayMarker();
+        this.displayMarker();
+      } else {
+        this.$alertify.error("검색 결과 없음");
+      }
     },
     async keywordGetList() {
       let url = "/trip/keyword";
@@ -302,10 +380,13 @@ export default {
         this.keyword;
 
       let { data } = await http.get(url + urlParams);
-      this.list = data.response.body.items.item;
+      if (data.response.body.totalCount > 0) {
+        this.list = data.response.body.items.item;
 
-      console.log(data.response.body.items.item);
-      this.displayMarker();
+        this.displayMarker();
+      } else {
+        this.$alertify.error("검색 결과 없음");
+      }
     },
   },
 };
