@@ -15,7 +15,6 @@
           ref="menu"
           v-model="menu"
           :close-on-content-click="false"
-        
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -37,28 +36,27 @@
         </v-menu>
 
         <v-menu
-            ref="menu"
-            v-model="menu2"
-            :close-on-content-click="false"
-            
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="localEvent.end"
-                label="End Date"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker
+          ref="menu"
+          v-model="menu2"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
               v-model="localEvent.end"
-              @input="menu2 = false"
-            ></v-date-picker>
-          </v-menu>
+              label="End Date"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="localEvent.end"
+            @input="menu2 = false"
+          ></v-date-picker>
+        </v-menu>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -76,6 +74,8 @@
 </template>
 
 <script>
+import http from "@/common/axios.js";
+
 export default {
   props: {
     dialog: {
@@ -103,14 +103,41 @@ export default {
   },
   methods: {
     addEvent() {
+      this.scheduleInsert();
       this.$emit("save", this.localEvent);
     },
 
     set() {
-      console.log("날짜는 제대로 찝니? " + this.date);
-      //this.localEvent.start = this.date;
+      
       this.menu = false;
     },
+
+    async scheduleInsert() {
+      try{
+        let newSchedule = {
+        
+          scheduleName: this.localEvent.name,
+          scheduleStart: this.localEvent.start,
+          scheduleEnd: this.localEvent.end,
+        }
+
+        let { data } = await http.put(`/schedules/${this.$store.state.login.userEmail}`, newSchedule);
+
+        console.log("InsertModalVue: data : ");
+        console.log(data);
+        if (data.result == "login") {
+          this.doLogout();
+        } else {
+          this.$alertify.success("글이 등록되었습니다.");
+          this.closeModal();
+        }
+       } catch (error) {
+        console.log("InsertModalVue: error ");
+        console.log(error);
+       }
+    },       
+     
+
   },
 };
 </script>
