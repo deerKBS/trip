@@ -1,51 +1,61 @@
 <template>
   <v-app>
     <v-sheet height="64">
-        <v-toolbar flat>
-          <v-btn variant="outlined" class="me-4" color="grey-darken-2" @click="setToday"> Today </v-btn>
-          <v-btn fab variant="text" size="small" color="grey-darken-2" @click="prev">
-            <v-icon size="small"> mdi-chevron-left </v-icon>
-          </v-btn>
-          <v-btn fab variant="text" size="small" color="grey-darken-2" @click="next">
-            <v-icon size="small"> mdi-chevron-right </v-icon>
-          </v-btn>
-          <v-toolbar-title v-if="init">
-            {{ $refs.calendar.title }}
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <!-- <v-menu location="bottom end">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn variant="outlined" color="grey-darken-2" v-bind="attrs" v-on="on">
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon end> mdi-menu-down </v-icon>
-              </v-btn>
-            </template>
-        
-          </v-menu> -->
-        </v-toolbar>
-      </v-sheet>
+      <v-toolbar flat>
+        <v-btn
+          variant="outlined"
+          class="me-4"
+          color="grey-darken-2"
+          @click="setToday"
+        >
+          Today
+        </v-btn>
+        <v-btn
+          fab
+          variant="text"
+          size="small"
+          color="grey-darken-2"
+          @click="prev"
+        >
+          <v-icon size="small"> mdi-chevron-left </v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          variant="text"
+          size="small"
+          color="grey-darken-2"
+          @click="next"
+        >
+          <v-icon size="small"> mdi-chevron-right </v-icon>
+        </v-btn>
+        <v-toolbar-title v-if="init">
+          {{ $refs.calendar.title }}
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-toolbar>
+    </v-sheet>
 
     <v-calendar
       ref="calendar"
       v-model="selectedDate"
       color="primary"
-      :events="events" 
+      :events="events"
       @click:date="openDialog"
     />
     <!-- dialog 값이 변경되면 EventDialog 컴포넌트를 새로 생성합니다. -->
     <EventDialog
-      
-      v-if="dialog"  
+      v-if="dialog"
       :dialog.sync="dialog"
       :event="newEvent"
       @save="addEvent"
     />
-    
   </v-app>
 </template>
 
 <script>
-import EventDialog from '@/components/modals/EventDialog.vue';
+import EventDialog from "@/components/modals/EventDialog.vue";
+import http from "@/common/axios.js";
+
 
 export default {
   components: {
@@ -53,7 +63,6 @@ export default {
   },
 
   data: () => ({
-    
     selectedDate: null,
     dialog: false,
     newEvent: null,
@@ -67,6 +76,7 @@ export default {
       this.dialog = true;
     },
     addEvent(event) {
+      console.log("start넣는 형식 " + event.start);
       this.events.push(event);
       //this.newEvent = { name: "", start: "", end: "" };
       this.dialog = false;
@@ -80,9 +90,33 @@ export default {
     next() {
       this.$refs.calendar.next();
     },
+    async scheduleList() {
+      //이벤트에는 이름, 시작 날짜, 끝날짜, 색깔 timed: !allDay, 가 들어간다.
+
+      try {
+        let { data } = await http.post("/schedules/"+this.$store.state.login.userEmail ); // params: params shorthand property, let response 도 제거
+        console.log("Schedule: data : ");
+        console.log(data);
+        if (data.result == "login") {
+          this.$router.push("/login");
+        } else{this.events = data.list.map(item => ({
+            name: item.scheduleName,
+            start: item.scheduleStart,
+            end: item.scheduleEnd,
+          }));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
-  mounted(){ //제일 처음 랜더링 할때 날짜를 표기하기 위한  <v-toolbar-title v-if="init"> 코드 조금 불안하다.
+  created() {
+    
+    this.scheduleList();
+  },
+  mounted() {
+    //제일 처음 랜더링 할때 날짜를 표기하기 위한  <v-toolbar-title v-if="init"> 코드 조금 불안하다.
     this.init = true;
-  }
+  },
 };
 </script>
