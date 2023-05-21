@@ -132,7 +132,6 @@
               <li>
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     catText3 = '소분류를 선택하세요';
                     cat3 = '';
@@ -143,7 +142,6 @@
               <li v-for="(cat, index) in cat3List" v-bind:key="index">
                 <a
                   class="dropdown-item custom-dropdown-item"
-                  href="#"
                   @click="
                     catText3 = cat.name;
                     cat3 = cat.code;
@@ -171,13 +169,15 @@
           </div>
         </div>
       </div>
+      <!-- search result area start -->
       <div class="container">
         <div class="row">
           <div class="col" v-for="(item, index) in list" :key="index"><tour-card :item="item" :map="map" /></div>
         </div>
       </div>
+      <!-- search result area end -->
     </div>
-    <div :class="isToggleP" class="bg-sky-50" v-if="innerWidth > 1200">
+    <div :class="isToggleP" class="bg-sky-50" v-if="innerWidth > 1250">
       <div>
         <button class="toggle-button" @click="toggle = !toggle">
           {{ this.toggle_button }}
@@ -234,6 +234,13 @@ export default {
     },
     isToggleC() {
       return this.toggle ? "map-content-narrow" : "map-content-wide";
+    },
+  },
+  watch: {
+    innerWidth() {
+      if (this.innerWidth < 1250 && this.toggle) {
+        this.toggle = !this.toggle;
+      }
     },
   },
   mounted() {
