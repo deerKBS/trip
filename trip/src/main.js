@@ -15,12 +15,6 @@ Vue.use(Antd);
 // tailwind
 import "./index.css";
 
-// unicons
-import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
-import { uniLayerGroupMonochrome, uniCarWash } from "vue-unicons/dist/icons";
-Unicon.add([uniLayerGroupMonochrome, uniCarWash]);
-Vue.use(Unicon);
-
 // vuetify
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
