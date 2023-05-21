@@ -13,15 +13,7 @@
             {{ $refs.calendar.title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <!-- <v-menu location="bottom end">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn variant="outlined" color="grey-darken-2" v-bind="attrs" v-on="on">
-                <span>{{ typeToLabel[type] }}</span>
-                <v-icon end> mdi-menu-down </v-icon>
-              </v-btn>
-            </template>
-        
-          </v-menu> -->
+          
         </v-toolbar>
       </v-sheet>
 
@@ -80,6 +72,9 @@ export default {
     next() {
       this.$refs.calendar.next();
     },
+    scheduleList(){
+      //이벤트에는 이름, 시작 날짜, 끝날짜, 색깔 timed: !allDay, 가 들어간다. 
+    }
   },
   mounted(){ //제일 처음 랜더링 할때 날짜를 표기하기 위한  <v-toolbar-title v-if="init"> 코드 조금 불안하다.
     this.init = true;
