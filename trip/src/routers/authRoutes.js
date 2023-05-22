@@ -15,4 +15,9 @@ export default [
     name: "findPassword",
     component: () => import("@/view/authentication/FindPassword.vue"),
   },
+  {
+    path: "test",
+    name: "GoogleLogin",
+    component: () => import("@/view/authentication/GoogleLogin.vue"),
+  },
 ];
