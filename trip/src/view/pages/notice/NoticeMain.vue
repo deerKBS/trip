@@ -63,7 +63,7 @@ export default {
   components: { PaginationUI },
   data() {
     return {
-      groupCode: "002",
+      groupCode: "003",
       categoryName: "전체",
       codeList: [],
     };

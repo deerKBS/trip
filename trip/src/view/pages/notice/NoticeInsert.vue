@@ -62,7 +62,7 @@ export default {
       category: "",
       categoryName: "",
 
-      groupCode: "002",
+      groupCode: "003",
       codeList: [],
     };
   },

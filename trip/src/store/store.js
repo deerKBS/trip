@@ -10,9 +10,11 @@ import router from "@/routers/protectedRoute.js";
 import createPersistedState from "vuex-persistedstate";
 
 export default new Vuex.Store({
-  plugins: [createPersistedState({
-    paths: ['login']
-  })],
+  plugins: [
+    createPersistedState({
+      paths: ["login"],
+    }),
+  ],
   state: {
     // login, NavBar
     login: {
@@ -33,6 +35,8 @@ export default new Vuex.Store({
       limit: 10,
       offset: 0,
       searchWord: "",
+      category: "",
+      categoryName: "",
 
       // pagination
       listRowCount: 10,
@@ -95,10 +99,15 @@ export default new Vuex.Store({
       state.board.readCount = payload.readCount;
       state.board.fileList = payload.fileList;
       state.board.sameUser = payload.sameUser;
+      state.board.category = payload.category;
+      state.board.categoryName = payload.categoryName;
     },
     // for UpdateModal title v-modal
     SET_BOARD_TITLE(state, title) {
       state.board.title = title;
+    },
+    SET_CATEGORY(state, category) {
+      state.board.category = category;
     },
   },
   // for async method
@@ -108,6 +117,7 @@ export default new Vuex.Store({
         limit: this.state.board.limit,
         offset: this.state.board.offset,
         searchWord: this.state.board.searchWord,
+        category: this.state.board.category,
       };
 
       try {

@@ -67,7 +67,7 @@ export default {
       },
       fileList: [],
 
-      groupCode: "002",
+      groupCode: "003",
       codeList: [],
     };
   },

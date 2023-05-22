@@ -17,7 +17,22 @@ export default [
   {
     path: "notice",
     name: "notice",
-    component: () => import("@/view/pages/NoticePage.vue"),
+    component: () => import("@/view/pages/notice/NoticeMain.vue"),
+  },
+  {
+    path: "notice/detail/:boardId",
+    name: "noticeDetail",
+    component: () => import("@/view/pages/notice/NoticeDetail.vue"),
+  },
+  {
+    path: "notice/insert",
+    name: "noticeInsert",
+    component: () => import("@/view/pages/notice/NoticeInsert.vue"),
+  },
+  {
+    path: "notice/update/:boardId",
+    name: "noticeUpdate",
+    component: () => import("@/view/pages/notice/NoticeUpdate.vue"),
   },
   {
     path: "board",
@@ -27,17 +42,17 @@ export default [
   {
     path: "board/detail/:boardId",
     name: "boardDetail",
-    component:()=>import("@/view/pages/board/BoardDetail.vue"),
+    component: () => import("@/view/pages/board/BoardDetail.vue"),
   },
   {
     path: "board/insert",
     name: "boardInsert",
-    component:()=>import("@/view/pages/board/BoardInsert.vue"),
+    component: () => import("@/view/pages/board/BoardInsert.vue"),
   },
   {
     path: "board/update/:boardId",
     name: "boardUpdate",
-    component:()=>import("@/view/pages/board/BoardUpdate.vue"),
+    component: () => import("@/view/pages/board/BoardUpdate.vue"),
   },
   {
     path: "planBoard",
@@ -75,5 +90,4 @@ export default [
     name: "userProfile",
     component: () => import("@/view/pages/UserProfile.vue"),
   },
-  
 ];
