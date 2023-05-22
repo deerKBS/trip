@@ -117,6 +117,7 @@ export default {
         } else {
           this.scheduleList();
         }
+        this.selectedOpen = false;
       } catch (error) {
         console.error(error);
       }
@@ -140,12 +141,16 @@ export default {
       nativeEvent.stopPropagation();
     },
   },
+
   created() {
     this.scheduleList();
   },
   mounted() {
     //제일 처음 랜더링 할때 날짜를 표기하기 위한  <v-toolbar-title v-if="init"> 코드 조금 불안하다.
     this.init = true;
+  },
+  updated() {
+    this.scheduleList();
   },
 };
 </script>
