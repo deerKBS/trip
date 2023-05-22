@@ -1,32 +1,12 @@
 <template>
-  <v-dialog
-    :value="dialog"
-    @input="$emit('update:dialog', $event)"
-    max-width="500px"
-  >
+  <v-dialog :value="dialog" @input="$emit('update:dialog', $event)" max-width="500px">
     <v-card>
       <v-card-title class="text-h5"> Add Event </v-card-title>
       <v-card-text>
-        <v-text-field
-          label="Event Name"
-          v-model="localEvent.name"
-        ></v-text-field>
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
+        <v-text-field label="Event Name" v-model="localEvent.name"></v-text-field>
+        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
           <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="localEvent.start"
-              label="Start Date"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-            ></v-text-field>
+            <v-text-field v-model="localEvent.start" label="Start Date" readonly v-bind="attrs" v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="localEvent.start" scrollable>
             <v-spacer></v-spacer>
@@ -35,38 +15,16 @@
           </v-date-picker>
         </v-menu>
 
-        <v-menu
-          ref="menu"
-          v-model="menu2"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
+        <v-menu ref="menu" v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
           <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="localEvent.end"
-              label="End Date"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-            ></v-text-field>
+            <v-text-field v-model="localEvent.end" label="End Date" readonly v-bind="attrs" v-on="on"></v-text-field>
           </template>
-          <v-date-picker
-            v-model="localEvent.end"
-            @input="menu2 = false"
-          ></v-date-picker>
+          <v-date-picker v-model="localEvent.end" @input="menu2 = false"></v-date-picker>
         </v-menu>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="$emit('update:dialog', false)"
-        >
-          Cancel
-        </v-btn>
+        <v-btn color="blue darken-1" text @click="$emit('update:dialog', false)"> Cancel </v-btn>
         <v-btn color="blue darken-1" text @click="addEvent"> Save </v-btn>
       </v-card-actions>
     </v-card>
@@ -108,18 +66,16 @@ export default {
     },
 
     set() {
-      
       this.menu = false;
     },
 
     async scheduleInsert() {
-      try{
+      try {
         let newSchedule = {
-        
           scheduleName: this.localEvent.name,
           scheduleStart: this.localEvent.start,
           scheduleEnd: this.localEvent.end,
-        }
+        };
 
         let { data } = await http.put(`/schedules/${this.$store.state.login.userEmail}`, newSchedule);
 
@@ -128,16 +84,14 @@ export default {
         if (data.result == "login") {
           this.doLogout();
         } else {
-          this.$alertify.success("글이 등록되었습니다.");
+          this.$alertify.success("일정이 등록되었습니다.");
           this.closeModal();
         }
-       } catch (error) {
+      } catch (error) {
         console.log("InsertModalVue: error ");
         console.log(error);
-       }
-    },       
-     
-
+      }
+    },
   },
 };
 </script>
