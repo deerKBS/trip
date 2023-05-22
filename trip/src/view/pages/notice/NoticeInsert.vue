@@ -39,7 +39,7 @@
           <img v-for="(file, index) in fileList" v-bind:key="index" v-bind:src="file" />
         </div>
       </div>
-      <button @click="boardInsert" id="btnBoardInsert" class="btn btn-sm btn-primary btn-outline float-end" type="button">등록</button>
+      <button @click="noticeInsert" id="btnNoticeInsert" class="btn btn-sm btn-primary btn-outline float-end" type="button">등록</button>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ export default {
       category: "",
       categoryName: "",
 
-      groupCode: "002",
+      groupCode: "003",
       codeList: [],
     };
   },
@@ -100,7 +100,7 @@ export default {
         this.fileList.push(URL.createObjectURL(file));
       });
     },
-    async boardInsert() {
+    async noticeInsert() {
       // file upload -> encoding Type : mutipart/form-data
       let formData = new FormData();
       formData.append("title", this.title);
@@ -115,7 +115,7 @@ export default {
       let options = {
         headers: { "Content-Type": "mutipart/form-data" },
       };
-      let response = await http.post("/boards", formData, options);
+      let response = await http.post("/notices", formData, options);
       let { data } = response;
 
       console.log(data);
@@ -124,7 +124,7 @@ export default {
         this.$router.push("/login");
       } else {
         this.$alertify.success("글이 등록되었습니다.");
-        this.$router.push("/board");
+        this.$router.push("/notice");
       }
     },
   },

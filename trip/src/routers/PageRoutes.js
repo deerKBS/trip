@@ -17,7 +17,22 @@ export default [
   {
     path: "notice",
     name: "notice",
-    component: () => import("@/view/pages/NoticePage.vue"),
+    component: () => import("@/view/pages/notice/NoticeMain.vue"),
+  },
+  {
+    path: "notice/detail/:noticeId",
+    name: "noticeDetail",
+    component: () => import("@/view/pages/notice/NoticeDetail.vue"),
+  },
+  {
+    path: "notice/insert",
+    name: "noticeInsert",
+    component: () => import("@/view/pages/notice/NoticeInsert.vue"),
+  },
+  {
+    path: "notice/update/:noticeId",
+    name: "noticeUpdate",
+    component: () => import("@/view/pages/notice/NoticeUpdate.vue"),
   },
   {
     path: "board",

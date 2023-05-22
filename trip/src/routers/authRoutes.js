@@ -16,8 +16,8 @@ export default [
     component: () => import("@/view/authentication/FindPassword.vue"),
   },
   {
-    path: "social",
-    name: "social",
-    component: () => import("@/view/authentication/SocialLogin.vue"),
+    path: "test",
+    name: "GoogleLogin",
+    component: () => import("@/view/authentication/GoogleLogin.vue"),
   },
 ];
