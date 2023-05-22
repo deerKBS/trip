@@ -155,7 +155,12 @@ export default {
       let patternNumAtListOne = new RegExp(/[0-9]+/); // + for at least one
 
       this.isUserPasswordValid =
-        patternEngAtListOne.test(this.userPassword) && patternSpeAtListOne.test(this.userPassword) && patternNumAtListOne.test(this.userPassword) && this.userPassword.length >= 8 ? true : false;
+        patternEngAtListOne.test(this.userPassword) &&
+        patternSpeAtListOne.test(this.userPassword) &&
+        patternNumAtListOne.test(this.userPassword) &&
+        this.userPassword.length >= 8
+          ? true
+          : false;
     },
     validatePassword2() {
       this.isUserPassword2Valid = this.userPassword == this.userPassword2 ? true : false;
@@ -170,7 +175,7 @@ export default {
         userClsf: this.userClsf,
       };
       try {
-        let { data } = await http.post("/register", registerObj); // JSON Request, { params : registerObj } X params 를 쓰면 get => query string
+        let { data } = await http.post("/users", registerObj); // JSON Request, { params : registerObj } X params 를 쓰면 get => query string
         console.log("RegisterVue: data : ");
         console.log(data.result);
 

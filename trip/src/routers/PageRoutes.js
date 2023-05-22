@@ -27,17 +27,17 @@ export default [
   {
     path: "board/detail/:boardId",
     name: "boardDetail",
-    component:()=>import("@/view/pages/board/BoardDetail.vue"),
+    component: () => import("@/view/pages/board/BoardDetail.vue"),
   },
   {
     path: "board/insert",
     name: "boardInsert",
-    component:()=>import("@/view/pages/board/BoardInsert.vue"),
+    component: () => import("@/view/pages/board/BoardInsert.vue"),
   },
   {
     path: "board/update/:boardId",
     name: "boardUpdate",
-    component:()=>import("@/view/pages/board/BoardUpdate.vue"),
+    component: () => import("@/view/pages/board/BoardUpdate.vue"),
   },
   {
     path: "planBoard",
@@ -49,11 +49,7 @@ export default [
     name: "calendar",
     component: () => import("@/view/pages/CalendarPage.vue"),
   },
-  {
-    path: "plan/calendar2",
-    name: "calendar2",
-    component: () => import("@/view/pages/CalendarPage2.vue"),
-  },
+
   {
     path: "plan/tour",
     name: "myPlans",
@@ -75,5 +71,4 @@ export default [
     name: "userProfile",
     component: () => import("@/view/pages/UserProfile.vue"),
   },
-  
 ];
