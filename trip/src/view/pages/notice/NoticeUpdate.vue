@@ -2,14 +2,14 @@
   <div>
     <h4>글수정</h4>
     <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ board.categoryName }}</button>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ notice.categoryName }}</button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li v-for="(code, index) in codeList" :key="index">
           <a
             class="dropdown-item"
             @click="
-              board.categoryName = code.codeName;
-              board.category = code.code;
+              notice.categoryName = code.codeName;
+              notice.category = code.code;
             "
             >{{ code.codeName }}</a
           >
@@ -17,7 +17,7 @@
       </ul>
     </div>
     <div>
-      <div class="mb-3"><label for="titleUpdate" class="form-label">제목</label> <input type="text" class="form-control" id="titleUpdate" v-model="board.title" /></div>
+      <div class="mb-3"><label for="titleUpdate" class="form-label">제목</label> <input type="text" class="form-control" id="titleUpdate" v-model="notice.title" /></div>
       <div class="mb-3">
         <!-- New for FileUpload, CKEditor -->
         <div id="divEditorUpdate"></div>
@@ -25,8 +25,8 @@
       </div>
       <div class="mb-3">
         첨부파일 :
-        <!-- props board 에서 이전 첨부된 file list -->
-        <span v-for="(file, index) in board.fileList" :key="index"> {{ file.fileName }} </span>
+        <!-- props notice 에서 이전 첨부된 file list -->
+        <span v-for="(file, index) in notice.fileList" :key="index"> {{ file.fileName }} </span>
       </div>
       <div class="mb-3">
         <div class="form-check">
@@ -39,7 +39,7 @@
           <img v-for="(file, index) in fileList" v-bind:key="index" v-bind:src="file" />
         </div>
       </div>
-      <button @click="boardUpdate" class="btn btn-sm btn-primary btn-outline float-end" type="button">수정</button>
+      <button @click="noticeUpdate" class="btn btn-sm btn-primary btn-outline float-end" type="button">수정</button>
     </div>
   </div>
 </template>
@@ -57,8 +57,8 @@ export default {
     return {
       CKEditor: "",
       attatchFile: false,
-      board: {
-        boardId: "",
+      notice: {
+        noticeId: "",
         title: "",
         content: "",
         fileList: [],
@@ -79,13 +79,13 @@ export default {
         this.fileList.push(URL.createObjectURL(file));
       });
     },
-    async boardUpdate() {
+    async noticeUpdate() {
       // file upload -> encoding Type : mutipart/form-data
       let formData = new FormData();
-      formData.append("boardId", this.board.boardId);
-      formData.append("title", this.board.title);
+      formData.append("noticeId", this.notice.noticeId);
+      formData.append("title", this.notice.title);
       formData.append("content", this.CKEditor.getData());
-      formData.append("category", this.board.category);
+      formData.append("category", this.notice.category);
 
       let files = document.querySelector("#inputFileUploadUpdate").files;
 
@@ -95,38 +95,38 @@ export default {
       let options = {
         headers: { "Content-Type": "mutipart/form-data" },
       };
-      let response = await http.post("/boards/" + this.board.boardId, formData, options);
+      let response = await http.post("/notices/" + this.notice.noticeId, formData, options);
       let { data } = response;
 
       if (data.result == "login") {
         this.$router.push("/login");
       } else {
         this.$alertify.success("글이 수정되었습니다.");
-        this.$router.push("/board/detail/" + this.$route.params.boardId);
+        this.$router.push("/notice/detail/" + this.$route.params.noticeId);
       }
     },
-    async boardDetail(boardId) {
-      let response = await http.get("/boards/" + boardId);
+    async noticeDetail(noticeId) {
+      let response = await http.get("/notices/" + noticeId);
       let { data } = response;
       console.log(data);
 
       if (data.result == "login") {
         this.$router.push("/login");
       } else {
-        let boardNew = {
+        let noticeNew = {
           ...data.dto,
         };
-        this.board = boardNew;
-        this.CKEditor.setData(this.board.content);
-        if (!(boardNew.fileList === undefined)) {
+        this.notice = noticeNew;
+        this.CKEditor.setData(this.notice.content);
+        if (!(noticeNew.fileList === undefined)) {
           this.attatchFile = true;
         }
       }
     },
   },
   async created() {
-    console.log(this.$route.params.boardId);
-    this.boardDetail(this.$route.params.boardId);
+    console.log(this.$route.params.noticeId);
+    this.noticeDetail(this.$route.params.noticeId);
 
     let params = {
       groupCode: this.groupCode,

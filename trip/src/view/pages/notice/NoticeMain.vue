@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4 class="text-center">게시판 - Main</h4>
+    <h1 class="text-center">공지사항</h1>
 
     <div class="input-group mb-3">
       <div class="dropdown">
@@ -10,7 +10,7 @@
             <a
               class="dropdown-item"
               @click="
-                $store.commit('SET_CATEGORY', code.code);
+                $store.commit('SET_NOTICE_CATEGORY', code.code);
                 categoryName = code.codeName;
               "
               >{{ code.codeName }}</a
@@ -18,9 +18,9 @@
           </li>
         </ul>
       </div>
-      <input v-model="$store.state.board.searchWord" @keydown.enter="boardList" type="text" class="form-control" />
+      <input v-model="$store.state.notice.searchWord" @keydown.enter="noticeList" type="text" class="form-control" />
 
-      <button @click="boardList" class="btn btn-success" type="button">Search</button>
+      <button @click="noticeList" class="btn btn-success" type="button">Search</button>
     </div>
 
     <table class="table table-hover">
@@ -35,20 +35,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="index">
-          <td>{{ board.boardId }}</td>
-          <td>{{ board.categoryName }}</td>
-          <td>{{ board.title }}</td>
-          <td>{{ board.userName }}</td>
-          <td>{{ board.regDt.date | makeDateStr(".") }}</td>
-          <td>{{ board.readCount }}</td>
+        <tr style="cursor: pointer" v-for="(notice, index) in listGetters" @click="noticeDetail(notice.noticeId)" v-bind:key="index">
+          <td>{{ notice.noticeId }}</td>
+          <td>{{ notice.categoryName }}</td>
+          <td>{{ notice.title }}</td>
+          <td>{{ notice.userName }}</td>
+          <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
+          <td>{{ notice.readCount }}</td>
         </tr>
       </tbody>
     </table>
 
-    <PaginationUI v-on:call-parent="movePage" :page="`board`"></PaginationUI>
+    <PaginationUI v-on:call-parent="movePage" :page="`notice`"></PaginationUI>
 
-    <button class="btn btn-sm btn-primary" @click="insertBoard()">글쓰기</button>
+    <button class="btn btn-sm btn-primary" @click="insertNotice()">글쓰기</button>
   </div>
 </template>
 
@@ -59,7 +59,7 @@ import http from "@/common/axios.js";
 import PaginationUI from "@/components/PaginationUI.vue";
 
 export default {
-  name: "BoardMain",
+  name: "NoticeMain",
   components: { PaginationUI },
   data() {
     return {
@@ -70,37 +70,39 @@ export default {
   },
   computed: {
     listGetters() {
-      return this.$store.getters.getBoardList;
+      return this.$store.getters.getNoticeList;
     },
   },
   methods: {
-    boardList() {
-      this.$store.dispatch("boardList");
+    noticeList() {
+      this.$store.dispatch("noticeList");
     },
 
     // pagination
     movePage(pageIndex) {
-      console.log("BoardMainVue : movePage : pageIndex : " + pageIndex);
+      console.log("NoticeMainVue : movePage : pageIndex : " + pageIndex);
 
       this.$store.commit("SET_BOARD_MOVE_PAGE", pageIndex);
 
-      this.boardList();
+      this.noticeList();
     },
 
-    insertBoard() {
-      this.$router.push("board/insert");
+    insertNotice() {
+      this.$router.push("/notice/insert");
     },
 
     // util
     makeDateStr: util.makeDateStr,
 
     // detail
-    async boardDetail(boardId) {
-      this.$router.push("board/detail/" + boardId);
+    noticeDetail(noticeId) {
+      this.$router.push("/notice/detail/" + noticeId);
     },
   },
   async created() {
-    this.boardList(); // 초기 조건없이 리스트 받아오기
+    this.$store.commit("SET_NOTICE_CATEGORY", ""); // 카테고리 초기화
+    this.movePage(1);
+    this.noticeList(); // 초기 조건없이 리스트 받아오기
 
     // 카테고리 코드, 카테고리명 조회
     let params = {

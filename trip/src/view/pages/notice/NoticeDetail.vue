@@ -5,39 +5,39 @@
       <tbody>
         <tr>
           <td>글번호</td>
-          <td>{{ board.boardId }}</td>
+          <td>{{ notice.noticeId }}</td>
         </tr>
         <tr>
           <td>분류</td>
-          <td>{{ board.categoryName }}</td>
+          <td>{{ notice.categoryName }}</td>
         </tr>
         <tr>
           <td>제목</td>
-          <td>{{ board.title }}</td>
+          <td>{{ notice.title }}</td>
         </tr>
         <tr>
           <td>내용</td>
-          <td v-html="board.content"></td>
+          <td v-html="notice.content"></td>
         </tr>
         <tr>
           <td>작성자</td>
-          <td>{{ board.userName }}</td>
+          <td>{{ notice.userName }}</td>
         </tr>
         <tr>
           <td>작성일시</td>
-          <td>{{ board.regDate }} {{ board.regTime }}</td>
+          <td>{{ notice.regDate }} {{ notice.regTime }}</td>
         </tr>
         <tr>
           <td>조회수</td>
-          <td>{{ board.readCount }}</td>
+          <td>{{ notice.readCount }}</td>
         </tr>
         <tr>
           <td colspan="2">첨부파일</td>
         </tr>
-        <tr v-if="board.fileList.length > 0">
+        <tr v-if="notice.fileList.length > 0">
           <td colspan="2">
             <!-- 반복 -->
-            <div v-for="(file, index) in board.fileList" :key="index">
+            <div v-for="(file, index) in notice.fileList" :key="index">
               <span class="fileName">{{ file.fileName }}</span>
               &nbsp;&nbsp;
               <a type="button" class="btn btn-outline btn-default btn-xs" v-bind:href="file.fileUrl" v-bind:download="file.fileName">내려받기</a>
@@ -46,8 +46,8 @@
         </tr>
       </tbody>
     </table>
-    <button v-show="board.sameUser" @click="changeToUpdate" class="btn btn-sm btn-primary btn-outline" type="button">글 수정하기</button>
-    <button v-show="board.sameUser" @click="changeToDelete" class="btn btn-sm btn-warning btn-outline" type="button">글 삭제하기</button>
+    <button v-show="notice.sameUser" @click="changeToUpdate" class="btn btn-sm btn-primary btn-outline" type="button">글 수정하기</button>
+    <button v-show="notice.sameUser" @click="changeToDelete" class="btn btn-sm btn-warning btn-outline" type="button">글 삭제하기</button>
   </div>
 </template>
 
@@ -63,8 +63,8 @@ Vue.use(VueAlertify);
 export default {
   data() {
     return {
-      board: {
-        boardId: 0,
+      notice: {
+        noticeId: 0,
         title: "",
         content: "",
         userName: "",
@@ -79,15 +79,15 @@ export default {
     };
   },
   async created() {
-    this.boardDetail(this.$route.params.boardId);
+    this.noticeDetail(this.$route.params.noticeId);
   },
   methods: {
     // util
     makeDateStr: util.makeDateStr,
 
     // detail
-    async boardDetail(boardId) {
-      let response = await http.get("/boards/" + boardId);
+    async noticeDetail(noticeId) {
+      let response = await http.get("/notices/" + noticeId);
       let { data } = response;
       console.log(data);
 
@@ -95,17 +95,17 @@ export default {
         this.$router.push("/login");
       } else {
         let { regDt } = data.dto;
-        let boardNew = {
+        let noticeNew = {
           regDate: util.makeDateStr(regDt.date.year, regDt.date.month, regDt.date.day, "."),
           regTime: util.makeTimeStr(regDt.time.hour, regDt.time.minute, regDt.time.second, ":"),
           ...data.dto,
         };
-        this.board = boardNew;
+        this.notice = noticeNew;
       }
     },
     changeToUpdate() {
       this.$router.push({
-        path: "/board/update/" + this.$route.params.boardId,
+        path: "/notice/update/" + this.$route.params.noticeId,
       });
     },
     changeToDelete() {
@@ -113,16 +113,16 @@ export default {
       this.$alertify.confirm(
         "이 글을 삭제하시겠습니까?",
         function () {
-          $this.boardDelete(); // $this 사용
+          $this.noticeDelete(); // $this 사용
         },
         function () {
           console.log("cancel");
         }
       );
     },
-    async boardDelete() {
+    async noticeDelete() {
       try {
-        let response = await http.delete("/boards/" + this.board.boardId);
+        let response = await http.delete("/notices/" + this.notice.noticeId);
         let data = response;
         console.log(data);
 
@@ -130,7 +130,7 @@ export default {
           this.$router.href = "/login";
         } else {
           this.$alertify.success("글이 삭제되었습니다.");
-          this.$router.push("/board");
+          this.$router.push("/notice");
         }
       } catch (error) {
         console.error(error);

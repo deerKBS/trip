@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4 class="text-center">게시판 - Main</h4>
+    <h1 class="text-center">게시판</h1>
 
     <div class="input-group mb-3">
       <div class="dropdown">
@@ -10,7 +10,7 @@
             <a
               class="dropdown-item"
               @click="
-                $store.commit('SET_CATEGORY', code.code);
+                $store.commit('SET_BOARD_CATEGORY', code.code);
                 categoryName = code.codeName;
               "
               >{{ code.codeName }}</a
@@ -35,7 +35,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="index">
+        <tr style="cursor: pointer" v-for="(notice, index) in noticeListGetters" @click="noticeDetail(notice.noticeId)" v-bind:key="index" class="bg-red-300">
+          <td>{{ notice.noticeId }}</td>
+          <td>{{ notice.categoryName }}</td>
+          <td>{{ notice.title }}</td>
+          <td>{{ notice.userName }}</td>
+          <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
+          <td>{{ notice.readCount }}</td>
+        </tr>
+        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="index + 3">
           <td>{{ board.boardId }}</td>
           <td>{{ board.categoryName }}</td>
           <td>{{ board.title }}</td>
@@ -72,8 +80,14 @@ export default {
     listGetters() {
       return this.$store.getters.getBoardList;
     },
+    noticeListGetters() {
+      return this.$store.getters.getNoticeList;
+    },
   },
   methods: {
+    preNoticeList() {
+      this.$store.dispatch("preNoticeList");
+    },
     boardList() {
       this.$store.dispatch("boardList");
     },
@@ -88,18 +102,24 @@ export default {
     },
 
     insertBoard() {
-      this.$router.push("board/insert");
+      this.$router.push("/board/insert");
     },
 
     // util
     makeDateStr: util.makeDateStr,
 
     // detail
-    async boardDetail(boardId) {
-      this.$router.push("board/detail/" + boardId);
+    boardDetail(boardId) {
+      this.$router.push("/board/detail/" + boardId);
+    },
+    noticeDetail(noticeId) {
+      this.$router.push("/notice/detail/" + noticeId);
     },
   },
   async created() {
+    this.$store.commit("SET_BOARD_CATEGORY", ""); // 카테고리 초기화
+    this.movePage(1);
+    this.preNoticeList();
     this.boardList(); // 초기 조건없이 리스트 받아오기
 
     // 카테고리 코드, 카테고리명 조회

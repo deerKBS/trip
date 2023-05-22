@@ -31,19 +31,24 @@ export default {
   },
   computed: {
     pageCount: function () {
-      return this.$store.getters.getPageCount;
+      if (this.page === "board") return this.$store.getters.getPageCount;
+      return this.$store.getters.getNoticePageCount;
     },
     startPageIndex: function () {
-      return this.$store.getters.getStartPageIndex;
+      if (this.page === "board") return this.$store.getters.getStartPageIndex;
+      return this.$store.getters.getNoticeStartPageIndex;
     },
     endPageIndex: function () {
-      return this.$store.getters.getEndPageIndex;
+      if (this.page === "board") return this.$store.getters.getEndPageIndex;
+      return this.$store.getters.getNoticeEndPageIndex;
     },
     prev: function () {
-      return this.$store.getters.getPrev;
+      if (this.page === "board") return this.$store.getters.getPrev;
+      return this.$store.getters.getNoticePrev;
     },
     next: function () {
-      return this.$store.getters.getNext;
+      if (this.page === "board") return this.$store.getters.getNext;
+      return this.$store.getters.getNoticeNext;
     },
   },
   methods: {

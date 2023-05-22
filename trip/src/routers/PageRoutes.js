@@ -20,7 +20,7 @@ export default [
     component: () => import("@/view/pages/notice/NoticeMain.vue"),
   },
   {
-    path: "notice/detail/:boardId",
+    path: "notice/detail/:noticeId",
     name: "noticeDetail",
     component: () => import("@/view/pages/notice/NoticeDetail.vue"),
   },
@@ -30,7 +30,7 @@ export default [
     component: () => import("@/view/pages/notice/NoticeInsert.vue"),
   },
   {
-    path: "notice/update/:boardId",
+    path: "notice/update/:noticeId",
     name: "noticeUpdate",
     component: () => import("@/view/pages/notice/NoticeUpdate.vue"),
   },
