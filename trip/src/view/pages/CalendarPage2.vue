@@ -49,6 +49,7 @@
           :type="type"
           @click:date="openAddEventModal"
         ></v-calendar>
+
         <add-event-modal :show="showAddEventModal" :selected-date="selectedDate" @close="closeAddEventModal" @add="addEvent"></add-event-modal>
       </v-sheet>
     </v-col>
