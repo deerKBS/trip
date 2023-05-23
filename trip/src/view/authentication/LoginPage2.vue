@@ -48,6 +48,8 @@ export default {
       if (this.isLogin) {
         await this.getUserInfo(token);
         console.log("4. confirm() userInfo :: ", this.userInfo);
+        
+
         this.$router.push({ name: "main" });
       }
     },
