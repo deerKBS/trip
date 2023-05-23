@@ -76,6 +76,7 @@ export default {
       this.events.push(event);
       //this.newEvent = { name: "", start: "", end: "" };
       this.dialog = false;
+      this.scheduleList();
     },
     setToday() {
       this.selectedDate = "";
@@ -90,7 +91,7 @@ export default {
       //이벤트에는 이름, 시작 날짜, 끝날짜, 색깔 timed: !allDay, 가 들어간다.
 
       try {
-        let { data } = await http.post("/schedules/" + this.$store.state.login.userEmail); // params: params shorthand property, let response 도 제거
+        let { data } = await http.post("/schedules/" + this.$store.state.memberStore.userInfo.userEmail); // params: params shorthand property, let response 도 제거
         console.log("Schedule: data : ");
         console.log(data);
         if (data.result == "login") {
@@ -149,8 +150,8 @@ export default {
     //제일 처음 랜더링 할때 날짜를 표기하기 위한  <v-toolbar-title v-if="init"> 코드 조금 불안하다.
     this.init = true;
   },
-  updated() {
-    this.scheduleList();
-  },
+  // updated() {
+  //   this.scheduleList();
+  // },
 };
 </script>
