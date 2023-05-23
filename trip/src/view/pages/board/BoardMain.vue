@@ -43,7 +43,7 @@
           <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
           <td>{{ notice.readCount }}</td>
         </tr>
-        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="index + 3">
+        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="'board-' + index">
           <td>{{ board.boardId }}</td>
           <td>{{ board.categoryName }}</td>
           <td>{{ board.title }}</td>

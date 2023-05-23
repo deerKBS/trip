@@ -55,12 +55,12 @@
       <button @click="commentInsert" class="btn btn-sm btn-primary btn-outline float-end" type="button">등록</button>
     </div>
     <h1>댓글</h1>
-    <table>
+    <table class="table">
       <tbody>
         <tr v-for="(comment, index) in list" :key="index">
           <td>{{ comment.userName }}</td>
           <td>{{ comment.content }}</td>
-          <td>{{ comment.regDt }}</td>
+          <td>{{ comment.regDt | makeComentRegDt }}</td>
           <td v-if="comment.sameUser"><button @click="commentDelete(comment.commentId)" class="btn btn-sm btn-primary btn-outline float-end" type="button">삭제</button></td>
         </tr>
       </tbody>
@@ -176,6 +176,7 @@ export default {
         console.log(data.result);
 
         this.getCommentList();
+        this.content = "";
         this.$alertify.success("댓글이 등록되었습니다.");
       } catch (error) {
         console.log("CommentInsert error");
@@ -203,6 +204,23 @@ export default {
   filters: {
     makeDateStr(date, separator) {
       return date.year + separator + (date.month < 10 ? "0" + date.month : date.month) + separator + (date.day < 10 ? "0" + date.day : date.day);
+    },
+    makeComentRegDt(dateTime) {
+      let date = dateTime.date;
+      let time = dateTime.time;
+
+      let now = new Date();
+      if (date.year == now.getFullYear() && date.month == now.getMonth() + 1 && date.day == now.getDate()) {
+        let t = parseInt(now.getHours()) - parseInt(time.hour);
+        let m = parseInt(now.getMinutes()) - parseInt(time.minute);
+        if (m < 0) {
+          t = t - 1;
+          m = m + 60;
+        }
+        return t + "시간 " + m + "분 전";
+      } else {
+        return date.year + "." + date.month + "." + date.day;
+      }
     },
   },
 };
