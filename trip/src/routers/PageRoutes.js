@@ -13,6 +13,7 @@ const onlyAuthUser = async (to, from, next) => {
     await store.dispatch("memberStore/getUserInfo", token);
   }
   if (!checkToken || checkUserInfo === null) {
+    console.log("로그인이 필요한 페이지입니다.");
     alert("로그인이 필요한 페이지입니다..");
     next({ name: "login" });
     //router.push({ name: "main" });
@@ -62,7 +63,7 @@ export default [
   {
     path: "board",
     name: "board",
-    beforeEnter: onlyAuthUser,
+    //beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/board/BoardMain.vue"),
   },
   {
