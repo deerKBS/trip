@@ -175,6 +175,7 @@ export default {
         userClsf: this.userClsf,
       };
       try {
+        console.log(registerObj);
         let { data } = await http.post("/users", registerObj); // JSON Request, { params : registerObj } X params 를 쓰면 get => query string
         console.log("RegisterVue: data : ");
         console.log(data.result);

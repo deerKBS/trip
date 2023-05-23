@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import router from "@/router";
+//import router from "@/router";
 import { login, findById, tokenRegeneration, logout } from "@/api/member";
 
 const memberStore = {
@@ -60,9 +60,9 @@ const memberStore = {
     },
     async getUserInfo({ commit, dispatch }, token) {
       let decodeToken = jwtDecode(token);
-      // console.log("2. getUserInfo() decodeToken :: ", decodeToken);
+      console.log("2. getUserInfo() decodeToken :: ", decodeToken);
       await findById(
-        decodeToken.userid,
+        decodeToken.userEmail,
         ({ data }) => {
           if (data.message === "success") {
             commit("SET_USER_INFO", data.userInfo);
@@ -96,7 +96,7 @@ const memberStore = {
             console.log("갱신 실패");
             // 다시 로그인 전 DB에 저장된 RefreshToken 제거.
             await logout(
-              state.userInfo.userid,
+              state.userInfo.userEmail,
               ({ data }) => {
                 if (data.message === "success") {
                   console.log("리프레시 토큰 제거 성공");
@@ -107,7 +107,7 @@ const memberStore = {
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_IS_VALID_TOKEN", false);
-                router.push({ name: "login" });
+                this.$router.push({ name: "login" });
               },
               (error) => {
                 console.log(error);
@@ -119,9 +119,9 @@ const memberStore = {
         }
       );
     },
-    async userLogout({ commit }, userid) {
+    async userLogout({ commit }, userEmail) {
       await logout(
-        userid,
+        userEmail,
         ({ data }) => {
           if (data.message === "success") {
             commit("SET_IS_LOGIN", false);
