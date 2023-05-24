@@ -2,7 +2,7 @@
   <div style="padding-top: 25px; padding-left: 20px; margin-right: 10px; min-width: 1000px; width: 100%">
     <div class="bg-sky-50 shadow-lg" :class="isToggleC">
       <div class="row">
-        <div class="col-md-auto" style="margin-top: 100px">
+        <div class="col-md-auto" style="margin-top: 50px">
           <!-- buttons -->
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,10 +96,6 @@
           <div>
             <button type="button" class="btn custom-btn" @click="keyword === '' ? getList() : keywordGetList()">검 색</button>
           </div>
-          <div class="form-check form-switch d-flex align-items-center justify-content-end" style="margin-top: 40px">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" @click="setMapType()" style="font-size: 20px; margin-right: 5px" />
-            <label class="form-check-label" for="flexSwitchCheckChecked" style="font-size: 15px; margin-top: 3px">스카이뷰</label>
-          </div>
         </div>
         <!-- buttons end -->
         <div class="col">
@@ -121,13 +117,23 @@
       <!-- search result area end -->
     </div>
 
-    <div :class="isToggleP" class="bg-sky-50" v-if="innerWidth > 1250">
-      <div>
-        <button class="toggle-button" @click="toggle = !toggle">
-          {{ this.toggle_button }}
-        </button>
+     <!-- 사이드 바 -->
+    <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
+      <div class="container" v-show="toggle">
+        <!-- 섹션 1 컴포넌트 인스턴스 -->
+        <SectionComponent1 :section="sections[0]" @add-item="addItem" />
+        <!-- 섹션 2 컴포넌트 인스턴스 -->
+        <SectionComponent2 :section="sections[1]" />
       </div>
-    </div> 
+    </div>
+
+    <button
+      :class="{ 'transform-translate': toggle, 'transform-translate2': !toggle }"
+      class="toggle-button btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3"
+      @click="toggle = !toggle"
+    >
+      {{ toggle ? "Close" : "Open" }}
+    </button>
    
   </div>
 </template>
@@ -135,7 +141,8 @@
 <script>
 import http from "@/common/axios.js";
 import TourCard from "@/components/tourCard.vue";
-
+import SectionComponent1 from "./plan/SectionComponent1.vue";
+import SectionComponent2 from "./plan/SectionComponent2.vue";
 
 import Vue from "vue";
 import VueAlertify from "vue-alertify";
@@ -145,7 +152,8 @@ export default {
   name: "SearchTour",
   components: { 
     TourCard, 
-
+    SectionComponent1,
+    SectionComponent2,
   },
   data() {
     return {
@@ -166,11 +174,40 @@ export default {
 
       map: null,
       temp: [],
+
       innerWidth: window.innerWidth,
       toggle_button: "<",
       toggle: false,
+      sections: [
+        {
+          id: 1,
+          name: "명소",
+          items:  Array(2)
+            .fill()
+            .map(() => ({
+              image: "https://via.placeholder.com/80",
+              place: "축사",
+              address: "test",
+             
+            })),
+        },
+        {
+          id: 2,
+          name: "나의 여행지",
+          items: Array(1)
+            .fill()
+            .map(() => ({
+              image: "https://via.placeholder.com/80",
+              place: "궁궐",
+              nested: {
+                dateStart: "",
+                dateEnd: "",
+              },
+              options: ["부산", "서울", "광주"],
+            })),
+        },
+      ],
 
-      check: false,
     };
   },
   computed: {
@@ -227,25 +264,17 @@ export default {
       var imageSize = new window.kakao.maps.Size(24, 35);
       var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
       for (var i = 0; i < this.list.length; i++) {
-        var marker = new window.kakao.maps.Marker({
-          map: this.map,
-          position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
-          title: this.list[i].title,
-          image: markerImage,
-        });
-        this.temp.push(marker);
+        this.temp.push(
+          new window.kakao.maps.Marker({
+            map: this.map,
+            position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
+            title: this.list[i].title,
+            image: markerImage,
+          })
+        );
       }
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
     },
-    setMapType() {
-      this.check = !this.check;
-      if (this.check) {
-        this.map.setMapTypeId(window.kakao.maps.MapTypeId.HYBRID);
-      } else {
-        this.map.setMapTypeId(window.kakao.maps.MapTypeId.ROADMAP);
-      }
-    },
-
     async getArea1List() {
       let url = "/trip/area";
 
@@ -287,6 +316,21 @@ export default {
       } else {
         this.$alertify.error("검색 결과 없음");
       }
+    },
+      addItem(item) {
+      // 새로운 아이템 추가 로직 구현
+      // 받은 item을 이용하여 원하는 동작 수행
+      console.log("addItem 메서드 호출:", item);
+
+      this.sections[1].items.push({
+        image: "https://via.placeholder.com/80",
+        place: "",
+        nested: {
+          select: "",
+          date: "",
+        },
+        options: ["부산", "서울", "광주"],
+      });
     },
   },
 };
@@ -369,47 +413,5 @@ export default {
   width: 180px;
   margin-bottom: 40px;
   text-align: center;
-}
-.custom_typecontrol {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  overflow: hidden;
-  width: 130px;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  z-index: 1;
-  font-size: 12px;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
-}
-.custom_typecontrol span {
-  display: block;
-  width: 65px;
-  height: 30px;
-  float: left;
-  text-align: center;
-  line-height: 30px;
-  cursor: pointer;
-}
-.custom_typecontrol .btn {
-  background: #fff;
-  background: linear-gradient(#fff, #e6e6e6);
-}
-.custom_typecontrol .btn:hover {
-  background: #f5f5f5;
-  background: linear-gradient(#f5f5f5, #e3e3e3);
-}
-.custom_typecontrol .btn:active {
-  background: #e6e6e6;
-  background: linear-gradient(#e6e6e6, #fff);
-}
-.custom_typecontrol .selected_btn {
-  color: #fff;
-  background: #425470;
-  background: linear-gradient(#425470, #5b6d8a);
-}
-.custom_typecontrol .selected_btn:hover {
-  color: #fff;
 }
 </style>
