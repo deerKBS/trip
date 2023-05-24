@@ -1,28 +1,3 @@
-import store from "@/store/store.js";
-//import router from "@/routers/protectedRoute.js";
-
-// https://v3.router.vuejs.org/kr/guide/advanced/navigation-guards.html
-const onlyAuthUser = async (to, from, next) => {
-  const checkUserInfo = store.getters["memberStore/checkUserInfo"];
-  const checkToken = store.getters["memberStore/checkToken"];
-  let token = sessionStorage.getItem("access-token");
-  console.log("로그인 처리 전", checkUserInfo, token);
-
-  if (checkUserInfo != null && token) {
-    console.log("토큰 유효성 체크하러 가자!!!!");
-    await store.dispatch("memberStore/getUserInfo", token);
-  }
-  if (!checkToken || checkUserInfo === null) {
-    console.log("로그인이 필요한 페이지입니다.");
-    alert("로그인이 필요한 페이지입니다..");
-    next({ name: "login" });
-    //router.push({ name: "main" });
-  } else {
-    console.log("로그인 했다!!!!!!!!!!!!!.");
-    next();
-  }
-};
-
 export default [
   {
     path: "main",
@@ -32,7 +7,6 @@ export default [
   {
     path: "search/tour",
     name: "searchTour",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/SearchTour.vue"),
   },
   {
@@ -63,7 +37,6 @@ export default [
   {
     path: "board",
     name: "board",
-    //beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/board/BoardMain.vue"),
   },
   {
@@ -84,13 +57,11 @@ export default [
   {
     path: "planBoard",
     name: "planBoard",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/PlanBoard.vue"),
   },
   {
     path: "plan/calendar",
     name: "calendar",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/CalendarPage.vue"),
   },
 
@@ -102,7 +73,6 @@ export default [
   {
     path: "plan/addMyplan",
     name: "addMyplan",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/AddMyplan.vue"),
   },
   {
@@ -114,7 +84,6 @@ export default [
   {
     path: "userProfile",
     name: "userProfile",
-    beforeEnter: onlyAuthUser,
     component: () => import("@/view/pages/UserProfile.vue"),
   },
 ];

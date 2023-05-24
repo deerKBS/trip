@@ -7,20 +7,26 @@ import http from "@/common/axios.js";
 
 import router from "@/routers/protectedRoute.js";
 import createPersistedState from "vuex-persistedstate";
-import memberStore from "@/store/modules/memberStore";
 
 export default new Vuex.Store({
-  modules: {
-    memberStore,
-  },
   plugins: [
     createPersistedState({
-      paths: ["memberStore"],
+      paths: ["login"],
     }),
   ],
   state: {
     // login, NavBar
+    login: {
+      // NavBar
+      isLogin: false,
 
+      userName: "김땡땡",
+      userProfileImageUrl: "",
+      userRegisterDate: "2022-02-02",
+      // Login
+      userEmail: "deer119@naver.com",
+      userPassword: "1q2w3e!",
+    },
     //
     board: {
       // list
@@ -81,6 +87,22 @@ export default new Vuex.Store({
   },
   // state 상태를 변경하는 유일한 방법
   mutations: {
+    SET_LOGIN(state, payload) {
+      state.login.isLogin = payload.isLogin;
+      state.login.userName = payload.userName;
+      state.login.userProfileImageUrl = payload.userProfileImageUrl;
+      state.login.userRegisterDate = payload.userRegisterDate;
+      state.login.userEmail = payload.userEmail;
+    },
+    SET_LOGOUT(state) {
+      state.login.isLogin = false;
+      state.login.userName = "";
+      state.login.userProfileImageUrl = "";
+      state.login.userRegisterDate = "";
+      state.login.userEmail = "";
+      state.login.userPassword = "";
+    },
+
     SET_BOARD_LIST(state, list) {
       state.board.list = list;
     },
@@ -142,7 +164,7 @@ export default new Vuex.Store({
       };
 
       try {
-        let { data } = await http.get("/notices", { params });
+        let { data } = await http.get("/notices", { params }); 
         console.log("NoticeMainVue: data : ");
         console.log(data);
         if (data.result == "login") {
@@ -164,7 +186,7 @@ export default new Vuex.Store({
       };
 
       try {
-        let { data } = await http.get("/notices", { params });
+        let { data } = await http.get("/notices", { params }); 
         console.log("NoticeMainVue: data : ");
         console.log(data);
         if (data.result == "login") {
@@ -191,7 +213,7 @@ export default new Vuex.Store({
     getBoardList: function (state) {
       return state.board.list;
     },
-    // pagination
+      // pagination
     getPageCount: function (state) {
       return Math.ceil(state.board.totalListItemCount / state.board.listRowCount);
     },
@@ -230,7 +252,7 @@ export default new Vuex.Store({
     getNoticeList: function (state) {
       return state.notice.list;
     },
-    // pagination
+      // pagination
     getNoticePageCount: function (state) {
       return Math.ceil(state.notice.totalListItemCount / state.notice.listRowCount);
     },

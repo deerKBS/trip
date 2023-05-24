@@ -26,11 +26,11 @@
                 <a
                   class="dropdown-item custom-dropdown-item"
                   @click="
-                    area = sido.name;
+                    area = sido.codeName;
                     areaCode = sido.code;
                     getArea2List();
                   "
-                  >{{ sido.name }}</a
+                  >{{ sido.codeName }}</a
                 >
               </li>
             </ul>
@@ -54,10 +54,10 @@
                 <a
                   class="dropdown-item custom-dropdown-item"
                   @click="
-                    sigungu = gungu.name;
+                    sigungu = gungu.codeName;
                     sigunguCode = gungu.code;
                   "
-                  >{{ gungu.name }}</a
+                  >{{ gungu.codeName }}</a
                 >
               </li>
             </ul>
@@ -81,11 +81,11 @@
                 <a
                   class="dropdown-item custom-dropdown-item"
                   @click="
-                    catText = category.name;
+                    catText = category.codeName;
                     cat = category.code;
                     getCat2List();
                   "
-                  >{{ category.name }}</a
+                  >{{ category.codeName }}</a
                 >
               </li>
             </ul>
@@ -151,16 +151,7 @@ export default {
 
       areaCodes: [],
       areaCodes2: [],
-      catList: [
-        { code: "12", name: "관광지" },
-        { code: "14", name: "문화시설" },
-        { code: "15", name: "축제공연행사" },
-        { code: "25", name: "여행코스" },
-        { code: "28", name: "레포츠" },
-        { code: "32", name: "숙박" },
-        { code: "38", name: "쇼핑" },
-        { code: "39", name: "음식점" },
-      ],
+      catList: [],
       list: [],
 
       map: null,
@@ -189,6 +180,7 @@ export default {
     this.loadScript();
     window.addEventListener("resize", this.handleResize);
     this.getArea1List();
+    this.getCategoryList();
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
@@ -235,7 +227,7 @@ export default {
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
     },
     async getArea1List() {
-      let url = "/trip/areaCode";
+      let url = "/trip/area";
 
       let { data } = await http.get(url);
       this.areaCodes = data;
@@ -244,34 +236,27 @@ export default {
       this.sigungu = "시군구 선택";
       this.sigunguCode = "";
 
-      let url = "/trip/areaCode2";
-      let urlParams = "&areaCode=" + this.areaCode;
+      let url = "/trip/area2";
+      let urlParams = "?areaCode=" + this.areaCode;
 
       let { data } = await http.get(url + urlParams);
       this.areaCodes2 = data;
     },
+    async getCategoryList() {
+      let url = "/trip/category";
+
+      let { data } = await http.get(url);
+      this.catList = data;
+    },
     async getList() {
       let url = "/trip/list";
-      let urlParams = "?numOfRows=" + this.numOfRows + "&pageNo=" + this.pageNo + "&areaCode=" + this.areaCode + "&sigunguCode=" + this.sigunguCode + "&contentTypeId=" + this.cat;
-
-      let { data } = await http.get(url + urlParams);
-      if (data.response.body.totalCount > 0) {
-        this.list = data.response.body.items.item;
-        console.log(this.list);
-        this.displayMarker();
-      } else {
-        this.$alertify.error("검색 결과 없음");
-      }
-    },
-    async keywordGetList() {
-      let url = "/trip/keyword";
       let urlParams =
         "?numOfRows=" + this.numOfRows + "&pageNo=" + this.pageNo + "&areaCode=" + this.areaCode + "&sigunguCode=" + this.sigunguCode + "&contentTypeId=" + this.cat + "&keyword=" + this.keyword;
 
       let { data } = await http.get(url + urlParams);
       if (data.response.body.totalCount > 0) {
         this.list = data.response.body.items.item;
-
+        console.log(this.list);
         this.displayMarker();
       } else {
         this.$alertify.error("검색 결과 없음");

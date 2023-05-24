@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h5>메인페이지</h5>
-  </div>
+  <div>메인페이지</div>
 </template>
 
 <script>
