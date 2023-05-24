@@ -91,11 +91,7 @@ export default [
     name: "plantest",
     component: () => import("@/view/pages/plan/PlanInsert.vue"),
   },
-  {
-    path: "testPlan",
-    name: "plantest2",
-    component: () => import("@/view/pages/plan/PlanTest.vue"),
-  },
+
   {
     path: "detail",
     name: "plantest3",
@@ -110,5 +106,10 @@ export default [
     path: "final",
     name: "plantest",
     component: () => import("@/view/pages/plan/PlanFinal.vue"),
+  },
+  {
+    path: "item",
+    name: "plantest",
+    component: () => import("@/view/pages/plan/PlanItem.vue"),
   },
 ];
