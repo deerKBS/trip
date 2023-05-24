@@ -91,7 +91,8 @@ export default {
       //이벤트에는 이름, 시작 날짜, 끝날짜, 색깔 timed: !allDay, 가 들어간다.
 
       try {
-        let { data } = await http.post("/schedules/" + this.$store.state.memberStore.userInfo.userEmail); // params: params shorthand property, let response 도 제거
+        //let { data } = await http.post("/schedules/" + this.$store.state.memberStore.userInfo.userEmail); // params: params shorthand property, let response 도 제거
+        let { data } = await http.post("/schedules/" + this.$store.state.login.userEmail); // params: params shorthand property, let response 도 제거
         console.log("Schedule: data : ");
         console.log(data);
         if (data.result == "login") {

@@ -164,7 +164,7 @@ export default new Vuex.Store({
       };
 
       try {
-        let { data } = await http.get("/notices", { params }); 
+        let { data } = await http.get("/notices", { params });
         console.log("NoticeMainVue: data : ");
         console.log(data);
         if (data.result == "login") {
@@ -186,7 +186,7 @@ export default new Vuex.Store({
       };
 
       try {
-        let { data } = await http.get("/notices", { params }); 
+        let { data } = await http.get("/notices", { params });
         console.log("NoticeMainVue: data : ");
         console.log(data);
         if (data.result == "login") {
@@ -213,7 +213,7 @@ export default new Vuex.Store({
     getBoardList: function (state) {
       return state.board.list;
     },
-      // pagination
+    // pagination
     getPageCount: function (state) {
       return Math.ceil(state.board.totalListItemCount / state.board.listRowCount);
     },
@@ -252,7 +252,7 @@ export default new Vuex.Store({
     getNoticeList: function (state) {
       return state.notice.list;
     },
-      // pagination
+    // pagination
     getNoticePageCount: function (state) {
       return Math.ceil(state.notice.totalListItemCount / state.notice.listRowCount);
     },

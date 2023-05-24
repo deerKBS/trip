@@ -5,7 +5,13 @@
         <div class="col-md-auto" style="margin-top: 50px">
           <!-- buttons -->
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn btn-secondary dropdown-toggle custom-dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               {{ area }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -36,7 +42,13 @@
             </ul>
           </div>
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn btn-secondary dropdown-toggle custom-dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               {{ sigungu }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -63,7 +75,13 @@
             </ul>
           </div>
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button
+              class="btn btn-secondary dropdown-toggle custom-dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               {{ catText }}
             </button>
             <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -251,7 +269,18 @@ export default {
     async getList() {
       let url = "/trip/list";
       let urlParams =
-        "?numOfRows=" + this.numOfRows + "&pageNo=" + this.pageNo + "&areaCode=" + this.areaCode + "&sigunguCode=" + this.sigunguCode + "&contentTypeId=" + this.cat + "&keyword=" + this.keyword;
+        "?numOfRows=" +
+        this.numOfRows +
+        "&pageNo=" +
+        this.pageNo +
+        "&areaCode=" +
+        this.areaCode +
+        "&sigunguCode=" +
+        this.sigunguCode +
+        "&contentTypeId=" +
+        this.cat +
+        "&keyword=" +
+        this.keyword;
 
       let { data } = await http.get(url + urlParams);
       if (data.response.body.totalCount > 0) {

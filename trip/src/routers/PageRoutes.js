@@ -86,4 +86,14 @@ export default [
     name: "userProfile",
     component: () => import("@/view/pages/UserProfile.vue"),
   },
+  {
+    path: "test",
+    name: "plantest",
+    component: () => import("@/view/pages/plan/PlanInsert.vue"),
+  },
+  {
+    path: "testPlan",
+    name: "plantest2",
+    component: () => import("@/view/pages/plan/PlanTest.vue"),
+  },
 ];
