@@ -2,7 +2,7 @@
   <div style="padding-top: 25px; padding-left: 20px; margin-right: 10px; min-width: 1000px; width: 100%">
     <div class="bg-sky-50 shadow-lg" :class="isToggleC">
       <div class="row">
-        <div class="col-md-auto" style="margin-top: 50px">
+        <div class="col-md-auto" style="margin-top: 100px">
           <!-- buttons -->
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,6 +96,10 @@
           <div>
             <button type="button" class="btn custom-btn" @click="keyword === '' ? getList() : keywordGetList()">검 색</button>
           </div>
+          <div class="form-check form-switch d-flex align-items-center justify-content-end" style="margin-top: 40px">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" @click="setMapType()" style="font-size: 20px; margin-right: 5px" />
+            <label class="form-check-label" for="flexSwitchCheckChecked" style="font-size: 15px; margin-top: 3px">스카이뷰</label>
+          </div>
         </div>
         <!-- buttons end -->
         <div class="col">
@@ -159,6 +163,8 @@ export default {
       innerWidth: window.innerWidth,
       toggle_button: "<",
       toggle: false,
+
+      check: false,
     };
   },
   computed: {
@@ -215,17 +221,25 @@ export default {
       var imageSize = new window.kakao.maps.Size(24, 35);
       var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
       for (var i = 0; i < this.list.length; i++) {
-        this.temp.push(
-          new window.kakao.maps.Marker({
-            map: this.map,
-            position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
-            title: this.list[i].title,
-            image: markerImage,
-          })
-        );
+        var marker = new window.kakao.maps.Marker({
+          map: this.map,
+          position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
+          title: this.list[i].title,
+          image: markerImage,
+        });
+        this.temp.push(marker);
       }
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
     },
+    setMapType() {
+      this.check = !this.check;
+      if (this.check) {
+        this.map.setMapTypeId(window.kakao.maps.MapTypeId.HYBRID);
+      } else {
+        this.map.setMapTypeId(window.kakao.maps.MapTypeId.ROADMAP);
+      }
+    },
+
     async getArea1List() {
       let url = "/trip/area";
 
@@ -349,5 +363,47 @@ export default {
   width: 180px;
   margin-bottom: 40px;
   text-align: center;
+}
+.custom_typecontrol {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  overflow: hidden;
+  width: 130px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  font-size: 12px;
+  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+.custom_typecontrol span {
+  display: block;
+  width: 65px;
+  height: 30px;
+  float: left;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+.custom_typecontrol .btn {
+  background: #fff;
+  background: linear-gradient(#fff, #e6e6e6);
+}
+.custom_typecontrol .btn:hover {
+  background: #f5f5f5;
+  background: linear-gradient(#f5f5f5, #e3e3e3);
+}
+.custom_typecontrol .btn:active {
+  background: #e6e6e6;
+  background: linear-gradient(#e6e6e6, #fff);
+}
+.custom_typecontrol .selected_btn {
+  color: #fff;
+  background: #425470;
+  background: linear-gradient(#425470, #5b6d8a);
+}
+.custom_typecontrol .selected_btn:hover {
+  color: #fff;
 }
 </style>
