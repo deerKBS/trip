@@ -37,7 +37,7 @@ export default {
             .fill()
             .map(() => ({
               image: "https://via.placeholder.com/80",
-              place: "개돼지",
+              place: "축사",
               address: "test",
              
             })),
@@ -49,10 +49,10 @@ export default {
             .fill()
             .map(() => ({
               image: "https://via.placeholder.com/80",
-              place: "",
+              place: "궁궐",
               nested: {
-                select: "",
-                date: "",
+                dateStart: "",
+                dateEnd: "",
               },
               options: ["부산", "서울", "광주"],
             })),
@@ -69,6 +69,16 @@ export default {
       // 새로운 아이템 추가 로직 구현
       // 받은 item을 이용하여 원하는 동작 수행
       console.log("addItem 메서드 호출:", item);
+
+      this.sections[1].items.push({
+    image: "https://via.placeholder.com/80",
+    place: "",
+    nested: {
+      select: "",
+      date: "",
+    },
+    options: ["부산", "서울", "광주"],
+  });
     },
   },
   computed: {

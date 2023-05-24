@@ -9,18 +9,20 @@
         </div>
         <!-- input -->
         <div class="col">
-          <input type="text" v-model="item.place" class="form-control input-sm" />
+          <p class="form-control-static">{{ item.place }}</p>
 
           <!-- select와 date picker -->
+           <label for="startDate" class="small-text">시작일과 종료일:</label>
           <div class="d-flex mt-2">
-            <select v-model="item.select" class="form-select select-sm me-2">
-              <option v-for="option in item.options" :key="option">{{ option }}</option>
-            </select>
-            <input type="date" v-model="item.date" class="form-control input-sm" />
+           
+            <input type="date" v-model="item.dateStart" class="form-control input-sm"  />
+            <input type="date" v-model="item.dateEnd" class="form-control input-sm" />
           </div>
         </div>
       </div>
     </div>
+
+
   </div>
 </template>
 
@@ -35,3 +37,12 @@ export default {
   
 };
 </script>
+
+<style scoped>
+
+.small-text {
+  font-size: 12px;
+}
+
+</style>
+
