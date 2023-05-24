@@ -48,7 +48,6 @@ export default {
       if (this.isLogin) {
         await this.getUserInfo(token);
         console.log("4. confirm() userInfo :: ", this.userInfo);
-        
 
         this.$router.push({ name: "main" });
       }
@@ -56,11 +55,6 @@ export default {
     movePage() {
       this.$router.push({ name: "join" });
     },
-  },
-
-  created() {
-    this.$store.state.login.userEmail = "deer119@naver.com";
-    this.$store.state.login.userPassword = "1q2w3e!";
   },
 };
 </script>
