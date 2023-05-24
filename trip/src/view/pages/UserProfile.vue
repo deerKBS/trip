@@ -156,7 +156,7 @@ export default {
           this.$router.push("/login");
         } else {
           // 실패한 경우에는 적절한 오류 메시지를 표시합니다.
-          this.$alertify.error("회원 정보 삭제에 실패했습니다.");
+          this.$alertify.error("회원 정보 삭제에 실패했습니다실.");
         }
       } catch (error) {
         console.log("UpdateProfileVue: error ");
