@@ -15,7 +15,7 @@
 
       <div class="d-flex align-items-center justify-content-center">
         <button class="btn btn-sm btn-outline-primary mx-2" @click="decrement">-</button>
-        <span>{{ count + "일" }}</span>
+        <span>{{ duration + "일" }}</span>
         <button class="btn btn-sm btn-outline-primary mx-2" @click="increment">+</button>
       </div>
     </div>
@@ -40,7 +40,7 @@ export default {
         end: "",
       }, // event prop의 복사본
 
-      count: 1,
+      duration: 1,
     };
   },
   computed: {
