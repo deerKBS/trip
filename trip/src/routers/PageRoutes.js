@@ -90,9 +90,9 @@ export default [
 
  
   {
-    path: "final",
+    path: "tour2",
     name: "plantest5",
-    component: () => import("@/view/pages/plan/PlanFinal.vue"),
+    component: () => import("@/view/pages/SearchTour2.vue"),
   },
   {
     path: "item",

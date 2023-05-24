@@ -117,13 +117,23 @@
       <!-- search result area end -->
     </div>
 
-    <div :class="isToggleP" class="bg-sky-50" v-if="innerWidth > 1250">
-      <div>
-        <button class="toggle-button" @click="toggle = !toggle">
-          {{ this.toggle_button }}
-        </button>
+     <!-- 사이드 바 -->
+    <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
+      <div class="container" v-show="toggle">
+        <!-- 섹션 1 컴포넌트 인스턴스 -->
+        <SectionComponent1 :section="sections[0]" @add-item="addItem" />
+        <!-- 섹션 2 컴포넌트 인스턴스 -->
+        <SectionComponent2 :section="sections[1]" />
       </div>
-    </div> 
+    </div>
+
+    <button
+      :class="{ 'transform-translate': toggle, 'transform-translate2': !toggle }"
+      class="toggle-button btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3"
+      @click="toggle = !toggle"
+    >
+      {{ toggle ? "Close" : "Open" }}
+    </button>
    
   </div>
 </template>
@@ -131,7 +141,8 @@
 <script>
 import http from "@/common/axios.js";
 import TourCard from "@/components/tourCard.vue";
-
+import SectionComponent1 from "./plan/SectionComponent1.vue";
+import SectionComponent2 from "./plan/SectionComponent2.vue";
 
 import Vue from "vue";
 import VueAlertify from "vue-alertify";
@@ -141,7 +152,8 @@ export default {
   name: "SearchTour",
   components: { 
     TourCard, 
-
+    SectionComponent1,
+    SectionComponent2,
   },
   data() {
     return {
@@ -162,9 +174,40 @@ export default {
 
       map: null,
       temp: [],
+
       innerWidth: window.innerWidth,
       toggle_button: "<",
       toggle: false,
+      sections: [
+        {
+          id: 1,
+          name: "명소",
+          items:  Array(2)
+            .fill()
+            .map(() => ({
+              image: "https://via.placeholder.com/80",
+              place: "축사",
+              address: "test",
+             
+            })),
+        },
+        {
+          id: 2,
+          name: "나의 여행지",
+          items: Array(1)
+            .fill()
+            .map(() => ({
+              image: "https://via.placeholder.com/80",
+              place: "궁궐",
+              nested: {
+                dateStart: "",
+                dateEnd: "",
+              },
+              options: ["부산", "서울", "광주"],
+            })),
+        },
+      ],
+
     };
   },
   computed: {
@@ -273,6 +316,21 @@ export default {
       } else {
         this.$alertify.error("검색 결과 없음");
       }
+    },
+      addItem(item) {
+      // 새로운 아이템 추가 로직 구현
+      // 받은 item을 이용하여 원하는 동작 수행
+      console.log("addItem 메서드 호출:", item);
+
+      this.sections[1].items.push({
+        image: "https://via.placeholder.com/80",
+        place: "",
+        nested: {
+          select: "",
+          date: "",
+        },
+        options: ["부산", "서울", "광주"],
+      });
     },
   },
 };

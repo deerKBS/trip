@@ -6,12 +6,15 @@
         <!-- 섹션 1 컴포넌트 인스턴스 -->
         <SectionComponent1 :section="sections[0]" @add-item="addItem" />
         <!-- 섹션 2 컴포넌트 인스턴스 -->
-        <SectionComponent2 :section="sections[1]" />
+        <SectionComponent2 :section="sections[1]" @delete-plan="deletePlan" />
       </div>
     </div>
 
     <button
-      :class="{ 'transform-translate': toggle, 'transform-translate2': !toggle }"
+      :class="{
+        'transform-translate': toggle,
+        'transform-translate2': !toggle,
+      }"
       class="toggle-button btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3"
       @click="toggle = !toggle"
     >
@@ -33,13 +36,13 @@ export default {
         {
           id: 1,
           name: "명소",
-          items:  Array(2)
+          items: Array(2)
             .fill()
             .map(() => ({
               image: "https://via.placeholder.com/80",
               place: "축사",
               address: "test",
-             
+              count: "1100",
             })),
         },
         {
@@ -47,14 +50,14 @@ export default {
           name: "나의 여행지",
           items: Array(1)
             .fill()
-            .map(() => ({
+            .map((_, i) => ({
               image: "https://via.placeholder.com/80",
               place: "궁궐",
               nested: {
                 dateStart: "",
                 dateEnd: "",
               },
-              options: ["부산", "서울", "광주"],
+              idx: i+1,
             })),
         },
       ],
@@ -64,22 +67,26 @@ export default {
     SectionComponent1,
     SectionComponent2,
   },
-   methods: {
+  methods: {
     addItem(item) {
       // 새로운 아이템 추가 로직 구현
       // 받은 item을 이용하여 원하는 동작 수행
       console.log("addItem 메서드 호출:", item);
 
       this.sections[1].items.push({
-    image: "https://via.placeholder.com/80",
-    place: "",
-    nested: {
-      select: "",
-      date: "",
+        image: "https://via.placeholder.com/80",
+        place: "",
+        nested: {
+          dateStart: "",
+          dateEnd: "",
+        },
+        idx: this.sections[1].items.length+1,
+      });
     },
-    options: ["부산", "서울", "광주"],
-  });
-    },
+    deletePlan(item){
+      console.log(item.idx);
+       this.sections[1].items.splice(item.idx-1, 1);
+    }
   },
   computed: {
     isToggleP() {
@@ -97,13 +104,7 @@ export default {
 </script>
 
 <style>
-/* .input-sm {
-  height: 25px; /* 원하는 높이 값으로 조정 */
-/*} 
 
-.select-sm {
-  height: 25px; /* 원하는 높이 값으로 조정 */
-/*} */
 
 .toggle-button {
   z-index: 1030; /* To ensure the button stays on top */

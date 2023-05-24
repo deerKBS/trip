@@ -2,7 +2,11 @@
   <div class="section border-top border-bottom overflow-auto">
     <h2 class="h5">{{ section.name }}</h2>
     <div class="items">
-      <div class="item py-2 row" v-for="(item, index) in section.items" :key="index">
+      <div
+        class="item py-2 row"
+        v-for="(item, index) in section.items"
+        :key="index"
+      >
         <!-- 이미지 -->
         <div class="col-auto">
           <img :src="item.image" alt="image" class="img-fluid" />
@@ -11,10 +15,23 @@
         <div class="col">
           <p class="form-control-static">{{ item.place }}</p>
           <p class="form-control-static">{{ item.address }}</p>
-          <!-- select와 date picker -->
-          <button class="btn btn-primary btn-sm float-end mt-2" @click="handleAddItemClick(item)">+</button>
+          <div class="d-flex mt-2 justify-content-between">
+            <div class="d-flex align-items-center">
+              <i
+                type="button"
+                class="bi bi-heart-fill"
+                style="color: palevioletred"
+              ></i>
+              <h5>{{ item.count }}</h5>
+            </div>
+            <button
+              class="btn btn-primary btn-sm"
+              @click="handleAddItemClick(item)"
+            >
+              +
+            </button>
+          </div>
         </div>
-        
       </div>
     </div>
   </div>
@@ -30,7 +47,7 @@ export default {
   },
   methods: {
     handleAddItemClick(item) {
-      this.$emit('add-item', item); 
+      this.$emit("add-item", item);
     },
   },
 };
