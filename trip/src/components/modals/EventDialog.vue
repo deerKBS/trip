@@ -77,7 +77,7 @@ export default {
           scheduleEnd: this.localEvent.end,
         };
 
-        let { data } = await http.put(`/schedules/${this.$store.state.login.userEmail}`, newSchedule);
+        let { data } = await http.put(`/schedules/${this.$store.state.memberStore.userInfo.userEmail}`, newSchedule);
 
         console.log("InsertModalVue: data : ");
         console.log(data);

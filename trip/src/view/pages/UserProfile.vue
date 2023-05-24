@@ -19,20 +19,17 @@
                 <table class="table table-bordered">
                   <tr>
                     <th>Email</th>
-                    <td><input v-model="$store.state.login.userEmail" type="text" name="email" class="form-control" /></td>
+                    <td><input v-model="this.$store.state.memberStore.userInfo.userEmail" type="text" name="email" class="form-control" /></td>
                   </tr>
-                  <tr>
-                    <th>PW</th>
-                    <td><input type="password" name="pw" class="form-control" /></td>
-                  </tr>
+
                   <tr>
                     <th>이름</th>
-                    <td><input v-model="$store.state.login.userName" type="text" name="name" class="form-control" /></td>
+                    <td><input v-model="this.$store.state.memberStore.userInfo.userName" type="text" name="name" class="form-control" /></td>
                   </tr>
                   <tr>
                     <th>가입일</th>
                     <td>
-                      <input v-model="$store.state.login.userRegisterDate" type="text" name="registerDate" class="form-control" />
+                      <input v-model="this.$store.state.memberStore.userInfo.userRegisterDate" type="text" name="registerDate" class="form-control" />
                     </td>
                   </tr>
                 </table>
@@ -102,7 +99,7 @@ export default {
   methods: {
     showCard1() {
       //조회
-      console.log(this.$store.state.login.userEmail);
+      console.log(this.$store.state.memberStore.userInfo.userEmail);
       this.card1 = true;
       this.card2 = false;
     },
@@ -118,7 +115,7 @@ export default {
       if (this.newPassword == this.checkPassword) {
         //=== 아닌지 알아보세요
         let formData = {
-          userEmail: this.$store.state.login.userEmail,
+          userEmail: this.$store.state.memberStore.userInfo.userEmail,
           userPassword: this.newPassword,
         };
 
@@ -149,7 +146,7 @@ export default {
 
     async deleteAccount() {
       try {
-        let { data } = await http.delete("/userinfo/" + this.$store.state.login.userEmail);
+        let { data } = await http.delete("/userinfo/" + this.$store.state.memberStore.userInfo.userEmail);
 
         console.log("UpdateModalVue: data : ");
         console.log(data);
