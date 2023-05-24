@@ -9,7 +9,7 @@
         </div>
         <!-- input -->
         <div class="col">
-          <input type="text" v-model="item.input" class="form-control input-sm" />
+          <input type="text" v-model="item.place" class="form-control input-sm" />
 
           <!-- select와 date picker -->
           <div class="d-flex mt-2">
@@ -32,5 +32,6 @@ export default {
       required: true,
     },
   },
+  
 };
 </script>

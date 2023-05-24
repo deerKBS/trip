@@ -4,7 +4,7 @@
     <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
       <div class="container" v-show="toggle">
         <!-- 섹션 1 컴포넌트 인스턴스 -->
-        <SectionComponent1 :section="sections[0]" />
+        <SectionComponent1 :section="sections[0]" @add-item="addItem" />
         <!-- 섹션 2 컴포넌트 인스턴스 -->
         <SectionComponent2 :section="sections[1]" />
       </div>
@@ -33,9 +33,14 @@ export default {
         {
           id: 1,
           name: "명소",
-          items: Array(3)
+          items:  Array(2)
             .fill()
-            .map((_, i) => `Item ${i + 1}`),
+            .map(() => ({
+              image: "https://via.placeholder.com/80",
+              place: "개돼지",
+              address: "test",
+             
+            })),
         },
         {
           id: 2,
@@ -44,7 +49,7 @@ export default {
             .fill()
             .map(() => ({
               image: "https://via.placeholder.com/80",
-              input: "",
+              place: "",
               nested: {
                 select: "",
                 date: "",
@@ -59,7 +64,13 @@ export default {
     SectionComponent1,
     SectionComponent2,
   },
-
+   methods: {
+    addItem(item) {
+      // 새로운 아이템 추가 로직 구현
+      // 받은 item을 이용하여 원하는 동작 수행
+      console.log("addItem 메서드 호출:", item);
+    },
+  },
   computed: {
     isToggleP() {
       return this.toggle ? "planner-open" : "planner-fold";
