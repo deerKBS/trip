@@ -96,6 +96,10 @@
           <div>
             <button type="button" class="btn custom-btn" @click="getList()">검 색</button>
           </div>
+          <div class="form-check form-switch d-flex align-items-center justify-content-end" style="margin-top: 40px">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" @click="setMapType()" style="font-size: 20px; margin-right: 5px" />
+            <label class="form-check-label" for="flexSwitchCheckChecked" style="font-size: 15px; margin-top: 3px">스카이뷰</label>
+          </div>
         </div>
         <!-- buttons end -->
         <div class="col">
@@ -132,7 +136,7 @@
         'transform-translate': toggle,
         'transform-translate2': !toggle,
       }"
-      class="toggle-button btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3"
+      class="toggle-button btn custom-btn2 position-fixed bottom-0 end-0 m-3"
       @click="toggleButton"
     >
       {{ toggle ? "Close" : "Open" }}
@@ -257,6 +261,14 @@ export default {
         );
       }
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
+    },
+    setMapType() {
+      this.check = !this.check;
+      if (this.check) {
+        this.map.setMapTypeId(window.kakao.maps.MapTypeId.HYBRID);
+      } else {
+        this.map.setMapTypeId(window.kakao.maps.MapTypeId.ROADMAP);
+      }
     },
     async getArea1List() {
       let url = "/trip/area";
@@ -501,7 +513,7 @@ export default {
   text-align: center;
 }
 .transform-translate {
-  transform: translateX(-1100%);
+  transform: translateX(-600%);
   transition: transform 1s;
 }
 .transform-translate2 {
@@ -514,5 +526,17 @@ export default {
 
 .item {
   border-bottom: 1px solid #ddd;
+}
+.custom-btn2 {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+  margin-right: 10px;
+  width: 100px;
+}
+.custom-btn2:hover {
+  color: white;
+  background: #fea4d7;
 }
 </style>
