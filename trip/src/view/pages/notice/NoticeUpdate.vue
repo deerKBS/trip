@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-auto" style="width: 80%">
     <h4>글수정</h4>
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ notice.categoryName }}</button>

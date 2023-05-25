@@ -93,7 +93,7 @@
             <input v-model="keyword" type="text" class="form-control keyword-input" placeholder="검색어" />
           </div>
           <div>
-            <button type="button" class="btn custom-btn" @click="keyword === '' ? getList() : keywordGetList()">검 색</button>
+            <button type="button" class="btn custom-btn" @click="getList()">검 색</button>
           </div>
           <div class="form-check form-switch d-flex align-items-center justify-content-end" style="margin-top: 40px">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" @click="setMapType()" style="font-size: 20px; margin-right: 5px" />
