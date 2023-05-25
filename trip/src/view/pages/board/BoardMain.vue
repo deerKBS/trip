@@ -1,7 +1,7 @@
 <template>
   <div style="margin: auto; width: 80%">
     <div class="container w-full">
-      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">게시판</p>
+      <p class="row float-left my-1" style="font-size: 30px; border-bottom: 5px solid #188fff">게시판</p>
       <div class="row justify-content-between" style="min-width: 100%">
         <div class="dropdown col-2">
           <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>
@@ -35,6 +35,7 @@
             <th>작성자</th>
             <th>작성일시</th>
             <th>조회수</th>
+            <th>댓글수</th>
           </tr>
         </thead>
         <tbody>
@@ -45,6 +46,7 @@
             <td>{{ notice.userName }}</td>
             <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
             <td>{{ notice.readCount }}</td>
+            <td>-</td>
           </tr>
           <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="'board-' + index">
             <td>{{ board.boardId }}</td>
@@ -53,6 +55,7 @@
             <td>{{ board.userName }}</td>
             <td>{{ board.regDt.date | makeDateStr(".") }}</td>
             <td>{{ board.readCount }}</td>
+            <td>{{ board.commentCount }}</td>
           </tr>
         </tbody>
       </table>

@@ -1,7 +1,7 @@
 <template>
   <div style="margin: auto; width: 80%">
     <div class="container w-full">
-      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">공지사항</p>
+      <p class="row float-left my-1" style="font-size: 30px; border-bottom: 5px solid #188fff">공지사항</p>
       <div class="row justify-content-between" style="min-width: 100%">
         <div class="dropdown col-2">
           <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>

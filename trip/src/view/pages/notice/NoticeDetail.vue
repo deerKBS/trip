@@ -1,53 +1,54 @@
 <template>
-  <div>
-    <h5 class="modal-title">글 상세</h5>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>글번호</td>
-          <td>{{ notice.noticeId }}</td>
-        </tr>
-        <tr>
-          <td>분류</td>
-          <td>{{ notice.categoryName }}</td>
-        </tr>
-        <tr>
-          <td>제목</td>
-          <td>{{ notice.title }}</td>
-        </tr>
-        <tr>
-          <td>내용</td>
-          <td v-html="notice.content"></td>
-        </tr>
-        <tr>
-          <td>작성자</td>
-          <td>{{ notice.userName }}</td>
-        </tr>
-        <tr>
-          <td>작성일시</td>
-          <td>{{ notice.regDate }} {{ notice.regTime }}</td>
-        </tr>
-        <tr>
-          <td>조회수</td>
-          <td>{{ notice.readCount }}</td>
-        </tr>
-        <tr>
-          <td colspan="2">첨부파일</td>
-        </tr>
-        <tr v-if="notice.fileList.length > 0">
-          <td colspan="2">
-            <!-- 반복 -->
-            <div v-for="(file, index) in notice.fileList" :key="index">
-              <span class="fileName">{{ file.fileName }}</span>
-              &nbsp;&nbsp;
-              <a type="button" class="btn btn-outline btn-default btn-xs" v-bind:href="file.fileUrl" v-bind:download="file.fileName">내려받기</a>
+  <div style="margin: auto; width: 80%">
+    <div class="container w-full">
+      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">No.{{ notice.noticeId }}</p>
+      <div class="mt-4">
+        <button v-show="notice.sameUser" @click="changeToDelete" class="btn float-end custom-btn" type="button">글 삭제하기</button>
+        <button v-show="notice.sameUser" @click="changeToUpdate" class="btn float-end custom-btn" type="button">글 수정하기</button>
+        <router-link to="/board">
+          <button class="btn float-end custom-btn" type="button">목록으로</button>
+        </router-link>
+      </div>
+      <div class="row justify-content-between" style="min-width: 100%">
+        <div class="bg-white p-4 shadow-lg" style="border-radius: 20px">
+          <div class="container bg-white">
+            <div class="row">
+              <div>{{ notice.categoryName }}</div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button v-show="notice.sameUser" @click="changeToUpdate" class="btn btn-sm btn-primary btn-outline" type="button">글 수정하기</button>
-    <button v-show="notice.sameUser" @click="changeToDelete" class="btn btn-sm btn-warning btn-outline" type="button">글 삭제하기</button>
+            <div class="row">
+              <div style="width: 100px">제목</div>
+              <div class="w-fit">{{ notice.title }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">작성자</div>
+              <div class="w-fit">{{ notice.userName }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">작성일</div>
+              <div style="width: 130px; border-right: 1px solid">{{ notice.regDate }}</div>
+              <div style="width: 120px">작성시간</div>
+              <div style="width: 130px; border-right: 1px solid">{{ notice.regTime }}</div>
+              <div style="width: 100px">조회수</div>
+              <div style="width: 100px">{{ notice.readCount }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">내용</div>
+            </div>
+            <div class="row" style="height: 300px" v-html="notice.content"></div>
+            <div class="row">
+              <div>첨부파일</div>
+            </div>
+            <div class="row">
+              <div class="row" v-for="(file, index) in notice.fileList" :key="index">
+                <span class="fileName">{{ file.fileName }}</span>
+                &nbsp;&nbsp;
+                <a type="button" class="btn btn-outline btn-default btn-xs" v-bind:href="file.fileUrl" v-bind:download="file.fileName">내려받기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -145,3 +146,29 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.custom-btn {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+  margin-right: 10px;
+}
+.custom-btn:hover {
+  color: white;
+  background: #fea4d7;
+}
+div >>> .ck-editor__editable {
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+}
+.container > .row {
+  font-size: 20px;
+  height: 50px;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+}
+</style>

@@ -2,7 +2,7 @@
   <div class="w-full h-full p-4 d-flex justify-content-center">
     <div class="bg-sky-100 container-fluid p-5 shadow-lg">
       <!-- 캐러셀 -->
-      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 70%">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 70%; margin: auto">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="../../assets/img/1.jpg" class="d-block w-100" />

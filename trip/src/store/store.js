@@ -55,6 +55,7 @@ export default new Vuex.Store({
       readCount: 0,
       fileList: [],
       sameUser: false,
+      commentCount:0,
     },
     notice: {
       // list
