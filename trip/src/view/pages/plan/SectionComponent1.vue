@@ -2,34 +2,25 @@
   <div class="section border-top border-bottom overflow-auto">
     <h2 class="h5">{{ section.name }}</h2>
     <div class="items">
-      <div
-        class="item py-2 row"
-        v-for="(item, index) in section.items"
-        :key="index"
-      >
+      <div class="item py-2 row" v-for="(item, index) in section.items" :key="index">
         <!-- 이미지 -->
         <div class="col-auto">
           <img :src="item.image" alt="image" class="img-fluid" />
         </div>
         <!-- input -->
         <div class="col">
-          <p class="form-control-static">{{ item.place }}</p>
+          <div class="d-flex mt-2 justify-content-between">
+            <p class="form-control-static">{{ item.place }}</p>
+            <i type="button" class="bi bi-trash enlarge-icon" @click="deletePlan(item)"></i>
+          </div>
+
           <p class="form-control-static">{{ item.address }}</p>
           <div class="d-flex mt-2 justify-content-between">
             <div class="d-flex align-items-center">
-              <i
-                type="button"
-                class="bi bi-heart-fill"
-                style="color: palevioletred"
-              ></i>
+              <i type="button" class="bi bi-heart-fill" style="color: palevioletred"></i>
               <h5>{{ item.count }}</h5>
             </div>
-            <button
-              class="btn btn-primary btn-sm"
-              @click="handleAddItemClick(item)"
-            >
-              +
-            </button>
+            <button class="btn btn-primary btn-sm" @click="handleAddItemClick(item)">+</button>
           </div>
         </div>
       </div>
@@ -49,6 +40,15 @@ export default {
     handleAddItemClick(item) {
       this.$emit("add-item", item);
     },
+    deletePlan(item) {
+      this.$emit("delete-plan1", item);
+    },
   },
 };
 </script>
+
+<style scoped>
+.enlarge-icon {
+  font-size: 18px;
+}
+</style>

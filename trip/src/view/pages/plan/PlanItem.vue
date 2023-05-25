@@ -4,9 +4,9 @@
     <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
       <div class="container" v-show="toggle">
         <!-- 섹션 1 컴포넌트 인스턴스 -->
-        <SectionComponent1 :section="sections[0]" @add-item="addItem" />
+        <SectionComponent1 :section="sections[0]" @add-item="addItem" @delete-plan1="deletePlan1" />
         <!-- 섹션 2 컴포넌트 인스턴스 -->
-        <SectionComponent2 :section="sections[1]" @delete-plan="deletePlan" />
+        <SectionComponent2 :section="sections[1]" @delete-plan2="deletePlan2" />
       </div>
     </div>
 
@@ -38,11 +38,12 @@ export default {
           name: "명소",
           items: Array(2)
             .fill()
-            .map(() => ({
+            .map((_, i) => ({
               image: "https://via.placeholder.com/80",
               place: "축사",
               address: "test",
               count: "1100",
+              idx: i + 1,
             })),
         },
         {
@@ -57,7 +58,8 @@ export default {
                 dateStart: "",
                 dateEnd: "",
               },
-              idx: i+1,
+              contnet: "",
+              idx: i + 1,
             })),
         },
       ],
@@ -80,13 +82,18 @@ export default {
           dateStart: "",
           dateEnd: "",
         },
-        idx: this.sections[1].items.length+1,
+        content: "",
+        idx: this.sections[1].items.length + 1,
       });
     },
-    deletePlan(item){
+    deletePlan1(item) {
       console.log(item.idx);
-       this.sections[1].items.splice(item.idx-1, 1);
-    }
+      this.sections[0].items.splice(item.idx - 1, 1);
+    },
+    deletePlan2(item) {
+      console.log(item.idx);
+      this.sections[1].items.splice(item.idx - 1, 1);
+    },
   },
   computed: {
     isToggleP() {
@@ -104,8 +111,6 @@ export default {
 </script>
 
 <style>
-
-
 .toggle-button {
   z-index: 1030; /* To ensure the button stays on top */
 }
