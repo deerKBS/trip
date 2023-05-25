@@ -1,18 +1,46 @@
 <template>
-  <div class="container">
-    <div class="container-fluid text-sm-center p-5 bg-light">
-      <!-- bg-light is background color & p-5 is padding -->
-      <h1 class="display-2">비밀번호 찾기</h1>
-    </div>
-    <h2 class="mb-3 mt-3">찾을 비밀번호의 이메일 입력</h2>
-    <div class="mb-3">
-      <input type="email" class="form-control" v-model="userEmail" placeholder="Email" />
-    </div>
-    <div>
-      <button @click="findPassword" class="btn btn-primary">비밀번호 찾기</button>
-      <router-link to="/register" class="btn btn-success float-end">회원가입</router-link>
-    </div>
-  </div>
+  <v-container>
+    <v-row class="vh-100">
+      <v-col align-self="center">
+        <v-card class="mx-auto pa-8" style="width: 500px" rounded="xl">
+          <h2
+            class="text-h3 text-center font-weight-bold"
+            style="color: #bae6fd"
+          >
+            비밀번호찾기
+          </h2>
+          <v-form class="mt-8">
+            <v-text-field
+              type="email"
+              v-model="userEmail"
+              placeholder="이메일"
+              outlined
+              height="64px"
+              class="font-weight-bold"
+              prepend-inner-icon="mdi-account"
+            ></v-text-field>
+
+            <v-btn
+              block
+              elevation="0"
+              x-large
+              class="text-h6 text-white font-weight-bold"
+              style="background: #bae6fd"
+              @click="findPassword"
+            >
+              비밀번호찾기
+            </v-btn>
+          </v-form>
+
+          <div class="mt-8 text-center">
+            <div class="mt-4">
+              <router-link to="/register" class="link">회원가입</router-link>
+            </div>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -53,4 +81,13 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.link {
+  color: #606060;
+  font-size: 1rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+</style>

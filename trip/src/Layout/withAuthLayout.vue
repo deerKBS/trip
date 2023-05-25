@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>AuthLayout</h1>
+  <v-app
+    class="bg-sky-100 min-vh-100"
+    style="background: linear-gradient(175deg, #bae6fd, #febbe1)"
+  >
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>

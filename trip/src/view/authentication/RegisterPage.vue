@@ -1,76 +1,78 @@
 <template>
-  <div class="container">
-    <div class="container-fluid text-sm-center p-5 bg-light">
-      <!-- bg-light is background color & p-5 is padding -->
-      <h1 class="display-2">삐따기 세상2</h1>
-      <p class="lead">가입하세요.</p>
-    </div>
-    <h2 class="mb-3 mt-3">Register</h2>
-    <div class="mb-3">
-      <input
-        type="name"
-        class="form-control"
-        placeholder="Enter User Name"
-        :class="{ 'is-valid': isUserNameFocusAndValid, 'is-invalid': isUserNameFocusAndInvalid }"
-        v-model="userName"
-        @input="validateUserName"
-        @focus="isUserNameFocus = true"
-      />
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">올바른 이름을 입력해 주세요.</div>
-    </div>
-    <div class="mb-3">
-      <!-- 각각의 input 이 focus 를 가진 경우에만 반응하도록 해야하고, click 할 때마다 valid 확인 필요 -->
-      <input
-        type="email"
-        class="form-control"
-        placeholder="Enter Email"
-        :class="{ 'is-valid': isUserEmailFocusAndValid, 'is-invalid': isUserEmailFocusAndInValid }"
-        v-model="userEmail"
-        @input="validateEmail"
-        @focus="isUserEmailFocus = true"
-      />
-      <!-- 테스트 코드 -->
-      <!-- {{isUserEmailFocus}} - {{ isUserEmailFocusAndValid }} - {{ isUserEmailFocusAndInValid }} -->
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">올바른 Email 을 입력해 주세요.</div>
-    </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Enter Password"
-        :class="{ 'is-valid': isUserPasswordFocusAndValid, 'is-invalid': isUserPasswordFocusAndInvalid }"
-        v-model="userPassword"
-        @input="validatePassword"
-        @focus="isUserPasswordFocus = true"
-      />
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">1개 이상의 특수문자, 대소문자 및 숫자를 포함하고 8자리 이상이여야 합니다.</div>
-    </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Conform Password"
-        :class="{ 'is-valid': isUserPassword2FocusAndValid, 'is-invalid': isUserPassword2FocusAndInvalid }"
-        v-model="userPassword2"
-        @input="validatePassword2"
-        @focus="isUserPassword2Focus = true"
-      />
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
-    </div>
-    <div class="mb-3">
-      <div class="form-check form-check-inline" v-for="(code, index) in codeList" :key="index">
-        <input class="form-check-input" :value="code.code" type="radio" v-model="userClsf" />
-        <label class="form-check-label">{{ code.codeName }}</label>
-      </div>
-    </div>
-    <div>
-      <button @click="register" class="btn btn-primary">가입하기</button>
-    </div>
-  </div>
+  <v-container>
+    <v-row class="vh-100">
+      <v-col align-self="center">
+        <v-card class="mx-auto pa-8" style="width: 640px" rounded="xl">
+          <h2
+            class="text-h3 text-center font-weight-bold"
+            style="color: #bae6fd"
+          >
+            회원가입
+          </h2>
+          <v-form ref="form" class="mt-8">
+            <v-text-field
+              type="email"
+              v-model="userName"
+              placeholder="이름"
+              outlined
+              height="64px"
+              class="font-weight-bold"
+              prepend-inner-icon="mdi-account"
+              :rules="[rules.nameRequired, rules.name]"
+            ></v-text-field>
+
+            <v-text-field
+              type="email"
+              v-model="userEmail"
+              placeholder="이메일"
+              outlined
+              height="64px"
+              class="font-weight-bold mt-4"
+              prepend-inner-icon="mdi-account"
+              :rules="[rules.emailRequired, rules.email]"
+            ></v-text-field>
+
+            <v-text-field
+              :type="show1 ? 'text' : 'password'"
+              v-model="userPassword"
+              placeholder="비밀번호"
+              outlined
+              height="64px"
+              class="font-weight-bold mt-4"
+              prepend-inner-icon="mdi-lock"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show1 = !show1"
+              :rules="[rules.passwordRequired, rules.password]"
+            ></v-text-field>
+
+            <v-text-field
+              :type="show2 ? 'text' : 'password'"
+              v-model="userPassword2"
+              placeholder="비밀번호 재확인"
+              outlined
+              height="64px"
+              class="font-weight-bold mt-4"
+              prepend-inner-icon="mdi-lock"
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show2 = !show2"
+              :rules="[rules.password2Required, rules.password2]"
+            ></v-text-field>
+
+            <v-btn
+              block
+              elevation="0"
+              x-large
+              class="text-h6 text-white font-weight-bold mt-4"
+              style="background: #bae6fd"
+              @click="register"
+            >
+              가입하기
+            </v-btn>
+          </v-form>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -90,83 +92,82 @@ export default {
       userPassword: "",
       userPassword2: "",
 
-      // focus
-      isUserNameFocus: false,
-      isUserEmailFocus: false,
-      isUserPasswordFocus: false,
-      isUserPassword2Focus: false,
-
-      // validation
-      isUserNameValid: false,
-      isUserEmailValid: false,
-      isUserPasswordValid: false,
-      isUserPassword2Valid: false,
-
       // 회원 구분
       groupCode: "001",
       codeList: [],
       userClsf: "001", // 일반회원 default
+
+      // 비밀번호 show 여부
+      show1: false,
+      show2: false,
+
+      // 유효성 검사
+      valid: {
+        name: false,
+        email: false,
+        password: false,
+        password2: false,
+      },
+
+      rules: {
+        nameRequired: (value) => {
+          this.valid.name = !!value;
+          return this.valid.name || "필수 정보입니다.";
+        },
+        emailRequired: (value) => {
+          this.valid.email = !!value;
+          return this.valid.email || "필수 정보입니다.";
+        },
+        passwordRequired: (value) => {
+          this.valid.password = !!value;
+          return this.valid.password || "필수 정보입니다.";
+        },
+        password2Required: (value) => {
+          this.valid.password2 = !!value;
+          return this.valid.password2 || "필수 정보입니다.";
+        },
+        name: (value) => {
+          this.valid.name = value.length <= 20;
+          return this.valid.name || "이름은 최대 20자까지 입력 가능합니다.";
+        },
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          this.valid.email = pattern.test(value);
+          return this.valid.email || "이메일 형식이 올바르지 않습니다.";
+        },
+        password: (value) => {
+          const patternEng = /[a-zA-Z]+/;
+          const patternSpe = /[~!@#$%^&*()_+|<>?:{}]+/;
+          const patternNum = /[0-9]+/;
+          this.valid.password =
+            value.length <= 16 &&
+            patternEng.test(value) &&
+            patternSpe.test(value) &&
+            patternNum.test(value);
+          return (
+            this.valid.password ||
+            "8~16자 영문 대소문자, 숫자, 특수문자를 사용하세요."
+          );
+        },
+        password2: (value) => {
+          this.valid.password2 = value == this.userPassword;
+          return this.valid.password2 || "비밀번호가 일치하지 않습니다.";
+        },
+      },
     };
   },
-  computed: {
-    isUserNameFocusAndValid() {
-      return this.isUserNameFocus && this.isUserNameValid;
-    },
-    isUserNameFocusAndInvalid() {
-      return this.isUserNameFocus && !this.isUserNameValid;
-    },
-    isUserEmailFocusAndValid() {
-      return this.isUserEmailFocus && this.isUserEmailValid;
-    },
-    isUserEmailFocusAndInValid() {
-      return this.isUserEmailFocus && !this.isUserEmailValid;
-    },
-    isUserPasswordFocusAndValid() {
-      return this.isUserPasswordFocus && this.isUserPasswordValid;
-    },
-    isUserPasswordFocusAndInvalid() {
-      return this.isUserPasswordFocus && !this.isUserPasswordValid;
-    },
-    isUserPassword2FocusAndValid() {
-      return this.isUserPassword2Focus && this.isUserPassword2Valid;
-    },
-    isUserPassword2FocusAndInvalid() {
-      return this.isUserPassword2Focus && !this.isUserPassword2Valid;
-    },
-  },
   methods: {
-    validateUserName() {
-      this.isUserNameValid = this.userName.length > 0 ? true : false;
-      console.log(this.isUserNameValid);
-    },
-    validateEmail() {
-      // ^ 시작일치, $ 끝 일치
-      // {2, 3} 2개 ~ 3개
-      // * 0회 이상, + 1회 이상
-      // [-_.] - 또는 _ 또는 .
-      // ? 없거나 1회
-      let regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-      this.isUserEmailValid = regexp.test(this.userEmail) ? true : false;
-      console.log(this.isUserEmailValid);
-    },
-    validatePassword() {
-      let patternEngAtListOne = new RegExp(/[a-zA-Z]+/); // + for at least one
-      let patternSpeAtListOne = new RegExp(/[~!@#$%^&*()_+|<>?:{}]+/); // + for at least one
-      let patternNumAtListOne = new RegExp(/[0-9]+/); // + for at least one
-
-      this.isUserPasswordValid =
-        patternEngAtListOne.test(this.userPassword) &&
-        patternSpeAtListOne.test(this.userPassword) &&
-        patternNumAtListOne.test(this.userPassword) &&
-        this.userPassword.length >= 8
-          ? true
-          : false;
-    },
-    validatePassword2() {
-      this.isUserPassword2Valid = this.userPassword == this.userPassword2 ? true : false;
-    },
     async register() {
-      if (!this.isUserEmailValid || !this.isUserPasswordValid || !this.isUserPassword2Valid) return;
+      this.$refs.form.validate();
+
+      let valid =
+        this.valid.name &&
+        this.valid.email &&
+        this.valid.password &&
+        this.valid.password2;
+
+      if (!valid) return;
 
       let registerObj = {
         userName: this.userName,
@@ -180,9 +181,12 @@ export default {
         console.log(data.result);
 
         let $this = this;
-        this.$alertify.alert("회원가입을 축하합니다. 로그인 페이지로 이동합니다", function () {
-          $this.$router.push("/login");
-        });
+        this.$alertify.alert(
+          "회원가입을 축하합니다. 로그인 페이지로 이동합니다",
+          function () {
+            $this.$router.push("/login");
+          }
+        );
       } catch (error) {
         console.log("RegisterVue: error : ");
         console.log(error);

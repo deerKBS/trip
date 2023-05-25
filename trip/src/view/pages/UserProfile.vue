@@ -1,8 +1,8 @@
 <template>
   <div>
     <div id="Whole-background" style="padding: 10px">
-      <div class="container mt-5">
-        <h1>회원 정보 관리</h1>
+      <div class="container mt-5" style="width: 80%">
+        <div class="w-fit pr-6" style="font-size: 20px; border-bottom: 3px solid #fea4d7">회원 정보 관리</div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           <button type="button" class="btn btn-info" @click="showCard1">회원 정보 조회</button>
           <button type="button" class="btn btn-warning" @click="showCard2">회원 정보 수정</button>

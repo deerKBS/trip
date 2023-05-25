@@ -1,32 +1,63 @@
 <template>
-  <div class="container">
-    <h2 class="mb-3 mt-3">Login</h2>
-    <div class="mb-3">
-      <input
-        type="email"
-        class="form-control"
-        v-model="$store.state.login.userEmail"
-        
-        placeholder="Email"
-      />
-    </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        class="form-control"
-        v-model="$store.state.login.userPassword"
-        
-        placeholder="Password"
-      />
-    </div>
-    <div>
-      <button @click="login" class="btn btn-primary">로그인</button>
-      <router-link to="/findPassword"> 비밀번호를 잊어버리셨나요?</router-link>
-      <router-link to="/register" class="btn btn-success float-end"
-        >회원가입</router-link
-      >
-    </div>
-  </div>
+  <v-container>
+    <v-row class="vh-100">
+      <v-col align-self="center">
+        <v-card class="mx-auto pa-8" style="width: 500px" rounded="xl">
+          <h2
+            class="text-h3 text-center font-weight-bold"
+            style="color: #bae6fd"
+          >
+            로그인
+          </h2>
+          <v-form class="mt-8">
+            <v-text-field
+              type="email"
+              v-model="$store.state.login.userEmail"
+              placeholder="이메일"
+              outlined
+              height="64px"
+              class="font-weight-bold"
+              prepend-inner-icon="mdi-account"
+            ></v-text-field>
+
+            <v-text-field
+              :type="show ? 'text' : 'password'"
+              v-model="$store.state.login.userPassword"
+              placeholder="비밀번호"
+              outlined
+              height="64px"
+              class="font-weight-bold"
+              prepend-inner-icon="mdi-lock"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show = !show"
+            ></v-text-field>
+
+            <v-btn
+              block
+              elevation="0"
+              x-large
+              class="text-h6 text-white font-weight-bold"
+              style="background: #bae6fd"
+              @click="login"
+            >
+              로그인
+            </v-btn>
+          </v-form>
+
+          <div class="mt-8 text-center">
+            <div>
+              <router-link to="/findPassword" class="link">
+                비밀번호를 잊어버리셨나요?
+              </router-link>
+            </div>
+            <div class="mt-4">
+              <router-link to="/register" class="link">회원가입</router-link>
+            </div>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <!--  위 코드에서 value 1234 실제 서비스시 반드시 지워야 함-->
 
@@ -38,6 +69,11 @@ Vue.use(VueAlertify);
 import http from "@/common/axios.js";
 //
 export default {
+  data() {
+    return {
+      show: false,
+    };
+  },
   methods: {
     async login() {
       let loginObj = {
@@ -85,8 +121,19 @@ export default {
     },
   },
   created() {
-     this.$store.state.login.userEmail = "deer119@naver.com";
-      this.$store.state.login.userPassword = "1q2w3e!";
-  }
+    this.$store.state.login.userEmail = "deer119@naver.com";
+    this.$store.state.login.userPassword = "1q2w3e!";
+  },
 };
 </script>
+
+<style scoped>
+.link {
+  color: #606060;
+  font-size: 1rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+</style>
