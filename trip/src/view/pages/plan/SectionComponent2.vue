@@ -2,11 +2,7 @@
   <div class="section border-top border-bottom overflow-auto">
     <h2 class="h5">{{ section.name }}</h2>
     <div class="items">
-      <div
-        class="item py-2 row"
-        v-for="(item, index) in section.items"
-        :key="index"
-      >
+      <div class="item py-2 row" v-for="(item, index) in section.items" :key="index">
         <!-- 이미지 -->
         <div class="col-auto">
           <img :src="item.image" alt="image" class="img-fluid" />
@@ -15,31 +11,29 @@
         <div class="col">
           <div class="d-flex mt-2 justify-content-between">
             <p class="form-control-static">{{ item.place }}</p>
-             
+
             <i type="button" class="bi bi-trash enlarge-icon" @click="deletePlan(item)"></i>
           </div>
           <!-- select와 date picker -->
           <label for="startDate" class="small-text">시작일과 종료일:</label>
           <div class="d-flex mt-2">
-            <input
-              type="date"
-              v-model="item.dateStart"
-              class="form-control input-sm"
-            />
-            <input
-              type="date"
-              v-model="item.dateEnd"
-              class="form-control input-sm"
-            />
+            <input type="date" v-model="item.dateStart" class="form-control input-sm" />
+            <input type="date" v-model="item.dateEnd" class="form-control input-sm" />
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-end mt-3">
+      <!-- Increased margin to mt-3 -->
+      <button class="btn btn-primary ml-auto" @click="savePlan(section)">저장</button>
+      <!-- Added btn-lg and ml-auto classes -->
     </div>
   </div>
 </template>
 
 <script>
 import "bootstrap-icons/font/bootstrap-icons.css";
+//import http from "@/common/axios.js";
 
 export default {
   props: {
@@ -50,7 +44,10 @@ export default {
   },
   methods: {
     deletePlan(item) {
-      this.$emit("delete-plan",item);
+      this.$emit("delete-plan2", item);
+    },
+    savePlan(section) {
+      console.log("메모 불러오기: " + section.items[0].content);
     },
   },
 };
@@ -64,4 +61,3 @@ export default {
   font-size: 18px;
 }
 </style>
-
