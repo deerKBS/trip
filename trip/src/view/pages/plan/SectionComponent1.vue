@@ -5,20 +5,20 @@
       <div class="item py-2 row" v-for="(item, index) in section.items" :key="index">
         <!-- 이미지 -->
         <div class="col-auto">
-          <img :src="item.image" alt="image" class="img-fluid" />
+          <img :src="item.firstImage || 'https://via.placeholder.com/80'" alt="image" class="img-fluid" :style="{ width: '80px', height: '80px' }" />
         </div>
         <!-- input -->
         <div class="col">
           <div class="d-flex mt-2 justify-content-between">
-            <p class="form-control-static">{{ item.place }}</p>
+            <p class="form-control-static">{{ item.title }}</p>
             <i type="button" class="bi bi-trash enlarge-icon" @click="deletePlan(item)"></i>
           </div>
 
-          <p class="form-control-static">{{ item.address }}</p>
+          <p class="form-control-static">{{ item.addr }}</p>
           <div class="d-flex mt-2 justify-content-between">
             <div class="d-flex align-items-center">
               <i type="button" class="bi bi-heart-fill" style="color: palevioletred"></i>
-              <h5>{{ item.count }}</h5>
+              <h5>{{ item.likeCount }}</h5>
             </div>
             <button class="btn btn-primary btn-sm" @click="handleAddItemClick(item)">+</button>
           </div>
