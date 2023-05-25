@@ -65,6 +65,7 @@ export default {
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
+    selectedTemp: {},
   }),
   methods: {
     openDialog() {
@@ -72,11 +73,12 @@ export default {
       this.dialog = true;
     },
     addEvent(event) {
-      console.log("start넣는 형식 " + event.start);
+    
       this.events.push(event);
       //this.newEvent = { name: "", start: "", end: "" };
-      this.scheduleList();
+     
       this.dialog = false;
+       this.scheduleList();
     },
     setToday() {
       this.selectedDate = "";
@@ -128,7 +130,9 @@ export default {
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event;
-        //console.log("seq출력 " + this.selectedEvent.seq);
+     
+        console.log("seq출력 " + event.seq);
+
         this.selectedElement = nativeEvent.target;
         requestAnimationFrame(() => requestAnimationFrame(() => (this.selectedOpen = true)));
       };
@@ -143,8 +147,10 @@ export default {
       nativeEvent.stopPropagation();
     },
   },
+  computed: {
 
-  created() {
+  },
+  updated() {
     this.scheduleList();
   },
   mounted() {

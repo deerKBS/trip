@@ -2,7 +2,7 @@
   <div style="padding-top: 25px; padding-left: 20px; margin-right: 10px; min-width: 1000px; width: 100%">
     <div class="bg-sky-50 shadow-lg" :class="isToggleC">
       <div class="row">
-        <div class="col-md-auto" style="margin-top: 100px">
+        <div class="col-md-auto" style="margin-top: 50px">
           <!-- buttons -->
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle custom-dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,6 +83,7 @@
                   @click="
                     catText = category.codeName;
                     cat = category.code;
+                    getCat2List();
                   "
                   >{{ category.codeName }}</a
                 >
@@ -94,10 +95,6 @@
           </div>
           <div>
             <button type="button" class="btn custom-btn" @click="getList()">검 색</button>
-          </div>
-          <div class="form-check form-switch d-flex align-items-center justify-content-end" style="margin-top: 40px">
-            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" @click="setMapType()" style="font-size: 20px; margin-right: 5px" />
-            <label class="form-check-label" for="flexSwitchCheckChecked" style="font-size: 15px; margin-top: 3px">스카이뷰</label>
           </div>
         </div>
         <!-- buttons end -->
@@ -120,19 +117,35 @@
       <!-- search result area end -->
     </div>
 
-    <div :class="isToggleP" class="bg-sky-50" v-if="innerWidth > 1250">
-      <div>
-        <button class="toggle-button" @click="toggle = !toggle">
-          {{ this.toggle_button }}
-        </button>
+     <!-- 사이드 바 -->
+    <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
+      <div class="container">
+        <!-- 섹션 1 컴포넌트 인스턴스 -->
+        <SectionComponent1 :section="sections[0]" @add-item="addItem" @delete-plan1="deletePlan1" />
+        <!-- 섹션 2 컴포넌트 인스턴스 -->
+        <SectionComponent2 :section="sections[1]" @delete-plan2="deletePlan2" @save-plan="savePlan" />
       </div>
     </div>
+
+    <button
+      :class="{
+        'transform-translate': toggle,
+        'transform-translate2': !toggle,
+      }"
+      class="toggle-button btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3"
+      @click="toggleButton"
+    >
+      {{ toggle ? "Close" : "Open" }}
+    </button>
+   
   </div>
 </template>
 
 <script>
 import http from "@/common/axios.js";
 import TourCard from "@/components/tourCard.vue";
+import SectionComponent1 from "./plan/SectionComponent1.vue";
+import SectionComponent2 from "./plan/SectionComponent2.vue";
 
 import Vue from "vue";
 import VueAlertify from "vue-alertify";
@@ -140,8 +153,10 @@ Vue.use(VueAlertify);
 
 export default {
   name: "SearchTour",
-  components: {
-    TourCard,
+  components: { 
+    TourCard, 
+    SectionComponent1,
+    SectionComponent2,
   },
   data() {
     return {
@@ -162,11 +177,22 @@ export default {
 
       map: null,
       temp: [],
-      innerWidth: window.innerWidth,
-      toggle_button: "<",
-      toggle: false,
 
-      check: false,
+        innerWidth: window.innerWidth,
+      toggle: false,
+      sections: [
+        {
+          id: 1,
+          name: "명소",
+          items: [],
+        },
+        {
+          id: 2,
+          name: "나의 여행지",
+          items: [],
+        },
+      ],
+
     };
   },
   computed: {
@@ -223,25 +249,17 @@ export default {
       var imageSize = new window.kakao.maps.Size(24, 35);
       var markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize);
       for (var i = 0; i < this.list.length; i++) {
-        var marker = new window.kakao.maps.Marker({
-          map: this.map,
-          position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
-          title: this.list[i].title,
-          image: markerImage,
-        });
-        this.temp.push(marker);
+        this.temp.push(
+          new window.kakao.maps.Marker({
+            map: this.map,
+            position: new window.kakao.maps.LatLng(this.list[i].mapy, this.list[i].mapx), // 마커를 표시할 위치
+            title: this.list[i].title,
+            image: markerImage,
+          })
+        );
       }
       this.map.setCenter(new window.kakao.maps.LatLng(this.list[0].mapy, this.list[0].mapx));
     },
-    setMapType() {
-      this.check = !this.check;
-      if (this.check) {
-        this.map.setMapTypeId(window.kakao.maps.MapTypeId.HYBRID);
-      } else {
-        this.map.setMapTypeId(window.kakao.maps.MapTypeId.ROADMAP);
-      }
-    },
-
     async getArea1List() {
       let url = "/trip/area";
 
@@ -284,6 +302,125 @@ export default {
         this.$alertify.error("검색 결과 없음");
       }
     },
+    addItem(item) {
+      // 새로운 아이템 추가 로직 구현
+      // 받은 item을 이용하여 원하는 동작 수행
+     
+
+      this.planeInsert(item);
+    },
+    async planeInsert(item) {
+      try {
+        let newSchedule = {
+          title: item.title,
+          addr: item.addr,
+          firstImage: item.firstImage,
+        };
+
+        let { data } = await http.post(`/plan/insert`, newSchedule);
+
+        console.log("InsertModalVue: data : ");
+        console.log(data);
+
+        // 리스트 불러오기
+        this.myTourList();
+
+        if (data.result == "login") {
+          this.doLogout();
+        } else {
+          this.$alertify.success("일정이 등록되었습니다.");
+          this.closeModal();
+        }
+      } catch (error) {
+        console.log("InsertModalVue: error ");
+        console.log(error);
+      }
+    },
+    // 내 여행 계획 전부 저장
+    async savePlan(section) {
+      console.log(section);
+      try {
+        let { data } = await http.post("/plan/save", section);
+        console.log(data);
+        this.myTourList();
+        this.toggleButton();
+      } catch (e) {
+        this.$alertify.error("서버에 여행 계획 삭제 실패");
+      }
+    },
+    deletePlan1(item) {
+      console.log(item.contentId);
+      this.deleteFavoriteTourList(item.contentId);
+    },
+    async deletePlan2(item) {
+      console.log(item.planSeq);
+      try {
+        let { data } = await http.delete("/plan/delete/" + item.planSeq);
+        console.log(data);
+        this.myTourList();
+      } catch (e) {
+        this.$alertify.error("서버에 여행 계획 삭제 실패");
+      }
+    },
+    async myTourList() {
+      try {
+        let { data } = await http.get("/plan/myList");
+
+        this.sections[1].items = data.map((item) => ({
+          title: item.title,
+          scheduleStart: item.scheduleStart,
+          scheduleEnd: item.scheduleEnd,
+          addr: item.addr,
+          planSeq: item.planSeq,
+          firstImage: item.firstImage,
+          content: item.content,
+        }));
+      } catch (e) {
+        this.$alertify.error("서버에서 여행 계획 가져오기 실패");
+      }
+    },
+
+    async getFavoriteTourList() {
+      try {
+        let { data } = await http.get("/plan/favorite/list");
+        console.log(data);
+
+        this.sections[0].items = data.map((tour) => ({
+          addr: tour.addr,
+          contentId: tour.contentId,
+          firstImage: tour.firstImage,
+          mapx: tour.mapx,
+          mapy: tour.mapy,
+          title: tour.title,
+          likeCount: tour.likeCount,
+          isFavoriteCheck: tour.isFavoriteCheck,
+          isLikeCheck: tour.isLikeCheck,
+        }));
+      } catch (e) {
+        this.$alertify.error("서버에서 즐겨찾기 리스트 가져오기 실패");
+      }
+    },
+    async deleteFavoriteTourList(contentId) {
+      try {
+        let { data } = await http.get("/trip/favorite/" + contentId); // 서버에서 즐겨찾기 상태를 확인하고 반전시킨다.
+        this.isFavorite = data;
+
+        // 즐겨찾기 리스트 새로고침 한 번 해야함.
+        this.getFavoriteTourList();
+      } catch (error) {
+        console.log(error);
+        this.$alertify.error("즐겨찾기/취소 과정에 문제가 발생하였습니다.");
+      }
+    },
+
+    toggleButton() {
+      this.toggle = !this.toggle;
+      //console.log(this.toggle);
+      if (this.toggle) {
+        this.getFavoriteTourList();
+        this.myTourList();
+      }
+    },
   },
 };
 </script>
@@ -293,7 +430,7 @@ export default {
   bottom: 2%;
   right: 0;
   height: 90%;
-  width: 2%;
+  width: 0%;
   transition-property: width;
   transition-duration: 1s;
 }
@@ -366,46 +503,19 @@ export default {
   margin-bottom: 40px;
   text-align: center;
 }
-.custom_typecontrol {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  overflow: hidden;
-  width: 130px;
-  height: 30px;
-  margin: 0;
-  padding: 0;
-  z-index: 1;
-  font-size: 12px;
-  font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+.transform-translate {
+  transform: translateX(-1400%);
+  transition: transform 1s;
 }
-.custom_typecontrol span {
-  display: block;
-  width: 65px;
-  height: 30px;
-  float: left;
-  text-align: center;
-  line-height: 30px;
-  cursor: pointer;
+.transform-translate2 {
+  transform: translateX(5%);
+  transition: transform 1s;
 }
-.custom_typecontrol .btn {
-  background: #fff;
-  background: linear-gradient(#fff, #e6e6e6);
+.section {
+  flex: 1;
 }
-.custom_typecontrol .btn:hover {
-  background: #f5f5f5;
-  background: linear-gradient(#f5f5f5, #e3e3e3);
-}
-.custom_typecontrol .btn:active {
-  background: #e6e6e6;
-  background: linear-gradient(#e6e6e6, #fff);
-}
-.custom_typecontrol .selected_btn {
-  color: #fff;
-  background: #425470;
-  background: linear-gradient(#425470, #5b6d8a);
-}
-.custom_typecontrol .selected_btn:hover {
-  color: #fff;
+
+.item {
+  border-bottom: 1px solid #ddd;
 }
 </style>
