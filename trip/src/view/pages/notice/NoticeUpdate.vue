@@ -1,23 +1,30 @@
 <template>
-  <div>
-    <h4>글수정</h4>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ notice.categoryName }}</button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li v-for="(code, index) in codeList" :key="index">
-          <a
-            class="dropdown-item"
-            @click="
-              notice.categoryName = code.codeName;
-              notice.category = code.code;
-            "
-            >{{ code.codeName }}</a
-          >
-        </li>
-      </ul>
+  <div style="margin: auto; width: 80%">
+    <div class="container w-full">
+      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">글 수정</p>
+      <div class="row justify-content-between" style="min-width: 100%">
+        <div class="dropdown col-2">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ notice.categoryName }}</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li v-for="(code, index) in codeList" :key="index">
+              <a
+                class="dropdown-item"
+                @click="
+                  notice.categoryName = code.codeName;
+                  notice.category = code.code;
+                "
+                >{{ code.codeName }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div>
-      <div class="mb-3"><label for="titleUpdate" class="form-label">제목</label> <input type="text" class="form-control" id="titleUpdate" v-model="notice.title" /></div>
+      <div class="mb-3">
+        <label for="titleUpdate" class="form-label">제목</label>
+        <input type="text" class="form-control" id="titleUpdate" v-model="notice.title" />
+      </div>
       <div class="mb-3">
         <!-- New for FileUpload, CKEditor -->
         <div id="divEditorUpdate"></div>
@@ -39,18 +46,20 @@
           <img v-for="(file, index) in fileList" v-bind:key="index" v-bind:src="file" />
         </div>
       </div>
-      <button @click="noticeUpdate" class="btn btn-sm btn-primary btn-outline float-end" type="button">수정</button>
+      <button @click="noticeUpdate" class="btn btn-primary float-end custom-btn" type="button">수정</button>
+      <button @click="cancel" class="btn btn-primary float-end custom-btn" type="button">취소</button>
     </div>
   </div>
 </template>
 
 <script>
 import http from "@/common/axios";
+import CKEditor from "@ckeditor/ckeditor5-vue2";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import Vue from "vue";
 import VueAlertify from "vue-alertify";
-Vue.use(VueAlertify);
+Vue.use(CKEditor).use(VueAlertify);
 
 export default {
   data() {
@@ -123,6 +132,9 @@ export default {
         }
       }
     },
+    cancel() {
+      this.$router.go(-1);
+    },
   },
   async created() {
     console.log(this.$route.params.noticeId);
@@ -152,3 +164,33 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.custom-btn {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+  margin-right: 10px;
+}
+.custom-btn:hover {
+  color: white;
+  background: #fea4d7;
+}
+div >>> .ck-editor__editable {
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+/*파일업로드 thumbnail*/
+div >>> .thumbnail-wrapper {
+  margin-top: 5px;
+}
+
+div >>> .thumbnail-wrapper img {
+  width: 100px !important;
+  margin-right: 5px;
+  max-width: 100%;
+}
+</style>

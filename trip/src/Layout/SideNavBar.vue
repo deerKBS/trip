@@ -24,9 +24,9 @@
         <a-menu-item key="4">
           <router-link to="/board">자유게시판</router-link>
         </a-menu-item>
-        <a-menu-item key="5">
+        <!-- <a-menu-item key="5">
           <router-link to="/planBoard">여행계획</router-link>
-        </a-menu-item>
+        </a-menu-item> -->
       </a-sub-menu>
       <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-sub-menu key="sub3">
@@ -36,12 +36,12 @@
         <a-menu-item key="6">
           <router-link to="/plan/calendar">일 정</router-link>
         </a-menu-item>
-        <a-menu-item key="7">
+        <!-- <a-menu-item key="7">
           <router-link to="/plan/tour">여 행</router-link>
         </a-menu-item>
         <a-menu-item key="8">
           <router-link to="/plan/addMyplan">여행 계획 세우기</router-link>
-        </a-menu-item>
+        </a-menu-item> -->
       </a-sub-menu>
       <a-divider style="min-width: 90%; width: 90%" class="bg-blue-100 mt-0 mb-0 ml-auto mr-auto" />
       <a-menu-item key="9">

@@ -94,7 +94,7 @@
             <input v-model="keyword" type="text" class="form-control keyword-input" placeholder="검색어" />
           </div>
           <div>
-            <button type="button" class="btn custom-btn" @click="keyword === '' ? getList() : keywordGetList()">검 색</button>
+            <button type="button" class="btn custom-btn" @click="getList()">검 색</button>
           </div>
         </div>
         <!-- buttons end -->

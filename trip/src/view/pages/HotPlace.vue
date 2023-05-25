@@ -4,7 +4,7 @@
       <div class="row mt-3">
         <p style="font-size: 30px">핫플레이스</p>
       </div>
-      <div class="row">
+      <div class="row m-auto">
         <div class="col" v-for="(item, index) in list" :key="index"><tour-card :item="item" /></div>
       </div>
     </div>

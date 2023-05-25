@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <h4>글쓰기</h4>
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li v-for="(code, index) in codeList" :key="index">
-          <a
-            class="dropdown-item"
-            @click="
-              category = code.code;
-              categoryName = code.codeName;
-            "
-            >{{ code.codeName }}</a
-          >
-        </li>
-      </ul>
+  <div style="margin: auto; width: 80%">
+    <div class="container w-full">
+      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">글 작성</p>
+      <div class="row justify-content-between" style="min-width: 100%">
+        <div class="dropdown col-2">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li v-for="(code, index) in codeList" :key="index">
+              <a
+                class="dropdown-item"
+                @click="
+                  category = code.code;
+                  categoryName = code.codeName;
+                "
+                >{{ code.codeName }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div>
       <div class="mb-3">
@@ -25,6 +29,7 @@
         <label for="contentInsert" class="form-label">내용</label>
         <!-- New for FileUpload, CKEditor -->
         <div id="divEditorInsert"></div>
+        <!-- New for FileUpload -->
       </div>
       <div class="mb-3">
         <div class="form-check">
@@ -39,7 +44,8 @@
           <img v-for="(file, index) in fileList" v-bind:key="index" v-bind:src="file" />
         </div>
       </div>
-      <button @click="noticeInsert" id="btnNoticeInsert" class="btn btn-sm btn-primary btn-outline float-end" type="button">등록</button>
+      <button @click="noticeInsert" id="btnNoticeInsert" class="btn float-end custom-btn" type="button">등록</button>
+      <button @click="cancel" class="btn float-end custom-btn" type="button">취소</button>
     </div>
   </div>
 </template>
@@ -127,6 +133,9 @@ export default {
         this.$router.push("/notice");
       }
     },
+    cancel() {
+      this.$router.go(-1);
+    },
   },
   async mounted() {
     try {
@@ -137,3 +146,33 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.custom-btn {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+  margin-right: 10px;
+}
+.custom-btn:hover {
+  color: white;
+  background: #fea4d7;
+}
+div >>> .ck-editor__editable {
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+/*파일업로드 thumbnail*/
+div >>> .thumbnail-wrapper {
+  margin-top: 5px;
+}
+
+div >>> .thumbnail-wrapper img {
+  width: 100px !important;
+  margin-right: 5px;
+  max-width: 100%;
+}
+</style>

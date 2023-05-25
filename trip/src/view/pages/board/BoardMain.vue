@@ -1,62 +1,66 @@
 <template>
-  <div class="container">
-    <h1 class="text-center">게시판</h1>
+  <div style="margin: auto; width: 80%">
+    <div class="container w-full">
+      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">게시판</p>
+      <div class="row justify-content-between" style="min-width: 100%">
+        <div class="dropdown col-2">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li v-for="(code, index) in codeList" :key="index">
+              <a
+                class="dropdown-item"
+                @click="
+                  $store.commit('SET_BOARD_CATEGORY', code.code);
+                  categoryName = code.codeName;
+                "
+                >{{ code.codeName }}</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-5 input-group">
+          <input v-model="$store.state.board.searchWord" @keydown.enter="boardList" type="text" class="form-control" />
 
-    <div class="input-group mb-3">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">{{ categoryName }}</button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li v-for="(code, index) in codeList" :key="index">
-            <a
-              class="dropdown-item"
-              @click="
-                $store.commit('SET_BOARD_CATEGORY', code.code);
-                categoryName = code.codeName;
-              "
-              >{{ code.codeName }}</a
-            >
-          </li>
-        </ul>
+          <button @click="boardList" class="btn btn-info" type="button">Search</button>
+        </div>
       </div>
-      <input v-model="$store.state.board.searchWord" @keydown.enter="boardList" type="text" class="form-control" />
-
-      <button @click="boardList" class="btn btn-success" type="button">Search</button>
     </div>
-
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>카테고리</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일시</th>
-          <th>조회수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="cursor: pointer" v-for="(notice, index) in noticeListGetters" @click="noticeDetail(notice.noticeId)" v-bind:key="index" class="bg-red-300">
-          <td>{{ notice.noticeId }}</td>
-          <td>{{ notice.categoryName }}</td>
-          <td>{{ notice.title }}</td>
-          <td>{{ notice.userName }}</td>
-          <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
-          <td>{{ notice.readCount }}</td>
-        </tr>
-        <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="'board-' + index">
-          <td>{{ board.boardId }}</td>
-          <td>{{ board.categoryName }}</td>
-          <td>{{ board.title }}</td>
-          <td>{{ board.userName }}</td>
-          <td>{{ board.regDt.date | makeDateStr(".") }}</td>
-          <td>{{ board.readCount }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="bg-white p-3 mb-3 custom-tabe-back" style="border">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+            <th>조회수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor: pointer" v-for="(notice, index) in noticeListGetters" @click="noticeDetail(notice.noticeId)" v-bind:key="index" class="custom-notice">
+            <td>{{ notice.noticeId }}</td>
+            <td>{{ notice.categoryName }}</td>
+            <td>{{ notice.title }}</td>
+            <td>{{ notice.userName }}</td>
+            <td>{{ notice.regDt.date | makeDateStr(".") }}</td>
+            <td>{{ notice.readCount }}</td>
+          </tr>
+          <tr style="cursor: pointer" v-for="(board, index) in listGetters" @click="boardDetail(board.boardId)" v-bind:key="'board-' + index">
+            <td>{{ board.boardId }}</td>
+            <td>{{ board.categoryName }}</td>
+            <td>{{ board.title }}</td>
+            <td>{{ board.userName }}</td>
+            <td>{{ board.regDt.date | makeDateStr(".") }}</td>
+            <td>{{ board.readCount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <PaginationUI v-on:call-parent="movePage" :page="`board`"></PaginationUI>
 
-    <button class="btn btn-sm btn-primary" @click="insertBoard()">글쓰기</button>
+    <button class="btn custom-btn" @click="insertBoard()">글쓰기</button>
   </div>
 </template>
 
@@ -146,4 +150,22 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.custom-tabe-back {
+  border: #bae6fd solid;
+  border-radius: 20px;
+}
+.custom-notice {
+  background: #febbe1;
+}
+.custom-btn {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+}
+.custom-btn:hover {
+  color: white;
+  background: #fea4d7;
+}
+</style>
