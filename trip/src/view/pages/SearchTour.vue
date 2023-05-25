@@ -83,7 +83,6 @@
                   @click="
                     catText = category.codeName;
                     cat = category.code;
-                    getCat2List();
                   "
                   >{{ category.codeName }}</a
                 >
@@ -127,8 +126,7 @@
           {{ this.toggle_button }}
         </button>
       </div>
-    </div> 
-   
+    </div>
   </div>
 </template>
 
@@ -136,16 +134,14 @@
 import http from "@/common/axios.js";
 import TourCard from "@/components/tourCard.vue";
 
-
 import Vue from "vue";
 import VueAlertify from "vue-alertify";
 Vue.use(VueAlertify);
 
 export default {
   name: "SearchTour",
-  components: { 
-    TourCard, 
-
+  components: {
+    TourCard,
   },
   data() {
     return {
