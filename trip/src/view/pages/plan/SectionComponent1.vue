@@ -1,5 +1,5 @@
 <template>
-  <div class="section border-top border-bottom overflow-auto">
+  <div class="section border-top border-bottom" style="max-height: 400px; overflow-x: hidden">
     <h2 class="h5">{{ section.name }}</h2>
     <div class="items">
       <div class="item py-2 row" v-for="(item, index) in section.items" :key="index">

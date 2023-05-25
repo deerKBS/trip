@@ -1,70 +1,76 @@
 <template>
-  <div>
-    <h5 class="modal-title">글 상세</h5>
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>글번호</td>
-          <td>{{ board.boardId }}</td>
-        </tr>
-        <tr>
-          <td>분류</td>
-          <td>{{ board.categoryName }}</td>
-        </tr>
-        <tr>
-          <td>제목</td>
-          <td>{{ board.title }}</td>
-        </tr>
-        <tr>
-          <td>내용</td>
-          <td v-html="board.content"></td>
-        </tr>
-        <tr>
-          <td>작성자</td>
-          <td>{{ board.userName }}</td>
-        </tr>
-        <tr>
-          <td>작성일시</td>
-          <td>{{ board.regDate }} {{ board.regTime }}</td>
-        </tr>
-        <tr>
-          <td>조회수</td>
-          <td>{{ board.readCount }}</td>
-        </tr>
-        <tr>
-          <td colspan="2">첨부파일</td>
-        </tr>
-        <tr v-if="board.fileList.length > 0">
-          <td colspan="2">
-            <!-- 반복 -->
-            <div v-for="(file, index) in board.fileList" :key="index">
-              <span class="fileName">{{ file.fileName }}</span>
-              &nbsp;&nbsp;
-              <a type="button" class="btn btn-outline btn-default btn-xs" v-bind:href="file.fileUrl" v-bind:download="file.fileName">내려받기</a>
+  <div style="margin: auto; width: 80%">
+    <div class="container w-full">
+      <p class="row float-left my-3" style="font-size: 30px; border-bottom: 5px solid #188fff">No.{{ board.boardId }}</p>
+      <div class="mt-4">
+        <button v-show="board.sameUser" @click="changeToDelete" class="btn float-end custom-btn" type="button">글 삭제하기</button>
+        <button v-show="board.sameUser" @click="changeToUpdate" class="btn float-end custom-btn" type="button">글 수정하기</button>
+        <router-link to="/board">
+          <button class="btn float-end custom-btn" type="button">목록으로</button>
+        </router-link>
+      </div>
+      <div class="row justify-content-between" style="min-width: 100%">
+        <div class="bg-white p-4 shadow-lg" style="border-radius: 20px">
+          <div class="container">
+            <div class="row">
+              <div>{{ board.categoryName }}</div>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button v-show="board.sameUser" @click="changeToUpdate" class="btn btn-sm btn-primary btn-outline" type="button">글 수정하기</button>
-    <button v-show="board.sameUser" @click="changeToDelete" class="btn btn-sm btn-warning btn-outline" type="button">글 삭제하기</button>
-
-    <div class="mb-3">
-      <label for="exampleFormControlTextarea1" class="form-label">댓글 쓰기</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="content"></textarea>
-      <button @click="commentInsert" class="btn btn-sm btn-primary btn-outline float-end" type="button">등록</button>
+            <div class="row">
+              <div style="width: 100px">제목</div>
+              <div class="w-fit">{{ board.title }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">작성자</div>
+              <div class="w-fit">{{ board.userName }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">작성일</div>
+              <div style="width: 130px; border-right: 1px solid">{{ board.regDate }}</div>
+              <div style="width: 120px">작성시간</div>
+              <div style="width: 130px; border-right: 1px solid">{{ board.regTime }}</div>
+              <div style="width: 100px">조회수</div>
+              <div style="width: 100px">{{ board.readCount }}</div>
+            </div>
+            <div class="row">
+              <div style="width: 100px">내용</div>
+            </div>
+            <div class="row" style="height: 300px" v-html="board.content"></div>
+            <div class="row">
+              <div>첨부파일</div>
+            </div>
+            <div class="row">
+              <div class="row" v-for="(file, index) in board.fileList" :key="index">
+                <span class="fileName">{{ file.fileName }}</span>
+                &nbsp;&nbsp;
+                <a type="button" class="btn btn-outline btn-default btn-xs" v-bind:href="file.fileUrl" v-bind:download="file.fileName">내려받기</a>
+              </div>
+            </div>
+          </div>
+          <div class="bg-sky-100">
+            <div class="mb-3 pt-3">
+              <label for="exampleFormControlTextarea1" class="form-label px-4" style="border-bottom: 2px solid #8dd3f8">댓글 쓰기</label>
+              <div class="px-3">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="content"></textarea>
+              </div>
+              <button @click="commentInsert" class="btn btn-sm custom-btn float-end mt-2" type="button">등록</button>
+            </div>
+            <div class="mt-4 w-fit px-4" style="border-bottom: 2px solid #8dd3f8">댓글</div>
+            <div class="p-4">
+              <table class="table" style="font-size: 15px">
+                <tbody>
+                  <tr v-for="(comment, index) in list" :key="index" style="border-bottom: 1px solid">
+                    <td>{{ comment.userName }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>{{ comment.regDt | makeComentRegDt }}</td>
+                    <td v-if="comment.sameUser"><button @click="commentDelete(comment.commentId)" class="btn btn-sm float-end custom-btn" type="button">삭제</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <h1>댓글</h1>
-    <table class="table">
-      <tbody>
-        <tr v-for="(comment, index) in list" :key="index">
-          <td>{{ comment.userName }}</td>
-          <td>{{ comment.content }}</td>
-          <td>{{ comment.regDt | makeComentRegDt }}</td>
-          <td v-if="comment.sameUser"><button @click="commentDelete(comment.commentId)" class="btn btn-sm btn-primary btn-outline float-end" type="button">삭제</button></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -225,3 +231,28 @@ export default {
   },
 };
 </script>
+<style scoped>
+.custom-btn {
+  background: #ffffff;
+  border: #fea4d7 solid;
+  border-radius: 10px;
+  float: right;
+  margin-right: 10px;
+}
+.custom-btn:hover {
+  color: white;
+  background: #fea4d7;
+}
+div >>> .ck-editor__editable {
+  width: 100%;
+  height: 300px;
+  overflow-y: scroll;
+}
+.container > .row {
+  font-size: 20px;
+  height: 50px;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+}
+</style>

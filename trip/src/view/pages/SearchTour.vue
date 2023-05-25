@@ -117,7 +117,7 @@
       <!-- search result area end -->
     </div>
 
-     <!-- 사이드 바 -->
+    <!-- 사이드 바 -->
     <div :class="isToggleP" class="bg-light" v-if="innerWidth > 1250">
       <div class="container">
         <!-- 섹션 1 컴포넌트 인스턴스 -->
@@ -137,7 +137,6 @@
     >
       {{ toggle ? "Close" : "Open" }}
     </button>
-   
   </div>
 </template>
 
@@ -153,8 +152,8 @@ Vue.use(VueAlertify);
 
 export default {
   name: "SearchTour",
-  components: { 
-    TourCard, 
+  components: {
+    TourCard,
     SectionComponent1,
     SectionComponent2,
   },
@@ -178,7 +177,7 @@ export default {
       map: null,
       temp: [],
 
-        innerWidth: window.innerWidth,
+      innerWidth: window.innerWidth,
       toggle: false,
       sections: [
         {
@@ -192,7 +191,6 @@ export default {
           items: [],
         },
       ],
-
     };
   },
   computed: {
@@ -305,7 +303,6 @@ export default {
     addItem(item) {
       // 새로운 아이템 추가 로직 구현
       // 받은 item을 이용하여 원하는 동작 수행
-     
 
       this.planeInsert(item);
     },
@@ -504,7 +501,7 @@ export default {
   text-align: center;
 }
 .transform-translate {
-  transform: translateX(-1400%);
+  transform: translateX(-1100%);
   transition: transform 1s;
 }
 .transform-translate2 {
